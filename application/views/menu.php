@@ -27,6 +27,12 @@
     </ul>
     </li>
     <li class="dropdown">
+    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-book icon-white"></i> Master Module <b class="caret"></b></a>
+    <ul class="dropdown-menu">
+    <li><a href="<?php echo site_url(); ?>/cabang"> Cabang</a></li>
+    </ul>
+    </li>
+    <li class="dropdown">
     <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-print icon-white"></i> Laporan <b class="caret"></b></a>
     <ul class="dropdown-menu">
     <li><a href="<?php echo site_url(); ?>/L412A"><i class="icon-print"></i> Jumlah Kecelakaan Lalu Lintas</a></li>
