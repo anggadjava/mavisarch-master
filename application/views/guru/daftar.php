@@ -5,10 +5,10 @@ function hapusData(ID){
   if (pilih==true) {
     $.ajax({
       type  : "POST",
-      url   : "<?php echo site_url(); ?>/bap/hapus",
+      url   : "<?php echo site_url(); ?>/guru/hapus",
       data  : "id="+id,
       success : function(data){     
-        window.location.assign("<?php echo site_url();?>/bap")
+        window.location.assign("<?php echo site_url();?>/guru")
       }
     });
   }
@@ -21,8 +21,8 @@ function hapusData(ID){
 		  <a class="brand" href="#"><?php echo $judul;?></a>
 		  <div class="nav-collapse">
 			<ul class="nav">
-            <li><a href="<?php echo base_url(); ?>index.php/cabang/tambah"><i class="icon-plus-sign icon-white"></i> Tambah Data</a></li>
-              <li><a href="<?php echo base_url();?>index.php/cabang"><i class="icon-refresh icon-white"></i> Refresh</a></li>
+            <li><a href="<?php echo base_url(); ?>index.php/guru/tambah"><i class="icon-plus-sign icon-white"></i> Tambah Data</a></li>
+              <li><a href="<?php echo base_url();?>index.php/guru"><i class="icon-refresh icon-white"></i> Refresh</a></li>
 			</ul>
 		  </div>
 		

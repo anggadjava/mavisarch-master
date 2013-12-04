@@ -358,7 +358,7 @@ $config['rewrite_short_tags'] = FALSE;
 */
 $config['proxy_ips'] = '';
 
-$config['limit_data'] = '5';
+$config['limit_data'] = '20';
 
 $config['nama_aplikasi'] = "Sistem Aplikasi Akademik BBC English Training Specialist";
 $config['nama_instansi'] = "BBC English Specialist";

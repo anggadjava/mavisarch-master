@@ -68,7 +68,7 @@ table {
             <span class="icon-bar"></span>
           </a>
           <a class="brand" href="<?php echo base_url(); ?>">
-		  <img src="<?php echo base_url();?>asset/images/polri.gif" width="40" height="40" align="middle">
+		  <img src="<?php echo base_url();?>asset/images/bbc.jpg" width="40" height="40" align="middle">
 		  <?php echo $this->config->item('nama_aplikasi'); ?> <?php echo $this->config->item('nama_instansi'); ?>
           </a>
           <div class="nav-collapse collapse">
