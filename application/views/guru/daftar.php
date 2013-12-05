@@ -34,11 +34,11 @@ function hapusData(ID){
     <thead>
       <tr>
         <th>No</th>
-        <th>Kode Cabang</th>
-        <th>Nama Cabang</th>
-        <th>Alamat</th>
-        <th>Telepon</th>
-        <th>Yahoo Messenger</th>
+        <th>NIK</th>
+        <th>Nama</th>
+        <th>Cabang</th>
+        <th>Email</th>
+        <th>Hp</th>
         <th>Aksi</th>
       </tr>
     </thead>
@@ -49,11 +49,11 @@ function hapusData(ID){
 	?>
       <tr>
         <td width="50"><center><?php echo $no; ?></center></td>
-        <td><center><?php echo $dp['kode_cabang']; ?></center></td>
-        <td><center><?php echo $dp['nama_cabang']; ?></center></td>
-        <td><center><?php echo $dp['alamat']; ?></center></td>
-        <td><center><?php echo $dp['telepon']; ?></center></td>
-        <td><center><?php echo $dp['ym_id']; ?></center></td>
+        <td><center><?php echo $dp['NIK']; ?></center></td>
+        <td><center><?php echo $dp['nama']; ?></center></td>
+        <td><center><?php echo $dp['cabang']; ?></center></td>
+        <td><center><?php echo $dp['email']; ?></center></td>
+        <td><center><?php echo $dp['hp']; ?></center></td>
         <td width="100">
 	        <div class="btn-group">
 	          <a class="btn btn-warning" href="javascript:hapusData('<?php echo $dp['kode_cabang'] ?>')"><i class="icon-trash icon-white"></i> Hapus</a>

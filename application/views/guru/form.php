@@ -1,3 +1,28 @@
+  <script type="text/javascript">
+$(document).ready(function(){
+  //$("#No_LP").focus();
+  
+  $("#simpan").click(function(){
+    var a = $("#my-form").serialize();
+    var string = a;
+    
+    alert(string);
+    $.ajax({
+      type  : 'POST',
+      url   : "<?php echo site_url(); ?>/guru/simpan",
+      data  : string,
+      cache : false,
+      success : function(data){
+        $('.bottom-right').notify({
+            message: {text:data},type:'danger'
+        }).show();
+      }
+    });
+    return false();
+  });
+  
+});
+</script>
   <div class="navbar navbar-primary">
     <div class="navbar-inner">
       <div class="container" style="width: auto;">
@@ -18,16 +43,29 @@
 <tr>
 <td width="50%" valign="top">
   <div class="control-group">
-    <label class="control-label" for="nomor">Kode Cabang</label>
+    <label class="control-label" for="nomor">Nomor Induk</label>
     <div class="controls">
-      <input type="text" class="span3 input" name="kode_cabang" id="kode_cabang" value="" <?php echo $readonly;?>>
+      <input type="text" class="span3 input" name="NIK" id="NIK" value="" <?php echo $readonly;?>>
     </div>
   </div>
   <div class="control-group">
-    <label class="control-label" for="tgl">Nama Cabang</label>
+    <label class="control-label" for="nip">Cabang</label>
     <div class="controls">
-      <input type="text" class="span2" name="nama_cabang" id="nama_cabang" >
+      <input type="text" class="span2 input" name="cabang" id="cabang">
     </div>
+  </div>
+  <div class="control-group">
+    <label class="control-label" for="tgl">Nama</label>
+    <div class="controls">
+      <input type="text" class="span2" name="nama" id="nama" >
+    </div>
+  </div>  
+  <div class="control-group">
+    <label class="control-label" for="tgl">Tempat/Tanggal Lahir</label>
+    <div class="controls">
+      <input type="text" class="span2" name="tempat_lahir" id="tempat_lahir" >/
+      <input type="text" class="span2" name="tanggal_lahir" id="tanggal_lahir" >
+    </div>  
   </div>  
   <div class="control-group">
     <label class="control-label" for="nip">Alamat</label>
@@ -42,9 +80,15 @@
     </div>
   </div>
   <div class="control-group">
-    <label class="control-label" for="nama">Yahoo Messenger</label>
+    <label class="control-label" for="nip">Email</label>
     <div class="controls">
-      <input type="text" class="span4 input" name="ym_id" id="ym_id" >
+      <input type="text" class="span2 input" name="email" id="email">
+    </div>
+  </div>
+  <div class="control-group">
+    <label class="control-label" for="nama">HP</label>
+    <div class="controls">
+      <input type="text" class="span4 input" name="hp" id="hp" >
     </div>
   </div>
 </td>

@@ -49,12 +49,12 @@ class Guru extends CI_Controller {
 	{
 		if($this->session->userdata('logged_in')!="")
 		{
-			$d['judul'] ="Entry Cabang";
+			$d['judul'] ="Entry Guru";
 			
 			//$d['l_petugas'] = $this->app_model->getAllData("t_petugas");
 			$d['readonly'] = '';
 			$d['No_LP']='';
-			$d['content']= $this->load->view('cabang/form',$d,true);
+			$d['content']= $this->load->view('guru/form',$d,true);
 			$this->load->view('home',$d);
 		}
 		else
@@ -93,21 +93,7 @@ class Guru extends CI_Controller {
 	{
 		if($this->session->userdata('logged_in')!="")
 		{
-			$up['No_LP'] = $this->input->post('No_LP');
-			$up['ID_Petugas'] = $this->session->userdata('username');;
-			$up['Waktu_Kejadian'] = $this->app_model->tgl_jam_sql($this->input->post('Waktu_Kejadian'));
-			$up['Waktu_Dilaporkan'] = $this->app_model->tgl_jam_sql($this->input->post('Waktu_Dilaporkan'));
-			//$up['Waktu_Diterima'] = $this->app_model->tgl_jam_sql($this->input->post('Waktu_Diterima'));
-			$up['Alamat_Kejadian'] = $this->input->post('Alamat_Kejadian');
-			$up['Keadaan_Pengemudi'] = $this->input->post('Keadaan_Pengemudi');
-			$up['Keadaan_Cuaca'] = $this->input->post('Keadaan_Cuaca');
-			$up['Posisi'] = $this->input->post('Posisi');
-			$up['Kerusakan_Benda'] = $this->input->post('Kerusakan_Benda');
-			$up['Kerugian_Materi'] = $this->input->post('Kerugian_Materi');
-			$up['Ket_Singkat'] = $this->input->post('Ket_Singkat');
-			$up['Kesimpulan'] = $this->input->post('Kesimpulan');
-			$up['BB'] = $this->input->post('BB');
-			$up['Orang_Ditahan'] = $this->input->post('Orang_Ditahan');
+			$up['NIK'] = $this->input->post('NIK');
 			
 			$id['No_LP'] = $this->input->post('No_LP');
 			
