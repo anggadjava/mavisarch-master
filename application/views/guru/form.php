@@ -1,5 +1,8 @@
   <script type="text/javascript">
 $(document).ready(function(){
+  
+  Cari_Data();
+
   $('#tanggal_lahir').datepicker({
         inline: true,
     option: "sildeDown",
@@ -12,6 +15,31 @@ $(document).ready(function(){
     changeMonth : true,
     changeYear : true,
     });
+
+  function Cari_Data(){
+    var id = $("#NIK").val();
+    var string = "id="+id;
+
+    $.ajax({
+      type  : 'POST',
+      url   : "<?php echo site_url(); ?>/guru/cari_data",
+      data  : string,
+      cache : false,
+      dataType : "json",
+      success : function(data){
+        $("#NIK").val(data.NIK);
+        $("#cabang").val(data.cabang);
+        $("#nama").val(data.nama);
+        $("#tempat_lahir").val(data.tempat_lahir);
+        $("#tanggal_lahir").val(data.tanggal_lahir);
+        $("#alamat").val(data.alamat);
+        $("#telepon").val(data.telepon);
+        $("#email").val(data.email);
+        $("#hp").val(data.hp);
+        $("#tanggal_masuk").val(data.tanggal_masuk);
+      }
+    });
+   } 
   
   $("#simpan").click(function(){
     var nik  = $("#NIK").val();
@@ -51,9 +79,13 @@ $(document).ready(function(){
         $('.bottom-right').notify({
             message: {text:data},type:'danger'
         }).show();
+         window.location.assign("<?php echo site_url();?>/guru")
       }
     });
     return false();
+  });
+    $("#tutup").click(function(){
+      window.location.assign("<?php echo site_url();?>/guru")
   });
   
 });
@@ -80,7 +112,7 @@ $(document).ready(function(){
   <div class="control-group">
     <label class="control-label" for="nomor">Nomor Induk</label>
     <div class="controls">
-      <input type="text" class="span3 input" name="NIK" id="NIK" value="" <?php echo $readonly;?>>
+      <input type="text" class="span3 input" name="NIK" id="NIK" value="<?php echo $NIK;?>" <?php echo $readonly;?>>
     </div>
   </div>
   <div class="control-group">

@@ -1,12 +1,12 @@
 <script type="text/javascript">
 function hapusData(ID){
   var id  = ID;
-  var pilih = confirm('Yakin akan menghapus data ini  = '+id+ '?');
+  var pilih = confirm('Yakin akan menghapus NIK ini  = '+id+ '?');
   if (pilih==true) {
     $.ajax({
       type  : "POST",
       url   : "<?php echo site_url(); ?>/guru/hapus",
-      data  : "id="+id,
+      data  : "NIK="+id,
       success : function(data){     
         window.location.assign("<?php echo site_url();?>/guru")
       }
@@ -25,7 +25,14 @@ function hapusData(ID){
               <li><a href="<?php echo base_url();?>index.php/guru"><i class="icon-refresh icon-white"></i> Refresh</a></li>
 			</ul>
 		  </div>
-		
+		<div class="span6 pull-right">
+        <form id="my-form" class="navbar-form pull-right" method="post" action="<?php echo base_url();?>index.php/surat_tugas/cari">
+            <div class="input-append" style="padding-top:0px;">
+          <input type="text" class="span2" name="cari" id="cari" placeholder="Cari NIK atau Nama Guru">
+      <button type="submit" id="btn_cari" class="btn btn-primary"><i class="icon-search icon-white"></i> Cari</button>
+          </div>
+    </form>
+    </div>
 		</div>
 	  </div><!-- /navbar-inner -->
 	</div><!-- /navbar -->  
@@ -56,7 +63,8 @@ function hapusData(ID){
         <td><center><?php echo $dp['hp']; ?></center></td>
         <td width="100">
 	        <div class="btn-group">
-	          <a class="btn btn-warning" href="javascript:hapusData('<?php echo $dp['kode_cabang'] ?>')"><i class="icon-trash icon-white"></i> Hapus</a>
+            <a class="btn btn-success" href="<?php echo base_url(); ?>index.php/guru/edit/<?php echo $dp['NIK']; ?>"><i class="icon-edit icon-white"></i> Edit</a>
+	          <a class="btn btn-warning" href="javascript:hapusData('<?php echo $dp['NIK'] ?>')"><i class="icon-trash icon-white"></i> Hapus</a>
 	        </div><!-- /btn-group -->
 		</td>
       </tr>

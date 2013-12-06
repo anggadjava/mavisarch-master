@@ -50,10 +50,18 @@ class Guru extends CI_Controller {
 		if($this->session->userdata('logged_in')!="")
 		{
 			$d['judul'] ="Entry Guru";
+			$d['NIK'] = '';
+			$d['cabang'] = '';
+			$d['nama'] = '';
+			$d['tempat_lahir'] = '';
+			$d['tanggal_lahir'] = '';
+			$d['tanggal_masuk'] = '';
+			$d['alamat'] = '';
+			$d['hp'] = '';
+			$d['email'] = '';
+			$d['telepon'] = '';
 			
-			//$d['l_petugas'] = $this->app_model->getAllData("t_petugas");
 			$d['readonly'] = '';
-			$d['No_LP']='';
 			$d['content']= $this->load->view('guru/form',$d,true);
 			$this->load->view('home',$d);
 		}
@@ -67,26 +75,56 @@ class Guru extends CI_Controller {
 	{
 		if($this->session->userdata('logged_in')!="")
 		{
-			$d['judul'] ="Edit Kecelakaan";
-			
-			$id = $this->uri->segment(4);
-			//$id	 = substr($no,3,2);
-			$sql = $this->db->query("SELECT * FROM t_kecelakaan WHERE substr(No_LP,4,2)='$id'");
-			foreach ($sql->result() as  $t) {
-				$d['No_LP']=$t->No_LP;
-			}
+			$d['judul'] ="Edit Guru";
+			$id = $this->uri->segment(3);
+			$d['NIK']= $id;
+			// $id = $this->input->post('id');
 			
 			$d['readonly'] = 'readonly';
-			
 			//$d['l_petugas'] = $this->app_model->getAllData("t_petugas");
 
-			$d['content']= $this->load->view('bap/form',$d,true);
+			$d['content']= $this->load->view('guru/form',$d,true);
 			$this->load->view('home',$d);
 		}
 		else
 		{
 			header('location:'.base_url().'index.php/login');
 		}
+	}
+	public function cari_data(){
+		if($this->session->userdata('logged_in')!="")
+		{
+			$id = $this->input->post('id');
+			
+			$text = "SELECT * FROM guru WHERE NIK='$id'";
+			$d = $this->app_model->manualQuery($text);
+			$row = $d->num_rows();
+			if($row>0){
+				$sql = $this->db->query("SELECT * FROM guru WHERE NIK='$id'");
+				foreach ($sql->result() as  $t) {
+					//$up['No_LP']=$t->No_LP;
+					$up['NIK']=$t->NIK;
+					$up['cabang'] =$t->cabang;
+					$up['nama'] =$t->nama;
+					$up['tempat_lahir'] = $t->tempat_lahir;
+					$up['tanggal_lahir'] = $this->app_model->tgl_str($t->tanggal_lahir);
+					$up['tanggal_masuk'] = $this->app_model->tgl_str($t->tanggal_masuk);
+					$up['alamat'] = $t->alamat;
+					$up['hp'] = $t->hp;
+					$up['email'] = $t->email;
+					$up['telepon'] = $t->telepon;
+					echo json_encode($up);
+				}
+			}else{
+				$data['NIK'] = '';
+				echo json_encode($data);
+			}
+		}
+		else
+		{
+			header('location:'.base_url().'index.php/login');
+		}				
+			
 	}
 
 	public function simpan()
@@ -103,17 +141,16 @@ class Guru extends CI_Controller {
 			$up['telepon'] = $this->input->post('telepon');
 			$up['hp'] = $this->input->post('hp');
 			$up['email'] = $this->input->post('email');
-			$up['tanggal_masuk'] = $this->input->post('tanggal_masuk');
 			
-			$id['No_LP'] = $this->input->post('No_LP');
+			$id['NIK'] = $this->input->post('NIK');
 			
-			$hasil = $this->app_model->getSelectedData("t_kecelakaan",$id);
+			$hasil = $this->app_model->getSelectedData("guru",$id);
 			$row = $hasil->num_rows();
 			if($row>0){
-				$this->app_model->updateData("t_kecelakaan",$up,$id);
+				$this->app_model->updateData("guru",$up,$id);
 				echo "Data sukses diubah";
 			}else{
-				$this->app_model->insertData("t_kecelakaan",$up);
+				$this->app_model->insertData("guru",$up);
 				echo "Data sukses disimpan";
 			}
 		}
@@ -128,8 +165,8 @@ class Guru extends CI_Controller {
 		$cek = $this->session->userdata('logged_in');
 		if(!empty($cek)){			
 			//$id = $this->uri->segment(3);
-			$id = $this->input->post('id');
-			$this->app_model->manualQuery("DELETE FROM t_kecelakaan WHERE No_LP='$id'");
+			$id = $this->input->post('NIK');
+			$this->app_model->manualQuery("DELETE FROM guru WHERE NIK='$id'");
 			//echo "<meta http-equiv='refresh' content='0; url=".base_url()."index.php/barang'>";			
 			echo "Data Sukese dihapus";
 		}else{
@@ -137,18 +174,6 @@ class Guru extends CI_Controller {
 		}
 	}
 	
-	public function cetak()
-	{
-		$cek = $this->session->userdata('logged_in');
-		if(!empty($cek)){			
-			$d['judul'] ='LAPORAN POLISI';
-			$d['id'] = $this->uri->segment(4);
-			$this->load->view('cetak_laka',$d);
-			//$this->load->view('home',$d);
-		}else{
-			header('location:'.base_url());
-		}
-	}
 }
 
 /* End of file welcome.php */
