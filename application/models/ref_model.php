@@ -2,13 +2,19 @@
 
 class Ref_model extends CI_Model {
 
+	
+	
+	public function list_cabang(){
+		return $this->db->get("cabang");
+	}
+
 	/**
 	 * @author : Deddy Rusdiansyah
 	 * @web : http://deddyrusdiansyah.blogspot.com
 	 * @keterangan : Model untuk menangani semua query database aplikasi
 	 **/
-	
-	
+
+
 	public function list_jenis_laka(){
 		return $this->db->get("m_jenis_kecelakaan");
 	}

@@ -94,6 +94,16 @@ class Guru extends CI_Controller {
 		if($this->session->userdata('logged_in')!="")
 		{
 			$up['NIK'] = $this->input->post('NIK');
+			$up['cabang'] = $this->input->post('cabang');
+			$up['nama'] = $this->input->post('nama');
+			$up['tempat_lahir'] = $this->input->post('tempat_lahir');
+			$up['tanggal_lahir'] = $this->app_model->tgl_sql($this->input->post('tanggal_lahir'));
+			$up['tanggal_masuk'] = $this->app_model->tgl_sql($this->input->post('tanggal_masuk'));
+			$up['alamat'] = $this->input->post('alamat');
+			$up['telepon'] = $this->input->post('telepon');
+			$up['hp'] = $this->input->post('hp');
+			$up['email'] = $this->input->post('email');
+			$up['tanggal_masuk'] = $this->input->post('tanggal_masuk');
 			
 			$id['No_LP'] = $this->input->post('No_LP');
 			

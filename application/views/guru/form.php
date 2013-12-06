@@ -1,12 +1,47 @@
   <script type="text/javascript">
 $(document).ready(function(){
-  //$("#No_LP").focus();
+  $('#tanggal_lahir').datepicker({
+        inline: true,
+    option: "sildeDown",
+    changeMonth : true,
+    changeYear : true,
+    });
+  $('#tanggal_masuk').datepicker({
+        inline: true,
+    option: "sildeDown",
+    changeMonth : true,
+    changeYear : true,
+    });
   
   $("#simpan").click(function(){
+    var nik  = $("#NIK").val();
+    var cabang  = $("#cabang").val();
+    var nama  = $("#nama").val();
     var a = $("#my-form").serialize();
     var string = a;
     
-    alert(string);
+    if(nik.length==0){
+      $('.bottom-right').notify({
+            message: {text:'Maaf, Nomor Induk Tidak boleh kosong'},type:'danger'
+      }).show();
+      $("#NIK").focus();
+      return false();
+    }
+    if(cabang.length==0){
+      $('.bottom-right').notify({
+            message: {text:'Maaf, Cabang boleh kosong'},type:'danger'
+      }).show();
+      $("#cabang").focus();
+      return false();
+    }
+    if(nama.length==0){
+      $('.bottom-right').notify({
+            message: {text:'Maaf, Nama Guru Tidak boleh kosong'},type:'danger'
+      }).show();
+      $("#nama").focus();
+      return false();
+    }
+    // alert(string);
     $.ajax({
       type  : 'POST',
       url   : "<?php echo site_url(); ?>/guru/simpan",
@@ -51,7 +86,15 @@ $(document).ready(function(){
   <div class="control-group">
     <label class="control-label" for="nip">Cabang</label>
     <div class="controls">
-      <input type="text" class="span2 input" name="cabang" id="cabang">
+      <select name="cabang" id="cabang">
+      <option value="">-Pilih-</option>
+      <?php 
+    $data = $this->ref_model->list_cabang();
+    foreach($data->result() as $t){
+     ?>
+         <option value="<?php echo $t->kode_cabang;?>"><?php echo $t->nama_cabang;?></option>
+        <?php } ?>
+        </select>
     </div>
   </div>
   <div class="control-group">
@@ -61,9 +104,9 @@ $(document).ready(function(){
     </div>
   </div>  
   <div class="control-group">
-    <label class="control-label" for="tgl">Tempat/Tanggal Lahir</label>
+    <label class="control-label" for="tgl">Tempat,Tanggal Lahir</label>
     <div class="controls">
-      <input type="text" class="span2" name="tempat_lahir" id="tempat_lahir" >/
+      <input type="text" class="span2" name="tempat_lahir" id="tempat_lahir" >&nbsp; , &nbsp;
       <input type="text" class="span2" name="tanggal_lahir" id="tanggal_lahir" >
     </div>  
   </div>  
@@ -89,6 +132,12 @@ $(document).ready(function(){
     <label class="control-label" for="nama">HP</label>
     <div class="controls">
       <input type="text" class="span4 input" name="hp" id="hp" >
+    </div>
+  </div>
+  <div class="control-group">
+    <label class="control-label" for="nama">Tanggal Masuk</label>
+    <div class="controls">
+      <input type="text" class="span4 input" name="tanggal_masuk" id="tanggal_masuk" >
     </div>
   </div>
 </td>
