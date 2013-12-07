@@ -6,7 +6,6 @@ class Guru extends CI_Controller {
 		***	Controller : guru.php
 		***	by Angga
 	*/
-
 	public function index()
 	{
 		if($this->session->userdata('logged_in')!="")
@@ -22,7 +21,13 @@ class Guru extends CI_Controller {
 			endif;
 			
 			$d['tot'] = $offset;
-			$tot_hal = $this->app_model->getAllData("guru");
+			if (empty($_GET)) {
+				$tot_hal = $this->app_model->getAllData("guru");
+			}
+			else{
+				$tot_hal = $this->app_model->searchGetAllData('guru',array('NIK','nama'),$_GET['cari']);	
+			}
+			
 			$config['base_url'] = site_url() . '/guru/index/';
 			$config['total_rows'] = $tot_hal->num_rows();
 			$config['per_page'] = $limit;
@@ -33,8 +38,12 @@ class Guru extends CI_Controller {
 			$config['prev_link'] = 'Sebelumnya';
 			$this->pagination->initialize($config);
 			$d["paginator"] =$this->pagination->create_links();
-			
-			$d['data'] = $this->app_model->getAllDataLimited("guru",$limit,$offset);
+			if (empty($_GET)) {
+				$d['data'] = $this->app_model->getAllDataLimited("guru",$limit,$offset);
+			}
+			else{
+				$d['data'] = $this->app_model->searchGetAllDataLimited("guru",$limit,$offset,array('NIK','nama'),$_GET['cari']);
+			}
 			
 			$d['content']= $this->load->view('guru/daftar',$d,true);
 			$this->load->view('home',$d);
@@ -113,6 +122,7 @@ class Guru extends CI_Controller {
 					$up['hp'] = $t->hp;
 					$up['email'] = $t->email;
 					$up['telepon'] = $t->telepon;
+					$up['foto'] = $t->foto;
 					echo json_encode($up);
 				}
 			}else{
@@ -140,6 +150,7 @@ class Guru extends CI_Controller {
 			$up['alamat'] = $this->input->post('alamat');
 			$up['telepon'] = $this->input->post('telepon');
 			$up['hp'] = $this->input->post('hp');
+			$up['foto'] = $this->input->post('foto');
 			$up['email'] = $this->input->post('email');
 			
 			$id['NIK'] = $this->input->post('NIK');
@@ -172,6 +183,11 @@ class Guru extends CI_Controller {
 		}else{
 			header('location:'.base_url());
 		}
+	}
+
+	public function uploadFoto(){
+		$this->load->helper('blueimp');
+		$upload_handler = new Blueimp();
 	}
 	
 }

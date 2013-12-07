@@ -13,6 +13,10 @@ function hapusData(ID){
     });
   }
 }
+$('#btn_cari').click(function () {
+      window.location.assign("<?php echo site_url();?>/guru/index/cari/"+$("#cari").val());
+    return false;
+  });
 
 </script>
 <div class="navbar">
@@ -26,7 +30,7 @@ function hapusData(ID){
 			</ul>
 		  </div>
 		<div class="span6 pull-right">
-        <form id="my-form" class="navbar-form pull-right" method="post" action="<?php echo base_url();?>index.php/surat_tugas/cari">
+        <form id="my-form" class="navbar-form pull-right">
             <div class="input-append" style="padding-top:0px;">
           <input type="text" class="span2" name="cari" id="cari" placeholder="Cari NIK atau Nama Guru">
       <button type="submit" id="btn_cari" class="btn btn-primary"><i class="icon-search icon-white"></i> Cari</button>

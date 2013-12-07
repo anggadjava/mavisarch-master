@@ -55,7 +55,7 @@
     	<!--
       <button type="button" name="cetak" id="cetak" class="ui-button-success"><i class="icon-print icon-white"></i> Cetak</button>
       -->
-      <button type="button" name="tutup" id="tutup" class="ui-button-error"><i class="icon-off icon-white"></i> Tutup</button>
+      
   </td>
 </tr>      
 </table>  

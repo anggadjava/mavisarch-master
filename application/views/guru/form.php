@@ -1,3 +1,4 @@
+  <link type="text/css" href="<?php echo base_url(); ?>asset/css/jquery.fileupload.css" rel="stylesheet" />
   <script type="text/javascript">
 $(document).ready(function(){
   
@@ -37,6 +38,8 @@ $(document).ready(function(){
         $("#email").val(data.email);
         $("#hp").val(data.hp);
         $("#tanggal_masuk").val(data.tanggal_masuk);
+        $("#files").attr("src",data.foto);
+        $("#foto").val(data.foto);
       }
     });
    } 
@@ -151,7 +154,7 @@ $(document).ready(function(){
   <div class="control-group">
     <label class="control-label" for="nama">Telepon</label>
     <div class="controls">
-      <input type="text" class="span4 input" name="telepon" id="telepon" >
+      <input type="text" class="span2 input" name="telepon" id="telepon" >
     </div>
   </div>
   <div class="control-group">
@@ -163,15 +166,78 @@ $(document).ready(function(){
   <div class="control-group">
     <label class="control-label" for="nama">HP</label>
     <div class="controls">
-      <input type="text" class="span4 input" name="hp" id="hp" >
+      <input type="text" class="span2 input" name="hp" id="hp" >
     </div>
   </div>
   <div class="control-group">
     <label class="control-label" for="nama">Tanggal Masuk</label>
     <div class="controls">
-      <input type="text" class="span4 input" name="tanggal_masuk" id="tanggal_masuk" >
+      <input type="text" class="span2 input" name="tanggal_masuk" id="tanggal_masuk" >
     </div>
   </div>
+</td>
+<td width="50%" valign="top">
+  <div class="control-group">
+    <label class="control-label" for="nama">Nama Foto</label>
+    <div class="controls">
+      <input type="text" class="span2 input" name="foto" id="foto" readonly>
+    </div>
+  </div>
+  </form>
+  <div class="control-group">
+    <label class="control-label" for="nama">Unggah Foto</label>
+    <div class="controls">
+        <script src="<?php echo base_url(); ?>asset/js/blueimp/jquery.fileupload.js" type="text/javascript"></script>
+        <script src="<?php echo base_url(); ?>asset/js/blueimp/jquery.ui.widget.js" type="text/javascript"></script>
+        <span class="btn btn-success fileinput-button">
+        <i class="icon-plus icon-white"></i>
+        <span>Pilih file</span>
+        <!-- The file input field used as target for the file upload widget -->
+        <input id="fileupload" type="file" name="files" >
+      
+        
+      <script>
+/*jslint unparam: true */
+/*global window, $ */
+$(function () {
+    'use strict';
+    // Change this to the location of your server-side upload handler:
+    var url = window.location.hostname === 'blueimp.github.io' ?
+                '//jquery-file-upload.appspot.com/' : '<?=site_url()?>/guru/uploadFoto';
+    $('#fileupload').fileupload({
+        url: url,
+        dataType: 'json',
+        done: function (e, data) {
+            $.each(data.result.files, function (index, file) {
+                
+               $("#files").attr("src",file.thumbnailUrl);
+                $("#foto").val(file.url);
+            });
+
+        },
+        progressall: function (e, data) {
+            var progress = parseInt(data.loaded / data.total * 100, 10);
+            $('#progress .progress-bar').css(
+                'width',
+                progress + '%'
+            );
+        }
+    }).prop('disabled', !$.support.fileInput)
+        .parent().addClass($.support.fileInput ? undefined : 'disabled');
+});
+</script>
+
+    </span>
+    
+    </div>
+  </div>
+  <div class="control-group">
+    <label class="control-label" for="nama">Foto Guru</label>
+    <div class="controls">
+      <img id="files" class="files"></img>
+    </div>
+  </div>
+  
 </td>
 </tr>
 <tr>
@@ -184,4 +250,4 @@ $(document).ready(function(){
   </td>
 </tr>      
 </table>  
-</form>
+

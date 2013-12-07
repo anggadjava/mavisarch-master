@@ -17,6 +17,24 @@ class App_Model extends CI_Model {
 	{
 		return $this->db->get($table, $limit, $offset);
 	}
+	public function searchGetAllData($table,$field,$string)
+	{
+	
+		$this->db->like($field[0], $string, 'both'); 
+		foreach ($field as $key) {
+			$this->db->or_like($key, $string, 'both'); 
+		}
+		return $this->db->get($table);
+	}
+	
+	public function searchGetAllDataLimited($table,$limit,$offset,$field,$string)
+	{
+		$this->db->like($field[0], $string, 'both'); 
+		foreach ($field as $key) {
+			$this->db->or_like($key, $string, 'both'); 
+		}
+		return $this->db->get($table, $limit, $offset);
+	}
 	
 	public function getSelectedDataLimited($table,$data,$limit,$offset)
 	{
