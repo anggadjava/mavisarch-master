@@ -156,12 +156,12 @@ $(document).ready(function(){
     });
   $('#cabang').change(function(){
     var currentTime = new Date();
-    currentTime.format("mm/dd/yy");
     var month = currentTime.getMonth() + 1;
     var day = currentTime.getDate();
     var year = currentTime.getFullYear();
     var nomor='001';
-    alert(""+year+month+day+nomor);
+    var kode = $('#cabang').val()+"-"+year+month+day+nomor;
+    $('#kode').val(kode);
   });
     
 
