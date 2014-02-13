@@ -97,43 +97,43 @@ h3{
     <!-- Start Menu -->
     <div class="navbar">
       <div class="navbar-inner">
-      <div class="container" style="width: auto;">
-        <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-        </a>
-    <ul class="nav">
-    <li class="active"><a href="<?php echo base_url(); ?>"><i class="icon-home icon-white"></i> Beranda</a></li>
-    <li class="dropdown">
-    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-book icon-white"></i> Siswa <b class="caret"></b></a>
-    <ul class="dropdown-menu">
-    <li><a href="/bap"> Daftar Siswa</a></li>
-    </ul>
-    </li>
-    <li class="dropdown">
-    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-book icon-white"></i> Pendaftaran <b class="caret"></b></a>
-    <ul class="dropdown-menu">
-    <li><a href="/bukutamu/list"> Buku Tamu</a></li>
-    </ul>
-    </li>
-    <li class="dropdown">
-    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-book icon-white"></i> Master Module <b class="caret"></b></a>
-    <ul class="dropdown-menu">
-    <li><a href="/cabang"> Cabang</a></li>
-    <li><a href="/guru"> Guru</a></li>
-    </ul>
-    </li>
-    <li class="dropdown">
-    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-print icon-white"></i> Laporan <b class="caret"></b></a>
-    <ul class="dropdown-menu">
-    <li><a href="/L412A"><i class="icon-print"></i> Laporan Buku Tamu</a></li>
-    <li><a href="/L412B"><i class="icon-print"></i> Laporan Pendaftaran</a></li>
-    
-    </ul>
-    </li>
-    </ul>
-</div>
+        <div class="container" style="width: auto;">
+          <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </a>
+          <ul class="nav">
+            <li class="active"><a href="<?php echo base_url(); ?>"><i class="icon-home icon-white"></i> Beranda</a></li>
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-book icon-white"></i> Siswa <b class="caret"></b></a>
+              <ul class="dropdown-menu">
+                <li><a href="/bap"> Daftar Siswa</a></li>
+              </ul>
+            </li>
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-book icon-white"></i> Pendaftaran <b class="caret"></b></a>
+              <ul class="dropdown-menu">
+                <li><a href="/bukutamu/list"> Buku Tamu</a></li>
+              </ul>
+            </li>
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-book icon-white"></i> Master Module <b class="caret"></b></a>
+              <ul class="dropdown-menu">
+                <li><a href="/cabang"> Cabang</a></li>
+                <li><a href="/guru"> Guru</a></li>
+              </ul>
+            </li>
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-print icon-white"></i> Laporan <b class="caret"></b></a>
+              <ul class="dropdown-menu">
+                <li><a href="/L412A"><i class="icon-print"></i> Laporan Buku Tamu</a></li>
+                <li><a href="/L412B"><i class="icon-print"></i> Laporan Pendaftaran</a></li>
+
+              </ul>
+            </li>
+          </ul>
+        </div>
       </div>
     </div>
     <!-- End Menu -->
@@ -274,8 +274,8 @@ $(function() {
   <div id="tabs">
     <ul>
       <li><a href="#tabs-1">Data Pribadi</a></li>
-      <li><a href="#tabs-2">Placement Test</a></li>
-      <li><a href="#tabs-3">Tagihan Pendaftaran</a></li>
+      <li><a href="#tabs-2">Data Akademik</a></li>
+      <li><a href="#tabs-3">Administrasi Keuangan</a></li>
     </ul>
     <div id="tabs-1">
       <table width="100%">
@@ -286,9 +286,15 @@ $(function() {
         <tr>  
           <td width="50%" valign="top">
             <div class="control-group">
+              <label class="control-label" for="nomor">NIS</label>
+              <div class="controls">
+                <input type="text" class="span3 input form-control" name="nis" id="nis" disabled value="IGS22GOW6CA" >
+              </div>
+            </div>
+            <div class="control-group">
               <label class="control-label" for="nomor">Kode Buku Tamu</label>
               <div class="controls">
-                <input type="text" class="span3 input form-control" name="kode" id="kode" disabled value="" >
+                <input type="text" class="span3 input form-control" name="kode" id="kode" disabled value="IJO91AWL2JU" >
               </div>
             </div>
             <div class="control-group">
@@ -306,7 +312,7 @@ $(function() {
                   <option value="B11">Tangerang</option>
                   <option value="B13">Ciledug</option>
                   <option value="B15">Bandung</option>
-                  <option value="B16">Depok I</option>
+                  <option value="B16" selected>Depok I</option>
                   <option value="B17">Karawang</option>
                   <option value="B19">Klender</option>
                   <option value="B20">Ciracas</option>
@@ -327,39 +333,39 @@ $(function() {
             <div class="control-group">
               <label class="control-label" for="tgl">Nama</label>
               <div class="controls">
-                <input type="text" class="span2" name="nama" id="nama" >
+                <input type="text" class="span2" name="nama" id="nama" value=" Dante Joyce" >
               </div>
             </div>  
             <div class="control-group">
               <label class="control-label" for="tgl">Tempat,Tanggal Lahir</label>
               <div class="controls">
-                <input type="text" class="span2" name="tempat_lahir" id="tempat_lahir" >&nbsp; , &nbsp;
-                <input type="text" class="span2" name="tanggal_lahir" id="tanggal_lahir" >
+                <input type="text" class="span2" name="tempat_lahir" id="tempat_lahir" value="Jakarta">&nbsp; , &nbsp;
+                <input type="text" class="span2" name="tanggal_lahir" id="tanggal_lahir" value="12-02-2014">
               </div>  
             </div>  
             <div class="control-group">
               <label class="control-label" for="nip">Alamat</label>
               <div class="controls">
-                <input type="text" class="span3 input" name="alamat" id="alamat">
+                <input type="text" class="span3 input" name="alamat" id="alamat" value="Jalan Elok No 14">
               </div>
             </div>
             <div class="control-group">
               <label class="control-label" for="rt">RT/RW</label>
               <div class="controls">
-                <input type="text" class="span1 input" name="rt" id="rt">/
-                <input type="text" class="span1 input" name="rw" id="rw">
+                <input type="text" class="span1 input" name="rt" id="rt" value="06">/
+                <input type="text" class="span1 input" name="rw" id="rw" value="07">
               </div>
             </div>
             <div class="control-group">
               <label class="control-label" for="nip">kelurahan</label>
               <div class="controls">
-                <input type="text" class="span3 input" name="kelurahan" id="kelurahan">
+                <input type="text" class="span3 input" name="kelurahan" id="kelurahan" value="Jatijajar">
               </div>
             </div>
             <div class="control-group">
               <label class="control-label" for="nip">Kota</label>
               <div class="controls">
-                <input type="text" class="span3 input" name="kota" id="kota">
+                <input type="text" class="span3 input" name="kota" id="kota" value="Depok">
               </div>
             </div>
           </td>
@@ -367,46 +373,15 @@ $(function() {
             <div class="control-group">
               <label class="control-label" for="nama">Telepon</label>
               <div class="controls">
-                <input type="text" class="span2 input" name="telepon" id="telepon" >
+                <input type="text" class="span2 input" name="telepon" id="telepon" value="444-5555" >
               </div>
             </div>
             <div class="control-group">
               <label class="control-label" for="nip">Email</label>
               <div class="controls">
-                <input type="text" class="span2 input" name="email" id="email">
+                <input type="text" class="span2 input" name="email" id="email" value="me@example.com">
               </div>
             </div>
-            <div class="control-group">
-              <label class="control-label" for="nama">Keperluan</label>
-              <div class="controls">
-                <textarea class="span2 input" name="hp" id="hp"></textarea>
-              </div>
-            </div>
-            <div class="control-group">
-              <label class="control-label" for="tgl">Pilihan Hari dan Jam</label>
-              <div class="controls">
-                <select name="pilihan_hari" id="pilihan_hari" class="span2 input">
-                  <option value="">-Pilih-</option>
-                  <option value="Senin">Senin</option>
-                  <option value="Selasa">Selasa</option>
-                  <option value="Rabu">Rabu</option>
-                  <option value="Kamis">Kamis</option>
-                  <option value="Jumat">Jumat</option>
-                  <option value="Sabtu">Sabtu</option>
-                  <option value="Minggu">Minggu</option>
-
-                </select>
-
-                <input type="text" name="pilihan_jam" id="pilihan_jam" value="" class="span2" />
-                <script type="text/javascript">
-                $('#pilihan_jam').timepicker({
-                  hourMin: 12,
-                  hourMax: 20,
-                  stepMinute: 10,
-                });
-                </script>
-              </div>  
-            </div>  
           </td>
         </tr>
 
@@ -418,80 +393,170 @@ $(function() {
       </table>  
     </div>
     <div id="tabs-2">
-      <table width="100%">
-        <tr>
-          <td width="50%" valign="top">
+      <h3>Data Kelas</h3>
 
-            <div class="control-group">
-              <label class="control-label" for="Tanggal Test">Tanggal Test</label>
-              <div class="controls">
-                <input type="text" class="span3" name="pt_tanggal" id="pt_tanggal" >
-              </div>  
-            </div>
+      <table class="table table-hover table-striped ">
+        <thead>
+          <tr>
+            <th>Kode Kelas</th>
+            <th>Nama Kelas</th>
+            <th>Level</th>
+            <th>Cabang</th>
+            <th>Guru</th>
+            <th>Nilai A</th>
+            <th>Nilai B</th>
+            <th>Nilai C</th>
+            <th>Aktif</th>
+          </tr>
+        </thead>
+        <tbody>
 
-            <div class="control-group">
-              <label class="control-label" for="PIC">PIC</label>
-              <div class="controls">
-               <select name="pt_pic" id="pt_pic" class="span3 input">
-                <option value="">-Pilih-</option>
-                <option value="Miss A">Miss A</option>
-                <option value="Miss B">Miss B</option>
-                <option value="Miss C">Miss C</option>
-                <option value="Miss D">Miss D</option>
+          <!-- Start data -->
 
-              </select>
-            </div>  
-          </div>
-          <div class="control-group">
-            <label class="control-label" for="Structure Score">Structure Score</label>
-            <div class="controls">
-              <input type="text" class="span3" name="pt_structure_scr" id="pt_structure_scr" >
-            </div>  
-          </div>
+          <tr width="50">
+            <td>XXX-XXX</td>
+            <td>Kelas A</td>
+            <td>Level A</td>
+            <td>Depok</td>
+            <td>Miss X</td>
+            <td>80</td>
+            <td>80</td>
+            <td>80</td>
+            <td>Y</td>
+          </tr>
+          <tr width="50">
+            <td>XXX-XXX</td>
+            <td>Kelas A</td>
+            <td>Level A</td>
+            <td>Depok</td>
+            <td>Miss Y</td>
+            <td>80</td>
+            <td>80</td>
+            <td>80</td>
+            <td>N</td>
+          </tr>
+        </tbody>
+      </table>
 
-          <div class="control-group">
-            <label class="control-label" for="Written Score">Written Score</label>
-            <div class="controls">
-              <input type="text" class="span3" name="pt_written_scr" id="pt_written_scr" >
-            </div>  
-          </div>    
-          <div class="control-group">
-            <label class="control-label" for="Expression Score">Expression Score</label>
-            <div class="controls">
-              <input type="text" class="span3" name="pt_expression_scr" id="pt_expression_scr" >
-            </div>  
-          </div>    
-          <div class="control-group">
-            <label class="control-label" for="rata-rata">Rata-rata</label>
-            <div class="controls">
-              <input type="text" class="span3" name="pt_rata" id="pt_rata" disabled >
-            </div>  
-          </div>        
+    </div>
+    <div id="tabs-3">  
+        <h3>History Tagihan</h3>
+            <script type="text/javascript">
+            $(function() {
+            $( "#form_tagihan" ).dialog({
+              autoOpen: false,
+              height: 300,
+              width: 350,
+              modal: true,
+              buttons: {
+                "Tambah Tagihan": function() {
+                  allFields.removeClass( "ui-state-error" );
 
-          <div class="control-group">
-            <label class="control-label" for="rec_level">Recomended Level</label>
-            <div class="controls">
-             <select name="pt_pic" id="pt_rec_level" class="span3 input">
-              <option value="">-Pilih-</option>
-              <option value="LVL A">LVL A</option>
-              <option value="LVL A">LVL B</option>
-              <option value="LVL A">LVL C</option>
-              <option value="LVL A">LVL D</option>
-
-            </select>
-          </div>  
-        </div>
-
-      </td>  
-    </tr>    
-  </table> 
+                  $( "#tagihan tbody" ).append( "<tr>" +
+                    "<td>" + nisTagihan + "</td>" +
+                    "<td>" + cabangTagihan + "</td>" +
+                    "<td>" + tanggalTagihan + "</td>" +
+                    "<td>" + detailTagihan + "</td>" +
+                    "<td>" + jumlahTagihan + "</td>" +
+                    "</tr>" );
+                  $( this ).dialog( "close" );
+                },
+                Cancel: function() {
+                  $( this ).dialog( "close" );
+                }
+              },
+              close: function() {
+                allFields.val( "" ).removeClass( "ui-state-error" );
+              }
+            });
+            
+            $( "#tambah_tagihan" ).click(function(evt) {
+              evt.preventDefault();
+              $( "#form_tagihan" ).dialog( "open" );
+            });
+          });
+</script>
+<div id="form_tagihan" title="Form Tagihan">
+  <form>
+    <div class="control-group">
+    <label class="control-label" for="nisTagihan">NIS</label>
+    <div class="controls">
+      <input type="text" class="span2 input" name="nisTagihan" id="nisTagihan">
+    </div>
+  </div>
+  <div class="control-group">
+    <label class="control-label" for="cabangTagihan">Cabang</label>
+    <div class="controls">
+      <input type="text" class="span2 input" name="cabangTagihan" id="cabangTagihan">
+    </div>
+  </div>
+  <div class="control-group">
+    <label class="control-label" for="tanggalTagihan">Tanggal Tagihan</label>
+    <div class="controls">
+      <input type="text" class="span2 input" name="tanggalTagihan" id="tanggalTagihan">
+    </div>
+  </div>
+  <div class="control-group">
+    <label class="control-label" for="detailTagihan">Detail Tagihan</label>
+    <div class="controls">
+      <input type="text" class="span2 input" name="detailTagihan" id="detailTagihan">
+    </div>
+  </div>
+  <div class="control-group">
+    <label class="control-label" for="jumlahTagihan">Jumlah Tagihan</label>
+    <div class="controls">
+      <input type="text" class="span2 input" name="jumlahTagihan" id="jumlahTagihan">
+    </div>
+  </div>
+  </form>
 </div>
+      <table id="tagihan" class="table table-hover table-striped ">
+        <thead>
+          <tr>
+            <th>NIS</th>
+            <th>No Tagihan</th>
+            <th>Cabang</th>
+            <th>Tanggal</th>
+            <th>Detail Tagihan</th>
+            <th>Jumlah Rp</th>
+          </tr>
+        </thead>
+        <tbody>
 
-</div> <!-- close tab -->
-<table width="100%">
-  <tr>
-    <td colspan="2" align="center">
-      <button type="button" name="simpan" id="simpan" class="ui-button-primary"><i class="icon-ok-circle icon-white"></i> Simpan</button>
+          <!-- Start data -->
+
+          <tr width="50">
+            <td>XXX-XXX</td>
+            <td>87324792837</td>
+            <td>Depok</td>
+            <td>02-02-2014</td>
+            <td>Administrasi Pendaftaran</td>
+            <td>800.000</td>
+          </tr>
+          <tr width="50">
+            <td>XXX-XXX</td>
+            <td>87324792838</td>
+            <td>Depok</td>
+            <td>02-02-2014</td>
+            <td>Biaya Kelas A Level A</td>
+            <td>800.000</td>
+          </tr>
+          <tr width="50" style="border-top:2px solid;border-bottom:2px solid;">
+            <td colspan=5 style="text-align:center;"><b>Jumlah</b></td>
+            <td style="background-color:#E65E65;"><b>1.600.000</b></td>
+          </tr>
+          <tr width="50">
+
+            <td colspan=5><button id="tambah_tagihan" class="ui-button-primary"><i class="icon-ok-circle icon-white"></i>Tambah Tagihan</button></td>
+          </tr>
+        </tbody>
+      </table>      
+    </div>  
+  </div> <!-- close tab -->
+  <table width="100%">
+    <tr>
+      <td colspan="2" align="center">
+        <button type="button" name="simpan" id="simpan" class="ui-button-primary"><i class="icon-ok-circle icon-white"></i> Simpan</button>
       <!--
       <button type="button" name="cetak" id="cetak" class="ui-button-success"><i class="icon-print icon-white"></i> Cetak</button>
     -->
