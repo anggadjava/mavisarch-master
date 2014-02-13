@@ -258,7 +258,7 @@ $("#tutup").click(function(){
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </a>
-      <a class="brand" href="#">Pendaftaran Siswa Baru</a>
+      <a class="brand" href="#">Detail Siswa Baru</a>
       <div class="span3 pull-right" style="padding:5px;">
 
       </div>
@@ -443,21 +443,28 @@ $(function() {
         <h3>History Tagihan</h3>
             <script type="text/javascript">
             $(function() {
+              var nisTagihan = $( "#nisTagihan" ),
+              noTagihan = $( "#noTagihan" ),
+              cabangTagihan = $( "#cabangTagihan" ),
+              tanggalTagihan = $( "#tanggalTagihan" ),
+              detailTagihan = $( "#detailTagihan" ),
+              jumlahTagihan = $( "#jumlahTagihan" ),
+      allFields = $( [] ).add( nisTagihan ).add( noTagihan ).add( cabangTagihan ).add( tanggalTagihan ).add( detailTagihan ).add( jumlahTagihan );
+      console.log(nisTagihan);
             $( "#form_tagihan" ).dialog({
               autoOpen: false,
-              height: 300,
-              width: 350,
+              height: 600,
+              width: 500,
               modal: true,
               buttons: {
                 "Tambah Tagihan": function() {
-                  allFields.removeClass( "ui-state-error" );
-
                   $( "#tagihan tbody" ).append( "<tr>" +
-                    "<td>" + nisTagihan + "</td>" +
-                    "<td>" + cabangTagihan + "</td>" +
-                    "<td>" + tanggalTagihan + "</td>" +
-                    "<td>" + detailTagihan + "</td>" +
-                    "<td>" + jumlahTagihan + "</td>" +
+                    "<td>" + nisTagihan.val()+ "</td>" +
+                    "<td>" + noTagihan.val()+ "</td>" +
+                    "<td>" + cabangTagihan.val() + "</td>" +
+                    "<td>" + tanggalTagihan.val() + "</td>" +
+                    "<td>" + detailTagihan.val() + "</td>" +
+                    "<td>" + jumlahTagihan.val() + "</td>" +
                     "</tr>" );
                   $( this ).dialog( "close" );
                 },
@@ -481,7 +488,13 @@ $(function() {
     <div class="control-group">
     <label class="control-label" for="nisTagihan">NIS</label>
     <div class="controls">
-      <input type="text" class="span2 input" name="nisTagihan" id="nisTagihan">
+      <input type="text" class="span2 input" name="nisTagihan" id="nisTagihan" value="">
+    </div>
+  </div>
+  <div class="control-group">
+    <label class="control-label" for="cabangTagihan">No tagihan</label>
+    <div class="controls">
+      <input type="text" class="span2 input" name="noTagihan" id="noTagihan">
     </div>
   </div>
   <div class="control-group">
@@ -541,16 +554,151 @@ $(function() {
             <td>Biaya Kelas A Level A</td>
             <td>800.000</td>
           </tr>
+          </tbody>
+        </table>
+        <table class="table table-hover table-striped ">
           <tr width="50" style="border-top:2px solid;border-bottom:2px solid;">
-            <td colspan=5 style="text-align:center;"><b>Jumlah</b></td>
+            <td colspan=6 style="text-align:center;"><b>Jumlah</b></td>
             <td style="background-color:#E65E65;"><b>1.600.000</b></td>
           </tr>
           <tr width="50">
 
             <td colspan=5><button id="tambah_tagihan" class="ui-button-primary"><i class="icon-ok-circle icon-white"></i>Tambah Tagihan</button></td>
           </tr>
-        </tbody>
-      </table>      
+      </table>
+
+
+            <!-- START PEMBAYARAN -->
+         <h3>History pembayaran</h3>
+            <script type="text/javascript">
+            $(function() {
+              var nispembayaran = $( "#nispembayaran" ),
+              nopembayaran = $( "#nopembayaran" ),
+              cabangpembayaran = $( "#cabangpembayaran" ),
+              tanggalpembayaran = $( "#tanggalpembayaran" ),
+              detailpembayaran = $( "#detailpembayaran" ),
+              jumlahpembayaran = $( "#jumlahpembayaran" ),
+      allFields = $( [] ).add( nispembayaran ).add( nopembayaran ).add( cabangpembayaran ).add( tanggalpembayaran ).add( detailpembayaran ).add( jumlahpembayaran );
+      console.log(nispembayaran);
+            $( "#form_pembayaran" ).dialog({
+              autoOpen: false,
+              height: 600,
+              width: 500,
+              modal: true,
+              buttons: {
+                "Tambah pembayaran": function() {
+                  $( "#pembayaran tbody" ).append( "<tr>" +
+                    "<td>" + nispembayaran.val()+ "</td>" +
+                    "<td>" + nopembayaran.val()+ "</td>" +
+                    "<td>" + cabangpembayaran.val() + "</td>" +
+                    "<td>" + tanggalpembayaran.val() + "</td>" +
+                    "<td>" + detailpembayaran.val() + "</td>" +
+                    "<td>" + jumlahpembayaran.val() + "</td>" +
+                    "</tr>" );
+                  $( this ).dialog( "close" );
+                },
+                Cancel: function() {
+                  $( this ).dialog( "close" );
+                }
+              },
+              close: function() {
+                allFields.val( "" ).removeClass( "ui-state-error" );
+              }
+            });
+            
+            $( "#tambah_pembayaran" ).click(function(evt) {
+              evt.preventDefault();
+              $( "#form_pembayaran" ).dialog( "open" );
+            });
+          });
+</script>
+<div id="form_pembayaran" title="Form pembayaran">
+  <form>
+    <div class="control-group">
+    <label class="control-label" for="nispembayaran">NIS</label>
+    <div class="controls">
+      <input type="text" class="span2 input" name="nispembayaran" id="nispembayaran" value="">
+    </div>
+  </div>
+  <div class="control-group">
+    <label class="control-label" for="cabangpembayaran">No pembayaran</label>
+    <div class="controls">
+      <input type="text" class="span2 input" name="nopembayaran" id="nopembayaran">
+    </div>
+  </div>
+  <div class="control-group">
+    <label class="control-label" for="cabangpembayaran">Cabang</label>
+    <div class="controls">
+      <input type="text" class="span2 input" name="cabangpembayaran" id="cabangpembayaran">
+    </div>
+  </div>
+  <div class="control-group">
+    <label class="control-label" for="tanggalpembayaran">Tanggal pembayaran</label>
+    <div class="controls">
+      <input type="text" class="span2 input" name="tanggalpembayaran" id="tanggalpembayaran">
+    </div>
+  </div>
+  <div class="control-group">
+    <label class="control-label" for="detailpembayaran">Detail pembayaran</label>
+    <div class="controls">
+      <input type="text" class="span2 input" name="detailpembayaran" id="detailpembayaran">
+    </div>
+  </div>
+  <div class="control-group">
+    <label class="control-label" for="jumlahpembayaran">Jumlah pembayaran</label>
+    <div class="controls">
+      <input type="text" class="span2 input" name="jumlahpembayaran" id="jumlahpembayaran">
+    </div>
+  </div>
+  </form>
+</div>
+      <table id="pembayaran" class="table table-hover table-striped ">
+        <thead>
+          <tr>
+            <th>NIS</th>
+            <th>No pembayaran</th>
+            <th>Cabang</th>
+            <th>Tanggal</th>
+            <th>Detail pembayaran</th>
+            <th>Jumlah Rp</th>
+          </tr>
+        </thead>
+        <tbody>
+
+          <!-- Start data -->
+
+          <tr width="50">
+            <td>XXX-XXX</td>
+            <td>87324792837</td>
+            <td>Depok</td>
+            <td>02-02-2014</td>
+            <td>Administrasi Pendaftaran</td>
+            <td>800.000</td>
+          </tr>
+          <tr width="50">
+            <td>XXX-XXX</td>
+            <td>87324792838</td>
+            <td>Depok</td>
+            <td>02-02-2014</td>
+            <td>Biaya Kelas A Level A</td>
+            <td>800.000</td>
+          </tr>
+          </tbody>
+        </table>
+        <table class="table table-hover table-striped ">
+          <tr width="50" style="border-top:2px solid;border-bottom:2px solid;">
+            <td colspan=6 style="text-align:center;"><b>Jumlah</b></td>
+            <td style="background-color:#65CC65;"><b>1.600.000</b></td>
+          </tr>
+          <tr width="50">
+
+            <td colspan=5><button id="tambah_pembayaran" class="ui-button-primary"><i class="icon-ok-circle icon-white"></i>Tambah pembayaran</button></td>
+          </tr>
+      </table>         
+
+
+
+            <!-- END PEMBAYARAN -->
     </div>  
   </div> <!-- close tab -->
   <table width="100%">
