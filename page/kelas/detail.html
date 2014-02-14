@@ -156,13 +156,75 @@ $('#btn_cari').click(function () {
   });
 
 </script>
+<script type="text/javascript">
+            $(function() {
+              var nis = $( "#nis" ),
+      allFields = $( [] ).add( nis);
+      console.log(nispembayaran);
+            $( "#form_tambah_siswa" ).dialog({
+              autoOpen: false,
+              height: 600,
+              width: 500,
+              modal: true,
+              buttons: {
+                "Tambah siswa": function() {
+                  alert('Siswa Telah Ditambahkan');
+                  $( this ).dialog( "close" );
+                },
+                Cancel: function() {
+                  $( this ).dialog( "close" );
+                }
+              },
+              close: function() {
+                allFields.val( "" ).removeClass( "ui-state-error" );
+              }
+            });
+            
+            $( "#tambah_siswa" ).click(function(evt) {
+              evt.preventDefault();
+              $( "#form_tambah_siswa" ).dialog( "open" );
+            });
+          });
+</script>
+<div id="form_tambah_siswa" title="Form pembayaran">
+  <form>
+    <div class="control-group">
+    <label class="control-label" for="nispembayaran">NIS</label>
+    <div class="controls">
+      <input type="text" class="span2 input" name="nispembayaran" id="nispembayaran" value="">
+    </div>
+  </div>
+  <div class="control-group">
+    <label class="control-label" for="nama_siswa">Nama Siswa</label>
+    <div class="controls">
+      
+    </div>
+  </div>
+  <div class="control-group">
+    <label class="control-label" for="cabang">Cabang</label>
+    <div class="controls">
+    </div>
+  </div>
+  <div class="control-group">
+    <label class="control-label" for="tempat_tanggal_lahir">Tempat/Tanggal Lahir</label>
+    <div class="controls">
+    </div>
+  </div>
+  <div class="control-group">
+    <label class="control-label" for="alamat">Alamat</label>
+    <div class="controls">
+    </div>
+  </div>
+  </form>
+</div>
+
 <div class="navbar">
 	  <div class="navbar-inner">
 		<div class="container">
 		  <a class="brand" href="#">List Siswa</a>
 		  <div class="nav-collapse">
 			<ul class="nav">
-            <li><a href="form.html"><i class="icon-plus-sign icon-white"></i> Tambah Siswa</a></li>
+            <li><a href="form.html" id="tambah_siswa"><i class="icon-plus-sign icon-white"></i> Tambah Siswa</a></li>
             <li><a href="form.html"><i class="icon-pencil icon-white"></i> Penilaian</a></li>
             <li><a href="form.html"><i class="icon-desktop icon-white"></i> Pertemuan</a></li>
               <li><a href="#"><i class="icon-refresh icon-white"></i> Refresh</a></li>
@@ -172,18 +234,51 @@ $('#btn_cari').click(function () {
 		</div>
 	  </div><!-- /navbar-inner -->
 	</div><!-- /navbar -->  
+  <table style="width:100%;">
+    <thead>
+    <tr style="background-color:#34834E;color:white;line-height:30px;">
+      <th colspan=3 style="text-align:left;">Kelas A</th>
+    </tr>
+  </thead>
+  <tbody style="background-color:cyan;">
+    <tr>
+      <td>Kode Kelas</td>
+      <td>:</td>
+      <td>XXX-XXX</td>
+    </tr>
+    <tr>
+      <td>Cabang</td>
+      <td>:</td>
+      <td>Depok</td>
+    </tr>
+    <tr>
+      <td>Ruang</td>
+      <td>:</td>
+      <td>XXX</td>
+    </tr>
+    <tr>
+      <td>Jadwal</td>
+      <td>:</td>
+      <td>Senin 05:00</td>
+    </tr>
+    <tr>
+      <td>Guru</td>
+      <td>:</td>
+      <td>Miss A</td>
+    </tr>
+  <tbody>
+</table>
 <section>
+  
   <table class="table table-hover table-striped ">
     <thead>
       <tr>
         <th>No</th>
-        <th>Kode</th>
-        <th>Level</th>
-        <th>Jadwal</th>
+        <th>NIS</th>
+        <th>Nama</th>
         <th>Cabang</th>
-        <th>Ruang</th>
-        <th>Tanggal Ujian</th>
-        <th>Guru</th>
+        <th>Kota</th>
+        <th>Telepon</th>
         <th>Aksi</th>
       </tr>
     </thead>
@@ -191,33 +286,27 @@ $('#btn_cari').click(function () {
 	      <tr>
         <td width="50"><center>1</center></td>
         <td><center>B02-0125151</center></td>
-        <td><center>Level A</center></td>
-        <td><center>Senin 05:00</center></td>
+        <td><center>Mr X</center></td>
         <td><center>Depok</center></td>
-        <td><center>Ruang A</center></td>
-        <td><center>06-09-2014</center></td>
-        <td><center>Miss A</center></td>
+        <td><center>Depok</center></td>
+        <td><center>096586523</center></td>
         <td width="100">
 	        <div class="btn-group">
-            <a class="btn btn-success" href="detail.html"><i class="icon-edit icon-white"></i>Detail Kelas</a>
-            <a class="btn btn-success" href="#"><i class="icon-edit icon-white"></i> Edit</a>
+            <a class="btn btn-success" href="detail.html"><i class="icon-edit icon-white"></i>Detail Siswa</a>
 	          <a class="btn btn-warning" href="javascript:hapusData('B02-03021401')"><i class="icon-trash icon-white"></i> Hapus</a>
 	        </div><!-- /btn-group -->
 		</td>
       </tr>
-	       <tr>
+      <tr>
         <td width="50"><center>2</center></td>
-        <td><center>B02-0125152</center></td>
-        <td><center>Level B</center></td>
-        <td><center>Selasa 05:00</center></td>
+        <td><center>B02-0125151</center></td>
+        <td><center>Mr Y</center></td>
         <td><center>Depok</center></td>
-        <td><center>Ruang B</center></td>
-        <td><center>26-10-2014</center></td>
-        <td><center>Miss B</center></td>
+        <td><center>Depok</center></td>
+        <td><center>096586523</center></td>
         <td width="100">
           <div class="btn-group">
-            <a class="btn btn-success" href="detail.html"><i class="icon-edit icon-white"></i>Detail Kelas</a>
-            <a class="btn btn-success" href="#"><i class="icon-edit icon-white"></i> Edit</a>
+            <a class="btn btn-success" href="detail.html"><i class="icon-edit icon-white"></i>Detail Siswa</a>
             <a class="btn btn-warning" href="javascript:hapusData('B02-03021401')"><i class="icon-trash icon-white"></i> Hapus</a>
           </div><!-- /btn-group -->
     </td>
