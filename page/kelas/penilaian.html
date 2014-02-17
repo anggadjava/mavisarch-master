@@ -157,74 +157,87 @@ $('#btn_cari').click(function () {
 
 </script>
 <div class="navbar">
-	  <div class="navbar-inner">
-		<div class="container">
-		  <a class="brand" href="#">Buku Tamu</a>
-		  <div class="nav-collapse">
-			<ul class="nav">
-            <li><a href="form.html"><i class="icon-plus-sign icon-white"></i> Tambah Data</a></li>
+    <div class="navbar-inner">
+    <div class="container">
+      <a class="brand" href="detail.html">Penilaian</a>
+      <div class="nav-collapse">
+      <ul class="nav">
+            <li><a href="form.html" id="tambah_siswa"><i class="icon-plus-sign icon-white"></i> Tambah Siswa</a></li>
+            <li><a href="penilaian.html"><i class="icon-pencil icon-white"></i> Penilaian</a></li>
+            <li><a href="form.html"><i class="icon-desktop icon-white"></i> Pertemuan</a></li>
               <li><a href="#"><i class="icon-refresh icon-white"></i> Refresh</a></li>
-			</ul>
-		  </div>
-		<div class="span6 pull-right">
-        <form id="my-form" class="navbar-form pull-right">
-            <div class="input-append" style="padding-top:0px;">
-          <input type="text" class="span2" name="cari" id="cari" placeholder="Cari Kode Buku Tamu">
-      <button type="submit" id="btn_cari" class="btn btn-primary"><i class="icon-search icon-white"></i> Cari</button>
-          </div>
-    </form>
+      </ul>
+      </div>
+    
     </div>
-		</div>
-	  </div><!-- /navbar-inner -->
-	</div><!-- /navbar -->  
+    </div><!-- /navbar-inner -->
+  </div><!-- /navbar -->  
 <section>
   <table class="table table-hover table-striped ">
     <thead>
       <tr>
         <th>No</th>
-        <th>Kode</th>
+        <th>NIS</th>
         <th>Nama</th>
-        <th>Cabang</th>
-        <th>Hp</th>
-        <th>Pendaftaran</th>
-        <th>Aksi</th>
+        <th>Nil Absen</th>
+        <th>Nil A</th>
+        <th>Nil B</th>
+        <th>Nil C</th>
+        <th>Nil D</th>
+        <th>Nil E</th>
+        <th>Jumlah</th>
+        <th>Avg</th>
+        
       </tr>
     </thead>
     <tbody>
+      <form>
 	      <tr>
         <td width="50"><center>1</center></td>
-        <td><center>B02-03021401</center></td>
-        <td><center>Sulaiman</center></td>
-        <td><center>Depok</center></td>
-        <td><center>08544884448</center></td>
-        <td width="100">
-          <div class="btn-group">
-            <a class="btn btn-success" href="#"><i class="icon-edit icon-white"></i>Daftar</a>
-          </div><!-- /btn-group -->
-    </td>
-        <td width="100">
-	        <div class="btn-group">
-            <a class="btn btn-success" href="#"><i class="icon-edit icon-white"></i> Edit</a>
-	          <a class="btn btn-warning" href="javascript:hapusData('B02-03021401')"><i class="icon-trash icon-white"></i> Hapus</a>
-	        </div><!-- /btn-group -->
-		</td>
+        <td><center>B02-0125151</center></td>
+        <td><center>Mr X</center></td>
+        <td><center><input type="text" class="input" style="width:30px;"></center></td>
+        <td><center><input type="text" class="input" style="width:30px;"></center></td>
+        <td><center><input type="text" class="input" style="width:30px;"></center></td>
+        <td><center><input type="text" class="input" style="width:30px;"></center></td>
+        <td><center><input type="text" class="input" style="width:30px;"></center></td>
+        <td><center><input type="text" class="input" style="width:30px;"></center></td>
+        <td><center><input type="text" class="input" style="width:30px;"></center></td>
+        <td><center><input type="text" class="input" style="width:30px;"></center></td>
       </tr>
-	       <tr bgcolor="#65CC65">
+      <tr>
         <td width="50"><center>2</center></td>
-        <td><center>B03-03021401</center></td>
-        <td><center>Ismail</center></td>
-        <td><center>Pondok Gede</center></td>
-        <td><center>085699444884</center></td>
-        <td width="100">
-          <div class="btn-group">
-          </div><!-- /btn-group -->
-    </td>
-        <td width="100">
-          <div class="btn-group">
-            
-	        </div><!-- /btn-group -->
-		</td>
+        <td><center>B02-0125515</center></td>
+        <td><center>Mr Y</center></td>
+        <td><center><input type="text" class="input" style="width:30px;"></center></td>
+        <td><center><input type="text" class="input" style="width:30px;"></center></td>
+        <td><center><input type="text" class="input" style="width:30px;"></center></td>
+        <td><center><input type="text" class="input" style="width:30px;"></center></td>
+        <td><center><input type="text" class="input" style="width:30px;"></center></td>
+        <td><center><input type="text" class="input" style="width:30px;"></center></td>
+        <td><center><input type="text" class="input" style="width:30px;"></center></td>
+        <td><center><input type="text" class="input" style="width:30px;"></center></td>
       </tr>
+      <tr>
+        <td width="50"><center>3</center></td>
+        <td><center>B02-0128848</center></td>
+        <td><center>Mr Z</center></td>
+        <td><center><input type="text" class="input" style="width:30px;"></center></td>
+        <td><center><input type="text" class="input" style="width:30px;"></center></td>
+        <td><center><input type="text" class="input" style="width:30px;"></center></td>
+        <td><center><input type="text" class="input" style="width:30px;"></center></td>
+        <td><center><input type="text" class="input" style="width:30px;"></center></td>
+        <td><center><input type="text" class="input" style="width:30px;"></center></td>
+        <td><center><input type="text" class="input" style="width:30px;"></center></td>
+        <td><center><input type="text" class="input" style="width:30px;"></center></td>
+      </tr>
+      <tr>
+  <td colspan="11" style="text-align:center;">
+    <button type="button" name="simpan" id="simpan" class="ui-button-primary"><i class="icon-ok-circle icon-white"></i> Simpan</button>
+      <button type="button" name="tutup" id="tutup" class="ui-button-error"><i class="icon-off icon-white"></i> Tutup</button>
+  </td>
+</tr>
+    </form>
 	     </tbody>
   </table>
   <div class="pagination pagination-centered">

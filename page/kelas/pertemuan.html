@@ -150,80 +150,103 @@ function hapusData(ID){
     });
   }
 }
-$('#btn_cari').click(function () {
-      window.location.assign("../../index.php/guru/index/cari/"+$("#cari").val());
-    return false;
-  });
 
 </script>
 <div class="navbar">
 	  <div class="navbar-inner">
 		<div class="container">
-		  <a class="brand" href="#">Buku Tamu</a>
+		  <a class="brand" href="#">List Pertemuan</a>
 		  <div class="nav-collapse">
 			<ul class="nav">
-            <li><a href="form.html"><i class="icon-plus-sign icon-white"></i> Tambah Data</a></li>
+            <li><a href="form_pertemuan.html" id="tambah_siswa"><i class="icon-plus-sign icon-white"></i> Tambah Pertemuan</a></li>
+            <li><a href="detail.html"><i class="icon-group icon-white"></i> Detail Kelas</a></li>
+            <li><a href="penilaian.html"><i class="icon-pencil icon-white"></i> Penilaian</a></li>
               <li><a href="#"><i class="icon-refresh icon-white"></i> Refresh</a></li>
 			</ul>
 		  </div>
-		<div class="span6 pull-right">
-        <form id="my-form" class="navbar-form pull-right">
-            <div class="input-append" style="padding-top:0px;">
-          <input type="text" class="span2" name="cari" id="cari" placeholder="Cari Kode Buku Tamu">
-      <button type="submit" id="btn_cari" class="btn btn-primary"><i class="icon-search icon-white"></i> Cari</button>
-          </div>
-    </form>
-    </div>
+		
 		</div>
 	  </div><!-- /navbar-inner -->
 	</div><!-- /navbar -->  
+  <table style="width:100%;">
+    <thead>
+    <tr style="background-color:#34834E;color:white;line-height:30px;">
+      <th colspan=3 style="text-align:left;">Kelas A</th>
+    </tr>
+  </thead>
+  <tbody style="background-color:cyan;">
+    <tr>
+      <td>Kode Kelas</td>
+      <td>:</td>
+      <td>XXX-XXX</td>
+    </tr>
+    <tr>
+      <td>Cabang</td>
+      <td>:</td>
+      <td>Depok</td>
+    </tr>
+    <tr>
+      <td>Ruang</td>
+      <td>:</td>
+      <td>XXX</td>
+    </tr>
+    <tr>
+      <td>Jadwal</td>
+      <td>:</td>
+      <td>Senin 05:00</td>
+    </tr>
+    <tr>
+      <td>Guru</td>
+      <td>:</td>
+      <td>Miss A</td>
+    </tr>
+  <tbody>
+</table>
 <section>
+  
   <table class="table table-hover table-striped ">
     <thead>
       <tr>
         <th>No</th>
-        <th>Kode</th>
-        <th>Nama</th>
+        <th>Kode Pertemuan</th>
+        <th>Jenis Pertemuan</th>
+        <th>Tanggal</th>
         <th>Cabang</th>
-        <th>Hp</th>
-        <th>Pendaftaran</th>
+        <th>Lang Focus</th>
+        <th>Lang Function</th>
         <th>Aksi</th>
       </tr>
     </thead>
     <tbody>
 	      <tr>
         <td width="50"><center>1</center></td>
-        <td><center>B02-03021401</center></td>
-        <td><center>Sulaiman</center></td>
+        <td><center>XXX-XXX</center></td>
+        <td><center>Kokurikuler</center></td>
+        <td><center>14-02-2014</center></td>
         <td><center>Depok</center></td>
-        <td><center>08544884448</center></td>
-        <td width="100">
-          <div class="btn-group">
-            <a class="btn btn-success" href="#"><i class="icon-edit icon-white"></i>Daftar</a>
-          </div><!-- /btn-group -->
-    </td>
+        <td><center>AAA</center></td>
+        <td><center>AAA</center></td>
         <td width="100">
 	        <div class="btn-group">
-            <a class="btn btn-success" href="#"><i class="icon-edit icon-white"></i> Edit</a>
+            <a class="btn btn-success" href="detail_pertemuan.html"><i class="icon-edit icon-white"></i>Detail pertemuan</a>
 	          <a class="btn btn-warning" href="javascript:hapusData('B02-03021401')"><i class="icon-trash icon-white"></i> Hapus</a>
 	        </div><!-- /btn-group -->
 		</td>
       </tr>
-	       <tr bgcolor="#65CC65">
+      <tr>
         <td width="50"><center>2</center></td>
-        <td><center>B03-03021401</center></td>
-        <td><center>Ismail</center></td>
-        <td><center>Pondok Gede</center></td>
-        <td><center>085699444884</center></td>
+        <td><center>XXX-XXX</center></td>
+        <td><center>Extra Kurikuler</center></td>
+        <td><center>18-02-2014</center></td>
+        <td><center>Depok</center></td>
+        <td><center>AAA</center></td>
+        <td><center>AAA</center></td>
         <td width="100">
           <div class="btn-group">
+            <a class="btn btn-success" href="detail_pertemuan.html"><i class="icon-edit icon-white"></i>Detail pertemuan</a>
+            <a class="btn btn-warning" href="javascript:hapusData('B02-03021401')"><i class="icon-trash icon-white"></i> Hapus</a>
           </div><!-- /btn-group -->
     </td>
-        <td width="100">
-          <div class="btn-group">
-            
-	        </div><!-- /btn-group -->
-		</td>
       </tr>
 	     </tbody>
   </table>

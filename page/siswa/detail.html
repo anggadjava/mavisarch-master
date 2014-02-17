@@ -9,31 +9,31 @@
   <meta name="author" content="">
 
   <!-- Custom Styles -->
-  <link href="http://localhost/sashacode/asset/css/bootstrap-notify.css" rel="stylesheet">
-  <link href="http://localhost/sashacode/asset/css/styles/alert-notification-animations.css" rel="stylesheet">
+  <link href="../../asset/css/bootstrap-notify.css" rel="stylesheet">
+  <link href="../../asset/css/styles/alert-notification-animations.css" rel="stylesheet">
 
-  <link href="http://localhost/sashacode/asset/assets/css/bootstrap.min.css" rel="stylesheet">
-  <link href="http://localhost/sashacode/asset/css/bootstrap-responsive.css" rel="stylesheet">
+  <link href="../../asset/assets/css/bootstrap.min.css" rel="stylesheet">
+  <link href="../../asset/css/bootstrap-responsive.css" rel="stylesheet">
 
-  <link type="text/css" href="http://localhost/sashacode/asset/css/custom-theme/jquery-ui-1.10.0.custom.css" rel="stylesheet" />
-  <link type="text/css" href="http://localhost/sashacode/asset/assets/css/font-awesome.min.css" rel="stylesheet" />
-  <link href="http://localhost/sashacode/asset/assets/css/docs.css" rel="stylesheet">
-  <link href="http://localhost/sashacode/asset/assets/js/google-code-prettify/prettify.css" rel="stylesheet">            
+  <link type="text/css" href="../../asset/css/custom-theme/jquery-ui-1.10.0.custom.css" rel="stylesheet" />
+  <link type="text/css" href="../../asset/assets/css/font-awesome.min.css" rel="stylesheet" />
+  <link href="../../asset/assets/css/docs.css" rel="stylesheet">
+  <link href="../../asset/assets/js/google-code-prettify/prettify.css" rel="stylesheet">            
 
-  <script src="http://localhost/sashacode/asset/assets/js/jquery-1.9.0.min.js" type="text/javascript"></script>
-  <script src="http://localhost/sashacode/asset/assets/js/bootstrap.min.js" type="text/javascript"></script>
-  <script src="http://localhost/sashacode/asset/assets/js/jquery-ui-1.10.0.custom.min.js" type="text/javascript"></script>
-  <script src="http://localhost/sashacode/asset/assets/js/google-code-prettify/prettify.js" type="text/javascript"></script>
-  <script src="http://localhost/sashacode/asset/assets/js/docs.js" type="text/javascript"></script>
+  <script src="../../asset/assets/js/jquery-1.9.0.min.js" type="text/javascript"></script>
+  <script src="../../asset/assets/js/bootstrap.min.js" type="text/javascript"></script>
+  <script src="../../asset/assets/js/jquery-ui-1.10.0.custom.min.js" type="text/javascript"></script>
+  <script src="../../asset/assets/js/google-code-prettify/prettify.js" type="text/javascript"></script>
+  <script src="../../asset/assets/js/docs.js" type="text/javascript"></script>
 
 </script>
-<script src="http://localhost/sashacode/asset/js/ui.datepicker-id.js"></script>
-<script src="http://localhost/sashacode/asset/js/jquery-ui-sliderAccess.js"></script>
-<script src="http://localhost/sashacode/asset/js/jquery-ui-timepicker-addon.css"></script>
-<script src="http://localhost/sashacode/asset/js/jquery-ui-timepicker-addon.js"></script>
+<script src="../../asset/js/ui.datepicker-id.js"></script>
+<script src="../../asset/js/jquery-ui-sliderAccess.js"></script>
+<script src="../../asset/js/jquery-ui-timepicker-addon.css"></script>
+<script src="../../asset/js/jquery-ui-timepicker-addon.js"></script>
 
 <!--notif-->
-<script src="http://localhost/sashacode/asset/js/bootstrap-notify.js"></script>
+<script src="../../asset/js/bootstrap-notify.js"></script>
 
 <script type="text/javascript">
 $(document).ready(function(){
@@ -72,7 +72,7 @@ h3{
           <span class="icon-bar"></span>
         </a>
         <a class="brand" href="<?php echo base_url(); ?>">
-          <img src="../asset/images/bbc.jpg" width="40" height="40" align="middle">
+          <img src="../../asset/images/bbc.jpg" width="40" height="40" align="middle">
           BBC English Training Specialist - Academic Portal
         </a>
         <div class="nav-collapse collapse">
@@ -104,7 +104,7 @@ h3{
             <span class="icon-bar"></span>
           </a>
           <ul class="nav">
-            <li class="active"><a href="<?php echo base_url(); ?>"><i class="icon-home icon-white"></i> Beranda</a></li>
+            <li class="active"><a href="../home.html"><i class="icon-home icon-white"></i> Beranda</a></li>
             <li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-book icon-white"></i> Siswa <b class="caret"></b></a>
               <ul class="dropdown-menu">
@@ -139,7 +139,7 @@ h3{
     <!-- End Menu -->
 
     <div class="well">
-      <link type="text/css" href="http://localhost/sashacode/asset/css/jquery.fileupload.css" rel="stylesheet" />
+      <link type="text/css" href="../../asset/css/jquery.fileupload.css" rel="stylesheet" />
       <script type="text/javascript">
       $(document).ready(function(){
         var kode = "";
@@ -180,7 +180,7 @@ h3{
 
           $.ajax({
             type  : 'POST',
-            url   : "http://localhost/sashacode/index.php/guru/cari_data",
+            url   : "../../index.php/guru/cari_data",
             data  : string,
             cache : false,
             dataType : "json",
@@ -232,20 +232,20 @@ h3{
     // alert(string);
     $.ajax({
       type  : 'POST',
-      url   : "http://localhost/sashacode/index.php/guru/simpan",
+      url   : "../../index.php/guru/simpan",
       data  : string,
       cache : false,
       success : function(data){
         $('.bottom-right').notify({
           message: {text:data},type:'danger'
         }).show();
-        window.location.assign("http://localhost/sashacode/index.php/guru")
+        window.location.assign("../../index.php/guru")
       }
     });
     return false();
   });
 $("#tutup").click(function(){
-  window.location.assign("http://localhost/sashacode/index.php/guru")
+  window.location.assign("../../index.php/guru")
 });
 
 });
@@ -521,6 +521,12 @@ $(function() {
       <input type="text" class="span2 input" name="jumlahTagihan" id="jumlahTagihan">
     </div>
   </div>
+  <div class="control-group">
+    <label class="control-label" for="potongan">Potongan</label>
+    <div class="controls">
+      <input type="text" class="span2 input" name="potongan" id="potongan">
+    </div>
+  </div>
   </form>
 </div>
       <table id="tagihan" class="table table-hover table-striped ">
@@ -532,6 +538,7 @@ $(function() {
             <th>Tanggal</th>
             <th>Detail Tagihan</th>
             <th>Jumlah Rp</th>
+            <th>Aksi</th>
           </tr>
         </thead>
         <tbody>
@@ -545,6 +552,11 @@ $(function() {
             <td>02-02-2014</td>
             <td>Administrasi Pendaftaran</td>
             <td>800.000</td>
+            <td width="100">
+          <div class="btn-group">
+            <button id="tambah_pembayaran" class="ui-button-primary"><i class="icon-ok-circle icon-white"></i>Tambah pembayaran</button></td>
+          </div><!-- /btn-group -->
+    </td>
           </tr>
           <tr width="50">
             <td>XXX-XXX</td>
@@ -553,6 +565,11 @@ $(function() {
             <td>02-02-2014</td>
             <td>Biaya Kelas A Level A</td>
             <td>800.000</td>
+            <td width="100">
+          <div class="btn-group">
+            <button id="tambah_pembayaran" class="ui-button-primary"><i class="icon-ok-circle icon-white"></i>Tambah pembayaran</button></td>
+          </div><!-- /btn-group -->
+    </td>
           </tr>
           </tbody>
         </table>
@@ -621,7 +638,18 @@ $(function() {
     </div>
   </div>
   <div class="control-group">
-    <label class="control-label" for="cabangpembayaran">No pembayaran</label>
+    <label class="control-label" for="kode_tagihan">Kode Tagihan</label>
+    <div class="controls">
+      <select name="kode_tagihan" id="kode_tagihan">
+      <option value="">-Pilih-</option>
+               <option value="OOOOOO">OOOOOO</option>
+                 <option value="OOOOOO">PPPPPP</option>
+                 <option value="OOOOOO">QQQQQQ</option>
+      </select>      
+    </div>
+  </div>
+  <div class="control-group">
+    <label class="control-label" for="nopembayaran">No pembayaran</label>
     <div class="controls">
       <input type="text" class="span2 input" name="nopembayaran" id="nopembayaran">
     </div>
@@ -689,10 +717,6 @@ $(function() {
           <tr width="50" style="border-top:2px solid;border-bottom:2px solid;">
             <td colspan=6 style="text-align:center;"><b>Jumlah</b></td>
             <td style="background-color:#65CC65;"><b>1.600.000</b></td>
-          </tr>
-          <tr width="50">
-
-            <td colspan=5><button id="tambah_pembayaran" class="ui-button-primary"><i class="icon-ok-circle icon-white"></i>Tambah pembayaran</button></td>
           </tr>
       </table>         
 

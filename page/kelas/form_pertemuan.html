@@ -249,7 +249,7 @@ $(document).ready(function(){
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </a>
-        <a class="brand" href="#">Tambah Buku Tamu</a>
+        <a class="brand" href="#">Tambah Pertemuan</a>
         <div class="span3 pull-right" style="padding:5px;">
 		  
           </div>
@@ -261,9 +261,19 @@ $(document).ready(function(){
 <tr>
 <td width="50%" valign="top">
   <div class="control-group">
-    <label class="control-label" for="nomor">Kode Buku Tamu</label>
+    <label class="control-label" for="kode_pertemuan">Kode Pertemuan</label>
     <div class="controls">
-      <input type="text" class="span3 input form-control" name="kode" id="kode" disabled value="" >
+      <input type="text" class="span3 input form-control" name="kode_pertemuan" id="kode_pertemuan" disabled value="" >
+    </div>
+  </div>
+  <div class="control-group">
+    <label class="control-label" for="jenis_pertemuan">Jenis Pertemuan</label>
+    <div class="controls">
+      <select name="jenis_pertemuan" id="jenis_pertemuan">
+      <option value="">-Pilih-</option>
+               <option value="kokurikuler">Kokurikuler</option>
+                 <option value="extrakurikuler">Extrakurikuler</option>
+      </select>                 
     </div>
   </div>
   <div class="control-group">
@@ -300,67 +310,17 @@ $(document).ready(function(){
     </div>
   </div>
   <div class="control-group">
-    <label class="control-label" for="tgl">Nama</label>
+    <label class="control-label" for="lang_focus">Lang Focus</label>
     <div class="controls">
-      <input type="text" class="span2" name="nama" id="nama" >
+      <input type="text" class="span2" name="lang_focus" id="lang_focus" >
     </div>
   </div>  
   <div class="control-group">
-    <label class="control-label" for="tgl">Tempat,Tanggal Lahir</label>
+    <label class="control-label" for="lang_function">Lang Function</label>
     <div class="controls">
-      <input type="text" class="span2" name="tempat_lahir" id="tempat_lahir" >&nbsp; , &nbsp;
-      <input type="text" class="span2" name="tanggal_lahir" id="tanggal_lahir" >
-    </div>  
-  </div>  
-  <div class="control-group">
-    <label class="control-label" for="nip">Alamat</label>
-    <div class="controls">
-      <input type="text" class="span2 input" name="alamat" id="alamat">
+      <input type="text" class="span2 input" name="lang_function" id="lang_function">
     </div>
   </div>
-  <div class="control-group">
-    <label class="control-label" for="nama">Telepon</label>
-    <div class="controls">
-      <input type="text" class="span2 input" name="telepon" id="telepon" >
-    </div>
-  </div>
-  <div class="control-group">
-    <label class="control-label" for="nip">Email</label>
-    <div class="controls">
-      <input type="text" class="span2 input" name="email" id="email">
-    </div>
-  </div>
-  <div class="control-group">
-    <label class="control-label" for="nama">Keperluan</label>
-    <div class="controls">
-      <textarea class="span2 input" name="hp" id="hp"></textarea>
-    </div>
-  </div>
-  <div class="control-group">
-    <label class="control-label" for="tgl">Pilihan Hari dan Jam</label>
-    <div class="controls">
-      <select name="pilihan_hari" id="pilihan_hari" class="span2 input">
-      <option value="">-Pilih-</option>
-               <option value="Senin">Senin</option>
-               <option value="Selasa">Selasa</option>
-               <option value="Rabu">Rabu</option>
-               <option value="Kamis">Kamis</option>
-               <option value="Jumat">Jumat</option>
-               <option value="Sabtu">Sabtu</option>
-               <option value="Minggu">Minggu</option>
-                 
-                </select>
-      
-      <input type="text" name="pilihan_jam" id="pilihan_jam" value="" class="span2" />
-      <script type="text/javascript">
-      $('#pilihan_jam').timepicker({
-        hourMin: 12,
-        hourMax: 20,
-        stepMinute: 10,
-      });
-      </script>
-    </div>  
-  </div>  
 </td>
 </tr>
 <tr>
