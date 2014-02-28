@@ -65,6 +65,19 @@ $(document).ready(function() {
                     <div class="div_text">
                         <div class="input-prepend"><span class="add-on"><i class="icon-lock"></i></span><input name="password" type="password" id="pwd inputIcon" class="password span3" /></div>
                     </div>
+                    <label for="user_type">Type User</label>
+                    <div class="div_text">
+                      <div class="input-prepend"><span class="add-on"><i class="icon-lock"></i></span>
+                        <select name="user_type" id="user_type" class="user_type span3" style="margin-top:0px;">
+      <option value="">-Pilih-</option>
+               <option value="admin">Administrator</option>
+                 <option value="guru">Guru</option>
+                 <option value="cabang">Cabang</option>
+                 <option value="keuangan">Keuangan</option>
+                 <option value="siswa">Siswa</option>
+                 
+                </select></div>
+                    </div>
             <div class="button_div pull-right"><button type="submit" class="btn btn-inverse "><i class="icon-share icon-white"></i> Log in</button></div>
                 </fieldset>
                 <?php echo form_close(); ?>

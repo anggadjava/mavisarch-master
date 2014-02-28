@@ -89,10 +89,11 @@ class App_Model extends CI_Model {
 	}
 	
 	//query login
-	public function getLoginData($usr,$psw)
+	public function getLoginData($usr,$psw,$user_type)
 	{
 		$u = mysql_real_escape_string($usr);
 		$p = md5(mysql_real_escape_string($psw));
+		$ut = ($user_type);
 		$q_cek_login = $this->db->get_where('t_petugas', array('ID_Petugas' => $u, 'pwd' => $p));
 		if(count($q_cek_login->result())>0)
 		{
@@ -103,7 +104,8 @@ class App_Model extends CI_Model {
 						$sess_data['logged_in'] = 'aingLoginNenaNeh';
 						$sess_data['username'] = $qad->ID_Petugas;
 						$sess_data['nama'] = $qad->Nama_Petugas;
-						$sess_data['jabatan'] = $qad->Jabatan;
+						$sess_data['cabang'] = $qad->cabang;
+						$sess_data['user_type'] = $ut;
 						$this->session->set_userdata($sess_data);
 					}
 					header('location:'.base_url().'index.php/home');

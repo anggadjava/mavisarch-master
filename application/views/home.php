@@ -30,6 +30,8 @@
 <script src="<?php echo base_url(); ?>asset/js/jquery-ui-sliderAccess.js"></script>
 <script src="<?php echo base_url(); ?>asset/js/jquery-ui-timepicker-addon.css"></script>
 <script src="<?php echo base_url(); ?>asset/js/jquery-ui-timepicker-addon.js"></script>
+<link href="<?php echo base_url(); ?>asset/js/chosen/chosen.css" rel="stylesheet">            
+<script src="<?php echo base_url(); ?>asset/js/chosen/chosen.jquery.js" type="text/javascript"></script>
 
 <!--notif-->
 <script src="<?php echo base_url(); ?>asset/js/bootstrap-notify.js"></script>
@@ -96,21 +98,7 @@ table {
         </div>
     </div> <!-- /container -->
     <div style="padding:5px;"> </div>
-    <div class="navbar navbar-fixed-bottom">
-      <div class="navbar-inner">
-        <div class="container">
-          <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </a>
-          <footer style="color:#000;">
-            <p><?php echo $this->config->item('copyright'); ?><br/>
-            Programmer : <?php echo $this->config->item('programmer'); ?></p>
-          </footer>
-        </div>
-      </div>
-    </div>
+    
 
 </body>
 </html>

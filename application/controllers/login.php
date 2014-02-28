@@ -19,6 +19,7 @@ class Login extends CI_Controller {
 			
 			$this->form_validation->set_rules('username', 'Username', 'trim|required');
 			$this->form_validation->set_rules('password', 'Password', 'trim|required');
+			$this->form_validation->set_rules('user_type', 'User Type', 'trim|required');
 
 			if ($this->form_validation->run() == FALSE)
 			{
@@ -26,7 +27,8 @@ class Login extends CI_Controller {
 			}else{
 				$u = $this->input->post('username');
 				$p = $this->input->post('password');
-				$this->app_model->getLoginData($u,$p);
+				$ut = $this->input->post('user_type');
+				$this->app_model->getLoginData($u,$p,$ut);
 			}
 		}else{
 			header('location:'.base_url().'index.php/home');
