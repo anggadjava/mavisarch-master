@@ -14,7 +14,7 @@ $(document).ready(function(){
 
   function Cari_Data(){
     var id = $("#kode").val();
-    var string = "id="+id;
+    var string = "kode_bukutamu="+id;
     $.ajax({
       type  : 'POST',
       url   : "<?php echo site_url(); ?>/buku_tamu/cari_data",

@@ -49,7 +49,6 @@ $('#btn_cari').click(function () {
         <th>Nama</th>
         <th>Cabang</th>
         <th>HP</th>
-        <th>Pendaftaran</th>
         <th>Aksi</th>
       </tr>
     </thead>
@@ -58,19 +57,17 @@ $('#btn_cari').click(function () {
 		$no=$tot+1;
 		foreach($data->result_array() as $dp){
 	?>
-      <tr>
+      <?php if  ($dp['sudah_daftar'] !=''){ echo '<tr style="background-color:#74f3ff;">';}else{echo '<tr>';}?>
+      
         <td width="50"><center><?php echo $no; ?></center></td>
         <td><center><?php echo $dp['kode_bukutamu']; ?></center></td>
         <td><center><?php echo $dp['nama']; ?></center></td>
         <td><center><?php echo $dp['nama_cabang']; ?></center></td>
         <td><center><?php echo $dp['hp']; ?></center></td>
         <td width="100">
-          <div class="btn-group">
-            <a class="btn btn-success" href="<?php echo base_url(); ?>index.php/buku_tamu/pendaftaran/<?php echo $dp['kode_bukutamu']; ?>"><i class="icon-thumbs-up icon-white"></i> Daftar</a>
-            <a class="btn btn-success" href="<?php echo base_url(); ?>index.php/buku_tamu/followup/<?php echo $dp['kode_bukutamu']; ?>"><i class="icon-caret-up icon-white"></i> Detail</a>
-          </div><!-- /btn-group -->
-        <td width="100">
 	        <div class="btn-group">
+            <?php if  ($dp['sudah_daftar'] ==''){ echo '<a class="btn btn-success" href="'.base_url().'index.php/buku_tamu/pendaftaran/'.$dp['kode_bukutamu'].'"><i class="icon-external-link icon-white"></i> Daftar</a>';}?>
+            <a class="btn btn-success" href="<?php echo base_url(); ?>index.php/buku_tamu/followup/<?php echo $dp['kode_bukutamu']; ?>"><i class="icon-suitcase icon-white"></i> Detail</a>
             <a class="btn btn-success" href="<?php echo base_url(); ?>index.php/buku_tamu/edit/<?php echo $dp['kode_bukutamu']; ?>"><i class="icon-edit icon-white"></i> Edit</a>
 	          <a class="btn btn-warning" href="javascript:hapusData('<?php echo $dp['kode_bukutamu'] ?>')"><i class="icon-trash icon-white"></i> Hapus</a>
 	        </div><!-- /btn-group -->

@@ -47,7 +47,7 @@ $(document).ready(function(){
         $('.bottom-right').notify({
             message: {text:data},type:'danger'
         }).show();
-         window.location.assign("<?php echo site_url();?>/buku_tamu")
+         window.location.assign("<?php echo site_url();?>/buku_tamu/followup/"+kode_bukutamu)
       }
     });
     e.preventDefault();

@@ -1,62 +1,44 @@
+
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class Buku_tamu extends CI_Controller {
+class Pendaftaran extends CI_Controller {
 
 	/*
-		***	Controller : guru.php
+		***	Controller : pendaftaran.php
 		***	by Angga
 	*/
 	   public function __construct()
        {
             parent::__construct();
-            $this->load->model('buku_tamu_model');
+            $this->load->model('pendaftaran_model');
        }
 	public function index()
 	{
 		if($this->session->userdata('logged_in')!="")
 		{
-			$d['judul'] ="Buku Tamu";
+			$nis = $this->get_nis();
+			$d['judul'] ="Pendaftaran Siswa Baru";
+			$d['nis'] = $nis;
+			$d['cabang'] = '';
+			$d['nama'] = '';
+			$d['tempat_lahir'] = '';
+			$d['tanggal_lahir'] = '';
+			$d['hp'] = '';
+			$d['alamat'] = '';
+			$d['email'] = '';
+			$d['telepon'] = '';
+			$d['keperluan'] = '';
+			$d['pilihan_hari'] = '';
+			$d['pilihan_jam'] = '';
 			
-			$page=$this->uri->segment(3);
-			$limit=$this->config->item('limit_data');
-			if(!$page):
-			$offset = 0;
-			else:
-			$offset = $page;
-			endif;
-			
-			$d['tot'] = $offset;
-			if (empty($_GET)) {
-				$tot_hal = $this->buku_tamu_model->getAllData("bukutamu");
-			}
-			else{
-				$tot_hal = $this->buku_tamu_model->searchGetAllData('bukutamu',array('nama','kode_bukutamu'),$_GET['cari']);	
-			}
-			
-			$config['base_url'] = site_url() . '/buku_tamu/index/';
-			$config['total_rows'] = $tot_hal->num_rows();
-			$config['per_page'] = $limit;
-			$config['uri_segment'] = 3;
-			$config['first_link'] = 'Awal';
-			$config['last_link'] = 'Akhir';
-			$config['next_link'] = 'Selanjutnya';
-			$config['prev_link'] = 'Sebelumnya';
-			$this->pagination->initialize($config);
-			$d["paginator"] =$this->pagination->create_links();
-			if (empty($_GET)) {
-				$d['data'] = $this->buku_tamu_model->getAllDataLimited("bukutamu",$limit,$offset);
-			}
-			else{
-				$d['data'] = $this->buku_tamu_model->searchGetAllDataLimited("bukutamu",$limit,$offset,array('nama','kode_bukutamu'),$_GET['cari']);
-			}
-			
-			$d['content']= $this->load->view('buku_tamu/list',$d,true);
+			$d['readonly'] = '';
+			$d['content']= $this->load->view('pendaftaran/form',$d,true);
 			$this->load->view('home',$d);
 		}
 		else
 		{
 			header('location:'.base_url().'index.php/login');
-		}
+		}	
 	}
 	
 	public function tambah()
@@ -141,9 +123,9 @@ class Buku_tamu extends CI_Controller {
 		}				
 			
 	}
-	public function get_kode_tamu(){
+	public function get_nis(){
 		$cabang = $this->session->all_userdata()['cabang'];
-		$last_kode = $this->buku_tamu_model->get_last_kode($cabang);
+		$last_kode = $this->pendaftaran_model->get_nis($cabang);
 		if ($last_kode!='') {
 			$last_kode = (int)$last_kode;
 		}else{
@@ -151,7 +133,7 @@ class Buku_tamu extends CI_Controller {
 		}
 		$new_kode=$last_kode+1;
 		$new_kode = str_pad($new_kode, 3, '0', STR_PAD_LEFT);
-		$kode_bukutamu = 'BT-'.$cabang.'-'.date("Y").date("m").$new_kode;
+		$kode_bukutamu = $cabang.'-'.date("Y").date("m").$new_kode;
 		return $kode_bukutamu;
 	}
 
@@ -417,118 +399,6 @@ class Buku_tamu extends CI_Controller {
 			}else{
 				echo "Data Tidak Dapat Disimpan";
 			}
-		}
-		else
-		{
-			header('location:'.base_url().'index.php/login');
-		}
-	}
-	public function pendaftaran()
-	{
-		if($this->session->userdata('logged_in')!="")
-		{
-			$nis = $this->get_nis();
-			$d['judul'] ="Pendaftaran Siswa Baru";
-			$kodetamu = $this->uri->segment(3);
-			$d['kode_bukutamu'] = $kodetamu;
-			$d['nis'] = $nis;
-			$d['cabang'] = '';
-			$d['nama'] = '';
-			$d['tempat_lahir'] = '';
-			$d['tanggal_lahir'] = '';
-			$d['hp'] = '';
-			$d['alamat'] = '';
-			$d['email'] = '';
-			$d['telepon'] = '';
-			$d['keperluan'] = '';
-			$d['pilihan_hari'] = '';
-			$d['pilihan_jam'] = '';
-			
-			$d['readonly'] = '';
-			$d['content']= $this->load->view('buku_tamu/pendaftaran_form',$d,true);
-			$this->load->view('home',$d);
-		}
-		else
-		{
-			header('location:'.base_url().'index.php/login');
-		}	
-	}
-	public function get_nis(){
-		$cabang = $this->session->all_userdata()['cabang'];
-		$last_kode = $this->buku_tamu_model->get_nis($cabang);
-		if ($last_kode!='') {
-			$last_kode = (int)$last_kode;
-		}else{
-			$last_kode=0;
-		}
-		$new_kode=$last_kode+1;
-		$new_kode = str_pad($new_kode, 3, '0', STR_PAD_LEFT);
-		$kode_bukutamu = $cabang.'-'.date("Y").date("m").$new_kode;
-		return $kode_bukutamu;
-	}
-	public function pendaftaran_cari_data(){
-		if($this->session->userdata('logged_in')!="")
-		{
-			$id = $this->input->post('kode_bukutamu');
-			$text = "SELECT * FROM bukutamu WHERE kode_bukutamu='$id'";
-			$d = $this->app_model->manualQuery($text);
-			$row = $d->num_rows();
-			if($row>0){
-				$sql = $this->db->query("SELECT * FROM bukutamu WHERE kode_bukutamu='$id'");
-				foreach ($sql->result() as  $t) {
-					$up['kode_bukutamu']=$t->kode_bukutamu;
-					$up['cabang'] =$t->cabang;
-					$up['nama'] =$t->nama;
-					$up['tempat_lahir'] = $t->tempat_lahir;
-					$up['tanggal_lahir'] = $this->app_model->tgl_str($t->tanggal_lahir);
-					$up['alamat'] = $t->alamat;
-					$up['hp'] = $t->hp;
-					$up['email'] = $t->email;
-					$up['pilihan_jam'] = $t->pilihan_jam;
-					$up['pilihan_hari'] = $t->pilihan_hari;
-					$up['sekolah_asal'] = $t->sekolah_asal;
-					echo json_encode($up);
-				}
-			}
-		}
-		else
-		{
-			header('location:'.base_url().'index.php/login');
-		}				
-			
-	}
-	public function uploadFoto(){
-		$this->load->helper('blueimp');
-		$upload_handler = new Blueimp();
-	}
-	public function pendaftaran_simpan()
-	{
-		if($this->session->userdata('logged_in')!="")
-		{
-			$up['nama']=$this->input->post('nama');
-			$up['tempat_lahir']=$this->input->post('tempat_lahir');
-			$up['tanggal_lahir']=$this->app_model->tgl_sql($this->input->post('tanggal_lahir'));;
-			$up['alamat']=$this->input->post('alamat');
-			$up['agama']=$this->input->post('agama');
-			$up['rt']=$this->input->post('rt');
-			$up['rw']=$this->input->post('rw');
-			$up['kecamatan']=$this->input->post('kecamatan');
-			$up['kota']=$this->input->post('kota');
-			$up['telepon']=$this->input->post('telepon');
-			$up['email']=$this->input->post('email');
-			$up['pekerjaan']=$this->input->post('pekerjaan');
-			$up['sekolah_asal']=$this->input->post('sekolah_asal');
-			$up['pilihan_hari']=$this->input->post('pilihan_hari');
-			$up['pilihan_jam']=$this->input->post('pilihan_jam');
-			$up['foto']=$this->input->post('foto');
-			$up['kode_bukutamu']=$this->input->post('kode_bukutamu');
-			$up['cabang']=$this->input->post('cabang');
-			$up['nis']=$this->input->post('nis');
-			$up['tanggal_buat']=date("Y-m-d");;
-			$this->app_model->insertData("siswa",$up);
-			$update['sudah_daftar']='1';
-			$this->db->update('bukutamu', $update); 
-			echo "Data sukses disimpan";
 		}
 		else
 		{
