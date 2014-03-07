@@ -32,6 +32,7 @@
 <script src="<?php echo base_url(); ?>asset/js/jquery-ui-timepicker-addon.js"></script>
 <link href="<?php echo base_url(); ?>asset/js/chosen/chosen.css" rel="stylesheet">            
 <script src="<?php echo base_url(); ?>asset/js/chosen/chosen.jquery.js" type="text/javascript"></script>
+<script src="<?php echo base_url(); ?>asset/js/numeric.js"></script>
 
 <!--notif-->
 <script src="<?php echo base_url(); ?>asset/js/bootstrap-notify.js"></script>

@@ -1,9 +1,11 @@
 <script type="text/javascript">
 $(document).ready(function(){
+  $("#besar_tagihan").numeric();
+  $("#potongan").numeric();
 	$("#simpan_tagihan").click(function(){
 		var nis	= $("#nis").val();
 		var a = $("#form_tagihan").serialize();
-		var string = a+"&nis="+nis;
+		var string = a;
 			
 		if(nis.length==0){
 			$('.bottom-right').notify({
@@ -22,9 +24,10 @@ $(document).ready(function(){
 				$('.bottom-right').notify({
 		  			message: {text:data},type:'danger'
 	 			}).show();
+        location.reload();
 			}
 		});
-		return false();
+		return false;
 	});
   $(".chosen-select").chosen({width: "50%"}); 
   $("#jenis_tagihan").change(function() {
@@ -64,6 +67,7 @@ $(document).ready(function(){
     <label class="control-label" for="jenis_tagihan">Jenis tagihan</label>
     <div class="controls">
       <select name="jenis_tagihan" id="jenis_tagihan" class="span2 input chosen-select">
+        <option value="">-Pilih-</option>
       <?php 
     $data = $jenis_tagihan;
     foreach($data->result_array() as $t){
@@ -77,6 +81,12 @@ $(document).ready(function(){
     <label class="control-label" for="besar_tagihan">Besar Tagihan</label>
     <div class="controls">
       <input type="text" class="span3 input2" name="besar_tagihan" id="besar_tagihan" >
+    </div>
+  </div>  
+  <div class="control-group">
+    <label class="control-label" for="potongan">Potongan</label>
+    <div class="controls">
+      <input type="text" class="span3 input2" name="potongan" id="potongan" >
     </div>
   </div>  
   <div class="control-group">

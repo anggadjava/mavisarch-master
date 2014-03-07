@@ -1,13 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 4.0.4.1
+-- version 3.5.2.2
 -- http://www.phpmyadmin.net
 --
--- Host: localhost
--- Generation Time: Dec 05, 2013 at 11:18 AM
--- Server version: 5.5.31
--- PHP Version: 5.4.19
+-- Inang: 127.0.0.1
+-- Waktu pembuatan: 07 Mar 2014 pada 13.21
+-- Versi Server: 5.5.27
+-- Versi PHP: 5.4.7
 
-SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
 
 
@@ -17,15 +17,73 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8 */;
 
 --
--- Database: `smmbbc`
+-- Basis data: `smmbbc`
 --
-CREATE DATABASE IF NOT EXISTS `smmbbc` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
-USE `smmbbc`;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `cabang`
+-- Struktur dari tabel `bukutamu`
+--
+
+CREATE TABLE IF NOT EXISTS `bukutamu` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `kode_bukutamu` varchar(255) NOT NULL,
+  `nama` varchar(255) NOT NULL,
+  `cabang` varchar(255) NOT NULL,
+  `tempat_lahir` varchar(255) NOT NULL,
+  `tanggal_lahir` varchar(255) NOT NULL,
+  `alamat` varchar(255) NOT NULL,
+  `hp` varchar(255) NOT NULL,
+  `email` varchar(255) NOT NULL,
+  `keperluan` varchar(255) NOT NULL,
+  `pilihan_hari` varchar(255) NOT NULL,
+  `pilihan_jam` varchar(255) NOT NULL,
+  `pt_tanggal` varchar(255) NOT NULL,
+  `pt_pic` varchar(255) NOT NULL,
+  `pt_structure_scr` int(11) NOT NULL,
+  `pt_written_scr` int(11) NOT NULL,
+  `pt_expression_scr` int(11) NOT NULL,
+  `pt_rata` int(11) NOT NULL,
+  `pt_rec_level` varchar(255) NOT NULL,
+  `pt_notes` varchar(255) NOT NULL,
+  `sekolah_asal` varchar(255) NOT NULL,
+  `program` text NOT NULL,
+  `sumber_informasi` text NOT NULL,
+  `sumber_lain` varchar(255) NOT NULL,
+  `sudah_daftar` varchar(1) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `kode_bukutamu` (`kode_bukutamu`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=12 ;
+
+--
+-- Dumping data untuk tabel `bukutamu`
+--
+
+INSERT INTO `bukutamu` (`id`, `kode_bukutamu`, `nama`, `cabang`, `tempat_lahir`, `tanggal_lahir`, `alamat`, `hp`, `email`, `keperluan`, `pilihan_hari`, `pilihan_jam`, `pt_tanggal`, `pt_pic`, `pt_structure_scr`, `pt_written_scr`, `pt_expression_scr`, `pt_rata`, `pt_rec_level`, `pt_notes`, `sekolah_asal`, `program`, `sumber_informasi`, `sumber_lain`, `sudah_daftar`) VALUES
+(10, 'BT-B02-201402001', 'asdsad', 'B02', 'sadsa', '2014-03-19', 'sadsad', 'sadsad', 'sadsad', 'sadasd', 'Kamis', '13:20', '', '', 0, 0, 0, 0, '', '', 'asdsa', 'Reguler Dewasa', 'Koran', 'asdsad', '1'),
+(11, 'BT-B02-201403002', 'huahahaha', 'B02', 'huahahaha', '2014-03-12', 'huahahaa', 'huahaha', 'huahaha', 'huahaha', 'Kamis', '14:20', '', '', 0, 0, 0, 0, '', '', 'sadsad', 'Reguler Dewasa', 'Koran', 'asd', '');
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `bukutamu_followup`
+--
+
+CREATE TABLE IF NOT EXISTS `bukutamu_followup` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `kode_bukutamu` varchar(255) NOT NULL,
+  `tanggal` date NOT NULL,
+  `via` varchar(255) NOT NULL,
+  `hasil` text NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `kode_bukutamu` (`kode_bukutamu`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `cabang`
 --
 
 CREATE TABLE IF NOT EXISTS `cabang` (
@@ -38,7 +96,7 @@ CREATE TABLE IF NOT EXISTS `cabang` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `cabang`
+-- Dumping data untuk tabel `cabang`
 --
 
 INSERT INTO `cabang` (`kode_cabang`, `nama_cabang`, `alamat`, `telepon`, `ym_id`) VALUES
@@ -71,7 +129,7 @@ INSERT INTO `cabang` (`kode_cabang`, `nama_cabang`, `alamat`, `telepon`, `ym_id`
 -- --------------------------------------------------------
 
 --
--- Table structure for table `guru`
+-- Struktur dari tabel `guru`
 --
 
 CREATE TABLE IF NOT EXISTS `guru` (
@@ -85,13 +143,77 @@ CREATE TABLE IF NOT EXISTS `guru` (
   `pendidikan_terakhir` varchar(255) NOT NULL,
   `telepon` varchar(255) NOT NULL,
   `hp` varchar(255) NOT NULL,
+  `tanggal_masuk` date NOT NULL,
+  `foto` varchar(255) NOT NULL,
   PRIMARY KEY (`NIK`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data untuk tabel `guru`
+--
+
+INSERT INTO `guru` (`NIK`, `nama`, `alamat`, `tempat_lahir`, `tanggal_lahir`, `cabang`, `email`, `pendidikan_terakhir`, `telepon`, `hp`, `tanggal_masuk`, `foto`) VALUES
+('11111', 'Angga', 'Cipinang Kebembem', 'Pekalongan', '1988-09-06', 'B02', 'pramusintaanggara@gmail.com', '', '', '08569002522', '2013-12-01', 'http://localhost/sashacode/asset/uploads/IMG-20130929-00065.jpg'),
+('22222', 'Sasha', 'Cipinang Kebembem', 'Jakarta', '2013-06-13', 'B17', '', '', '', '', '2013-12-05', 'http://localhost/sashacode/asset/uploads/IMG-20131120-00297.jpg');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `m_agama`
+-- Struktur dari tabel `jenis_tagihan`
+--
+
+CREATE TABLE IF NOT EXISTS `jenis_tagihan` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `nama_tagihan` varchar(255) NOT NULL,
+  `deskripsi_tagihan` text NOT NULL,
+  `besar_tagihan` float NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `nama_tagihan` (`nama_tagihan`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+
+--
+-- Dumping data untuk tabel `jenis_tagihan`
+--
+
+INSERT INTO `jenis_tagihan` (`id`, `nama_tagihan`, `deskripsi_tagihan`, `besar_tagihan`) VALUES
+(1, 'Biaya Pendaftaran', 'mencakup Biaya A B C D', 100000),
+(2, 'Placement Test', 'Jika Mengambil Placement Test Akan dikenai biaya ini', 50000);
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `level`
+--
+
+CREATE TABLE IF NOT EXISTS `level` (
+  `id_level` varchar(255) NOT NULL,
+  `nama_level` varchar(255) NOT NULL,
+  `harga` float NOT NULL,
+  `program` int(11) NOT NULL,
+  PRIMARY KEY (`id_level`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data untuk tabel `level`
+--
+
+INSERT INTO `level` (`id_level`, `nama_level`, `harga`, `program`) VALUES
+('PC-1A', 'Preparatory Class 1A', 200000, 1),
+('PC-1B', 'Preparatory Class 1B', 200000, 1),
+('PC-2A', 'Preparatory Class 2A', 200000, 1),
+('PC-2B', 'Preparatory Class 2B', 200000, 1),
+('PC-3A', 'Preparatory Class 3A', 200000, 1),
+('PC-4A', 'Preparatory Class 4A', 200000, 1),
+('PC-4B', 'Preparatory Class 4B', 200000, 1),
+('PC-5A', 'Preparatory Class 5A', 200000, 1),
+('PC-5B', 'Preparatory Class 5B', 200000, 1),
+('PC-6A', 'Preparatory Class 6A', 200000, 1),
+('PC-6B', 'Preparatory Class 6B', 200000, 1);
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `m_agama`
 --
 
 CREATE TABLE IF NOT EXISTS `m_agama` (
@@ -101,7 +223,7 @@ CREATE TABLE IF NOT EXISTS `m_agama` (
 ) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=7 ;
 
 --
--- Dumping data for table `m_agama`
+-- Dumping data untuk tabel `m_agama`
 --
 
 INSERT INTO `m_agama` (`id_agama`, `agama`) VALUES
@@ -115,7 +237,7 @@ INSERT INTO `m_agama` (`id_agama`, `agama`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `m_gerakan_pejalan`
+-- Struktur dari tabel `m_gerakan_pejalan`
 --
 
 CREATE TABLE IF NOT EXISTS `m_gerakan_pejalan` (
@@ -125,7 +247,7 @@ CREATE TABLE IF NOT EXISTS `m_gerakan_pejalan` (
 ) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=9 ;
 
 --
--- Dumping data for table `m_gerakan_pejalan`
+-- Dumping data untuk tabel `m_gerakan_pejalan`
 --
 
 INSERT INTO `m_gerakan_pejalan` (`id_gerakan_pejalan`, `gerakan_pejalan`) VALUES
@@ -141,7 +263,7 @@ INSERT INTO `m_gerakan_pejalan` (`id_gerakan_pejalan`, `gerakan_pejalan`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `m_gol_laka`
+-- Struktur dari tabel `m_gol_laka`
 --
 
 CREATE TABLE IF NOT EXISTS `m_gol_laka` (
@@ -151,7 +273,7 @@ CREATE TABLE IF NOT EXISTS `m_gol_laka` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=10 ;
 
 --
--- Dumping data for table `m_gol_laka`
+-- Dumping data untuk tabel `m_gol_laka`
 --
 
 INSERT INTO `m_gol_laka` (`id_gol_laka`, `gol_laka`) VALUES
@@ -168,7 +290,7 @@ INSERT INTO `m_gol_laka` (`id_gol_laka`, `gol_laka`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `m_helm`
+-- Struktur dari tabel `m_helm`
 --
 
 CREATE TABLE IF NOT EXISTS `m_helm` (
@@ -178,7 +300,7 @@ CREATE TABLE IF NOT EXISTS `m_helm` (
 ) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
 
 --
--- Dumping data for table `m_helm`
+-- Dumping data untuk tabel `m_helm`
 --
 
 INSERT INTO `m_helm` (`id_helm`, `helm`) VALUES
@@ -189,7 +311,7 @@ INSERT INTO `m_helm` (`id_helm`, `helm`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `m_jenis_kecelakaan`
+-- Struktur dari tabel `m_jenis_kecelakaan`
 --
 
 CREATE TABLE IF NOT EXISTS `m_jenis_kecelakaan` (
@@ -199,7 +321,7 @@ CREATE TABLE IF NOT EXISTS `m_jenis_kecelakaan` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=10 ;
 
 --
--- Dumping data for table `m_jenis_kecelakaan`
+-- Dumping data untuk tabel `m_jenis_kecelakaan`
 --
 
 INSERT INTO `m_jenis_kecelakaan` (`id_jenis_laka`, `jenis_laka`) VALUES
@@ -216,7 +338,7 @@ INSERT INTO `m_jenis_kecelakaan` (`id_jenis_laka`, `jenis_laka`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `m_kawasan_laka`
+-- Struktur dari tabel `m_kawasan_laka`
 --
 
 CREATE TABLE IF NOT EXISTS `m_kawasan_laka` (
@@ -226,7 +348,7 @@ CREATE TABLE IF NOT EXISTS `m_kawasan_laka` (
 ) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=7 ;
 
 --
--- Dumping data for table `m_kawasan_laka`
+-- Dumping data untuk tabel `m_kawasan_laka`
 --
 
 INSERT INTO `m_kawasan_laka` (`id_kawasan_laka`, `kawasan_laka`) VALUES
@@ -240,7 +362,7 @@ INSERT INTO `m_kawasan_laka` (`id_kawasan_laka`, `kawasan_laka`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `m_keadaan_lantas`
+-- Struktur dari tabel `m_keadaan_lantas`
 --
 
 CREATE TABLE IF NOT EXISTS `m_keadaan_lantas` (
@@ -250,7 +372,7 @@ CREATE TABLE IF NOT EXISTS `m_keadaan_lantas` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
 
 --
--- Dumping data for table `m_keadaan_lantas`
+-- Dumping data untuk tabel `m_keadaan_lantas`
 --
 
 INSERT INTO `m_keadaan_lantas` (`id_keadaan`, `keadaan_lantas`) VALUES
@@ -261,7 +383,7 @@ INSERT INTO `m_keadaan_lantas` (`id_keadaan`, `keadaan_lantas`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `m_kondisi_jalan`
+-- Struktur dari tabel `m_kondisi_jalan`
 --
 
 CREATE TABLE IF NOT EXISTS `m_kondisi_jalan` (
@@ -271,7 +393,7 @@ CREATE TABLE IF NOT EXISTS `m_kondisi_jalan` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=11 ;
 
 --
--- Dumping data for table `m_kondisi_jalan`
+-- Dumping data untuk tabel `m_kondisi_jalan`
 --
 
 INSERT INTO `m_kondisi_jalan` (`id_kondisi_jalan`, `kondisi_jalan`) VALUES
@@ -289,7 +411,7 @@ INSERT INTO `m_kondisi_jalan` (`id_kondisi_jalan`, `kondisi_jalan`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `m_korban`
+-- Struktur dari tabel `m_korban`
 --
 
 CREATE TABLE IF NOT EXISTS `m_korban` (
@@ -299,7 +421,7 @@ CREATE TABLE IF NOT EXISTS `m_korban` (
 ) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
 
 --
--- Dumping data for table `m_korban`
+-- Dumping data untuk tabel `m_korban`
 --
 
 INSERT INTO `m_korban` (`id_korban`, `korban`) VALUES
@@ -310,7 +432,7 @@ INSERT INTO `m_korban` (`id_korban`, `korban`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `m_laka_fungsi_jalan`
+-- Struktur dari tabel `m_laka_fungsi_jalan`
 --
 
 CREATE TABLE IF NOT EXISTS `m_laka_fungsi_jalan` (
@@ -320,7 +442,7 @@ CREATE TABLE IF NOT EXISTS `m_laka_fungsi_jalan` (
 ) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=6 ;
 
 --
--- Dumping data for table `m_laka_fungsi_jalan`
+-- Dumping data untuk tabel `m_laka_fungsi_jalan`
 --
 
 INSERT INTO `m_laka_fungsi_jalan` (`id_laka_fungsi_jalan`, `laka_fungsi_jalan`) VALUES
@@ -333,7 +455,7 @@ INSERT INTO `m_laka_fungsi_jalan` (`id_laka_fungsi_jalan`, `laka_fungsi_jalan`) 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `m_lokasi_laka`
+-- Struktur dari tabel `m_lokasi_laka`
 --
 
 CREATE TABLE IF NOT EXISTS `m_lokasi_laka` (
@@ -343,7 +465,7 @@ CREATE TABLE IF NOT EXISTS `m_lokasi_laka` (
 ) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
 
 --
--- Dumping data for table `m_lokasi_laka`
+-- Dumping data untuk tabel `m_lokasi_laka`
 --
 
 INSERT INTO `m_lokasi_laka` (`id_lokasi_laka`, `lokasi_laka`) VALUES
@@ -355,7 +477,7 @@ INSERT INTO `m_lokasi_laka` (`id_lokasi_laka`, `lokasi_laka`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `m_objek`
+-- Struktur dari tabel `m_objek`
 --
 
 CREATE TABLE IF NOT EXISTS `m_objek` (
@@ -365,7 +487,7 @@ CREATE TABLE IF NOT EXISTS `m_objek` (
 ) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
 
 --
--- Dumping data for table `m_objek`
+-- Dumping data untuk tabel `m_objek`
 --
 
 INSERT INTO `m_objek` (`id_objek`, `objek`) VALUES
@@ -375,7 +497,7 @@ INSERT INTO `m_objek` (`id_objek`, `objek`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `m_pekerjaan`
+-- Struktur dari tabel `m_pekerjaan`
 --
 
 CREATE TABLE IF NOT EXISTS `m_pekerjaan` (
@@ -385,7 +507,7 @@ CREATE TABLE IF NOT EXISTS `m_pekerjaan` (
 ) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=11 ;
 
 --
--- Dumping data for table `m_pekerjaan`
+-- Dumping data untuk tabel `m_pekerjaan`
 --
 
 INSERT INTO `m_pekerjaan` (`id_pekerjaan`, `pekerjaan`) VALUES
@@ -403,7 +525,7 @@ INSERT INTO `m_pekerjaan` (`id_pekerjaan`, `pekerjaan`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `m_pendidikan`
+-- Struktur dari tabel `m_pendidikan`
 --
 
 CREATE TABLE IF NOT EXISTS `m_pendidikan` (
@@ -413,7 +535,7 @@ CREATE TABLE IF NOT EXISTS `m_pendidikan` (
 ) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=6 ;
 
 --
--- Dumping data for table `m_pendidikan`
+-- Dumping data untuk tabel `m_pendidikan`
 --
 
 INSERT INTO `m_pendidikan` (`id_pendidikan`, `pendidikan`) VALUES
@@ -426,7 +548,7 @@ INSERT INTO `m_pendidikan` (`id_pendidikan`, `pendidikan`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `m_pengaman`
+-- Struktur dari tabel `m_pengaman`
 --
 
 CREATE TABLE IF NOT EXISTS `m_pengaman` (
@@ -436,7 +558,7 @@ CREATE TABLE IF NOT EXISTS `m_pengaman` (
 ) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=6 ;
 
 --
--- Dumping data for table `m_pengaman`
+-- Dumping data untuk tabel `m_pengaman`
 --
 
 INSERT INTO `m_pengaman` (`id_pengaman`, `pengaman`) VALUES
@@ -449,7 +571,7 @@ INSERT INTO `m_pengaman` (`id_pengaman`, `pengaman`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `m_penyebab_laka`
+-- Struktur dari tabel `m_penyebab_laka`
 --
 
 CREATE TABLE IF NOT EXISTS `m_penyebab_laka` (
@@ -459,7 +581,7 @@ CREATE TABLE IF NOT EXISTS `m_penyebab_laka` (
 ) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=11 ;
 
 --
--- Dumping data for table `m_penyebab_laka`
+-- Dumping data untuk tabel `m_penyebab_laka`
 --
 
 INSERT INTO `m_penyebab_laka` (`id_penyebab_laka`, `penyebab_laka`) VALUES
@@ -477,7 +599,7 @@ INSERT INTO `m_penyebab_laka` (`id_penyebab_laka`, `penyebab_laka`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `m_posisi_korban`
+-- Struktur dari tabel `m_posisi_korban`
 --
 
 CREATE TABLE IF NOT EXISTS `m_posisi_korban` (
@@ -487,7 +609,7 @@ CREATE TABLE IF NOT EXISTS `m_posisi_korban` (
 ) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=12 ;
 
 --
--- Dumping data for table `m_posisi_korban`
+-- Dumping data untuk tabel `m_posisi_korban`
 --
 
 INSERT INTO `m_posisi_korban` (`id_posisi_korban`, `posisi_korban`) VALUES
@@ -506,7 +628,7 @@ INSERT INTO `m_posisi_korban` (`id_posisi_korban`, `posisi_korban`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `m_posisi_pejalan`
+-- Struktur dari tabel `m_posisi_pejalan`
 --
 
 CREATE TABLE IF NOT EXISTS `m_posisi_pejalan` (
@@ -516,7 +638,7 @@ CREATE TABLE IF NOT EXISTS `m_posisi_pejalan` (
 ) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=8 ;
 
 --
--- Dumping data for table `m_posisi_pejalan`
+-- Dumping data untuk tabel `m_posisi_pejalan`
 --
 
 INSERT INTO `m_posisi_pejalan` (`id_posisi_pejalan`, `posisi_pejalan`) VALUES
@@ -531,7 +653,7 @@ INSERT INTO `m_posisi_pejalan` (`id_posisi_pejalan`, `posisi_pejalan`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `m_safety_belt`
+-- Struktur dari tabel `m_safety_belt`
 --
 
 CREATE TABLE IF NOT EXISTS `m_safety_belt` (
@@ -541,7 +663,7 @@ CREATE TABLE IF NOT EXISTS `m_safety_belt` (
 ) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
 
 --
--- Dumping data for table `m_safety_belt`
+-- Dumping data untuk tabel `m_safety_belt`
 --
 
 INSERT INTO `m_safety_belt` (`id_safety_belt`, `safety_belt`) VALUES
@@ -551,7 +673,7 @@ INSERT INTO `m_safety_belt` (`id_safety_belt`, `safety_belt`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `m_tempat_luka`
+-- Struktur dari tabel `m_tempat_luka`
 --
 
 CREATE TABLE IF NOT EXISTS `m_tempat_luka` (
@@ -561,7 +683,7 @@ CREATE TABLE IF NOT EXISTS `m_tempat_luka` (
 ) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=11 ;
 
 --
--- Dumping data for table `m_tempat_luka`
+-- Dumping data untuk tabel `m_tempat_luka`
 --
 
 INSERT INTO `m_tempat_luka` (`id_tempat_luka`, `tempat_luka`) VALUES
@@ -579,7 +701,7 @@ INSERT INTO `m_tempat_luka` (`id_tempat_luka`, `tempat_luka`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `m_tingkat_luka`
+-- Struktur dari tabel `m_tingkat_luka`
 --
 
 CREATE TABLE IF NOT EXISTS `m_tingkat_luka` (
@@ -589,7 +711,7 @@ CREATE TABLE IF NOT EXISTS `m_tingkat_luka` (
 ) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=6 ;
 
 --
--- Dumping data for table `m_tingkat_luka`
+-- Dumping data untuk tabel `m_tingkat_luka`
 --
 
 INSERT INTO `m_tingkat_luka` (`id_luka`, `tingkat_luka`) VALUES
@@ -602,7 +724,142 @@ INSERT INTO `m_tingkat_luka` (`id_luka`, `tingkat_luka`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `t_bentuk_laka`
+-- Struktur dari tabel `param`
+--
+
+CREATE TABLE IF NOT EXISTS `param` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `param_name` varchar(255) NOT NULL,
+  `param_value` varchar(255) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `program`
+--
+
+CREATE TABLE IF NOT EXISTS `program` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `nama_program` varchar(255) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=10 ;
+
+--
+-- Dumping data untuk tabel `program`
+--
+
+INSERT INTO `program` (`id`, `nama_program`) VALUES
+(1, 'Reguler Anak'),
+(2, 'Reguler Dewasa'),
+(3, 'Program Percakapan Cepat'),
+(4, 'Program Percakapan Intensif'),
+(5, 'Program Persiapan TOEFL/TOEIC'),
+(6, 'Program Test Prediksi TOEFL/TOEIC'),
+(7, 'Privat Bahasa Inggris'),
+(8, 'Program Bahasa Inggris Perusahaan'),
+(9, 'Program Bahasa Inggris Sekolah');
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `siswa`
+--
+
+CREATE TABLE IF NOT EXISTS `siswa` (
+  `nis` varchar(255) NOT NULL,
+  `kode_bukutamu` varchar(255) NOT NULL,
+  `cabang` varchar(255) NOT NULL,
+  `nama` varchar(255) NOT NULL,
+  `tempat_lahir` varchar(255) NOT NULL,
+  `tanggal_lahir` date NOT NULL,
+  `agama` varchar(255) NOT NULL,
+  `pekerjaan` varchar(255) NOT NULL,
+  `alamat` varchar(255) NOT NULL,
+  `rt` varchar(3) NOT NULL,
+  `rw` varchar(3) NOT NULL,
+  `kecamatan` varchar(255) NOT NULL,
+  `kota` varchar(255) NOT NULL,
+  `telepon` varchar(255) NOT NULL,
+  `sekolah_asal` varchar(255) NOT NULL,
+  `email` varchar(255) NOT NULL,
+  `pilihan_hari` varchar(255) NOT NULL,
+  `pilihan_jam` varchar(255) NOT NULL,
+  `foto` varchar(255) NOT NULL,
+  `tanggal_buat` date NOT NULL,
+  PRIMARY KEY (`nis`),
+  UNIQUE KEY `kode_bukutamu` (`kode_bukutamu`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data untuk tabel `siswa`
+--
+
+INSERT INTO `siswa` (`nis`, `kode_bukutamu`, `cabang`, `nama`, `tempat_lahir`, `tanggal_lahir`, `agama`, `pekerjaan`, `alamat`, `rt`, `rw`, `kecamatan`, `kota`, `telepon`, `sekolah_asal`, `email`, `pilihan_hari`, `pilihan_jam`, `foto`, `tanggal_buat`) VALUES
+('B02-201403001', 'BT-B02-201402001', 'B02', 'asdsad', 'sadsa', '2014-03-19', 'Islam', '1', 'sadsad', '1', '1', '1', '1', 'sadsad', 'asdsa', 'sadsad', 'Kamis', '13:20', 'copy-of-kalistus-home1 (6).jpg', '2014-03-04');
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `sumber_informasi`
+--
+
+CREATE TABLE IF NOT EXISTS `sumber_informasi` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `sumber_informasi` varchar(255) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=9 ;
+
+--
+-- Dumping data untuk tabel `sumber_informasi`
+--
+
+INSERT INTO `sumber_informasi` (`id`, `sumber_informasi`) VALUES
+(1, 'Presentasi'),
+(2, 'Koran'),
+(3, 'Brosur'),
+(4, 'Spanduk'),
+(5, 'Televisi'),
+(6, 'Radio'),
+(7, 'Teman'),
+(8, 'Internet');
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `tagihan`
+--
+
+CREATE TABLE IF NOT EXISTS `tagihan` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `nis` varchar(255) NOT NULL,
+  `jenis_tagihan` varchar(255) NOT NULL,
+  `notes` text NOT NULL,
+  `besar_tagihan` float NOT NULL,
+  `potongan` float NOT NULL,
+  `cabang` varchar(255) NOT NULL,
+  `tanggal_buat` date NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=9 ;
+
+--
+-- Dumping data untuk tabel `tagihan`
+--
+
+INSERT INTO `tagihan` (`id`, `nis`, `jenis_tagihan`, `notes`, `besar_tagihan`, `potongan`, `cabang`, `tanggal_buat`) VALUES
+(1, 'B02-201403002', 'Biaya Pendaftaran', 'sadad', 100000, 10000, 'B02', '2014-03-05'),
+(2, 'B02-201403002', 'Placement Test', 'sadsad', 50000, 10000, 'B02', '2014-03-05'),
+(3, 'B02-201403002', 'Biaya Pendaftaran', 'sadsa', 100000, 50000, 'B02', '2014-03-05'),
+(4, 'B02-201403002', 'Biaya Pendaftaran', 'sadsad', 100000, 2000, 'B02', '2014-03-05'),
+(5, 'B02-201403002', 'Biaya Pendaftaran', '', 100000, 0, 'B02', '2014-03-05'),
+(6, 'B02-201403002', 'Biaya Pendaftaran', '', 100000, 0, 'B02', '2014-03-05'),
+(8, 'B02-201403002', 'Biaya Pendaftaran', '', 100000, 0, 'B02', '2014-03-05');
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `t_bentuk_laka`
 --
 
 CREATE TABLE IF NOT EXISTS `t_bentuk_laka` (
@@ -629,7 +886,7 @@ CREATE TABLE IF NOT EXISTS `t_bentuk_laka` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `t_bentuk_laka`
+-- Dumping data untuk tabel `t_bentuk_laka`
 --
 
 INSERT INTO `t_bentuk_laka` (`No_LP`, `Kd_Bentuk_Laka`, `Nama_Bentuk_Laka`, `Golongan_Kecelakaan`, `Keadaan_Lantas`, `Kondisi_Jalan`, `Kondisi_Permukaan_Jln`, `Situasi_Jalan`, `Perbaikan_Jalan`, `Bentuk_Simpangan`, `Arus_Lalulintas`, `Batas_Kecepatan`, `Lingkungan_Sekitar`, `Fungsi_Jalan`, `Berdasarkan_Jalur`, `Lokasi_Laka`, `Penyebab_Laka`, `Laka_Fungsi_Jalan`, `Kawasan_Laka`) VALUES
@@ -640,7 +897,7 @@ INSERT INTO `t_bentuk_laka` (`No_LP`, `Kd_Bentuk_Laka`, `Nama_Bentuk_Laka`, `Gol
 -- --------------------------------------------------------
 
 --
--- Table structure for table `t_jenis_kend`
+-- Struktur dari tabel `t_jenis_kend`
 --
 
 CREATE TABLE IF NOT EXISTS `t_jenis_kend` (
@@ -671,7 +928,7 @@ CREATE TABLE IF NOT EXISTS `t_jenis_kend` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
 
 --
--- Dumping data for table `t_jenis_kend`
+-- Dumping data untuk tabel `t_jenis_kend`
 --
 
 INSERT INTO `t_jenis_kend` (`No_LP`, `id_kend`, `Jenis_Kend`, `No_Pol`, `Tipe_Kend`, `Gerakan_Kend`, `Merk_Kend`, `Tahun_Pembuatan`, `Warna_Plat`, `Jumlah_Penumpang`, `Kecepatan`, `Kerusakan_Kend`, `Desk_Kerusakan`, `STUJ`, `Kerusakan_Lain`, `BBM`, `Silinder_CC`, `No_STNK`, `An_STNK`, `Alamat_STNK`, `No_Rangka`, `No_Mesin`, `No_BPKB`) VALUES
@@ -680,7 +937,7 @@ INSERT INTO `t_jenis_kend` (`No_LP`, `id_kend`, `Jenis_Kend`, `No_Pol`, `Tipe_Ke
 -- --------------------------------------------------------
 
 --
--- Table structure for table `t_kasat`
+-- Struktur dari tabel `t_kasat`
 --
 
 CREATE TABLE IF NOT EXISTS `t_kasat` (
@@ -698,7 +955,7 @@ CREATE TABLE IF NOT EXISTS `t_kasat` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `t_kecelakaan`
+-- Struktur dari tabel `t_kecelakaan`
 --
 
 CREATE TABLE IF NOT EXISTS `t_kecelakaan` (
@@ -730,7 +987,7 @@ CREATE TABLE IF NOT EXISTS `t_kecelakaan` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `t_kecelakaan`
+-- Dumping data untuk tabel `t_kecelakaan`
 --
 
 INSERT INTO `t_kecelakaan` (`No_LP`, `ID_Petugas`, `Waktu_Dilaporkan`, `Waktu_Kejadian`, `Waktu_Diterima`, `Alamat_Kejadian`, `Jenis_Kend`, `ID_Pengemudi`, `Keadaan_Pengemudi`, `Keadaan_Cuaca`, `Posisi`, `ID_Saksi`, `ID_Korban`, `Kerusakan_Benda`, `Kerugian_Materi`, `Ket_Singkat`, `Kesimpulan`, `BB`, `Orang_Ditahan`, `Pelapor`, `ID_Penerima_Lap`, `ID_Kesat`, `ID_Pelaku`, `Kd_Bentuk_Laka`) VALUES
@@ -742,7 +999,7 @@ INSERT INTO `t_kecelakaan` (`No_LP`, `ID_Petugas`, `Waktu_Dilaporkan`, `Waktu_Ke
 -- --------------------------------------------------------
 
 --
--- Table structure for table `t_korban`
+-- Struktur dari tabel `t_korban`
 --
 
 CREATE TABLE IF NOT EXISTS `t_korban` (
@@ -769,7 +1026,7 @@ CREATE TABLE IF NOT EXISTS `t_korban` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
 
 --
--- Dumping data for table `t_korban`
+-- Dumping data untuk tabel `t_korban`
 --
 
 INSERT INTO `t_korban` (`No_LP`, `ID_Korban`, `Nama_Korban`, `Alamat_Korban`, `T_Lahir_Korban`, `Tgl_Lahir_Korban`, `JK_Korban`, `Pendidikan_Korban`, `Pekerjaan`, `Agama`, `Tingkat_Luka`, `Tempat_Luka`, `Korban`, `Posisi_Korban`, `Pengaman`, `Helm`, `Safety_Belt`, `Posisi_Pejalan`, `Gerakan_Pejalan`) VALUES
@@ -778,7 +1035,7 @@ INSERT INTO `t_korban` (`No_LP`, `ID_Korban`, `Nama_Korban`, `Alamat_Korban`, `T
 -- --------------------------------------------------------
 
 --
--- Table structure for table `t_pelaku`
+-- Struktur dari tabel `t_pelaku`
 --
 
 CREATE TABLE IF NOT EXISTS `t_pelaku` (
@@ -792,20 +1049,23 @@ CREATE TABLE IF NOT EXISTS `t_pelaku` (
   `Pendidikan_Pelaku` varchar(30) DEFAULT NULL,
   `Pekerjaan_Pelaku` varchar(30) DEFAULT NULL,
   PRIMARY KEY (`ID_Pelaku`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=7 ;
 
 --
--- Dumping data for table `t_pelaku`
+-- Dumping data untuk tabel `t_pelaku`
 --
 
 INSERT INTO `t_pelaku` (`No_LP`, `ID_Pelaku`, `Nama_Pelaku`, `Alamat_Pelaku`, `T_Lahir_Pelaku`, `Tgl_Lahir_Pelaku`, `JK_Pelaku`, `Pendidikan_Pelaku`, `Pekerjaan_Pelaku`) VALUES
 ('LP/55/33-L/III/2013/RES.CLG', 2, 'a', 'a', 'a', '2013-06-02', 'L', 'SD', 'Karyawan/Swasta'),
-('LP/55/33-L/III/2013/RES.CLG', 3, 'Sumardi', 'Bojong Keyot', 'Subang', '2013-06-06', 'L', 'SD', 'Pengemudi');
+('LP/55/33-L/III/2013/RES.CLG', 3, 'Sumardi', 'Bojong Keyot', 'Subang', '2013-06-06', 'L', 'SD', 'Pengemudi'),
+('0', 4, '0', '0', '0', '0', '0', '0', '0'),
+('0', 5, '0', '0', '0', '0', '0', '0', '0'),
+('0', 6, '0', '0', '0', '0', '0', '0', '0');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `t_penerima_lap`
+-- Struktur dari tabel `t_penerima_lap`
 --
 
 CREATE TABLE IF NOT EXISTS `t_penerima_lap` (
@@ -823,7 +1083,7 @@ CREATE TABLE IF NOT EXISTS `t_penerima_lap` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `t_pengemudi`
+-- Struktur dari tabel `t_pengemudi`
 --
 
 CREATE TABLE IF NOT EXISTS `t_pengemudi` (
@@ -842,7 +1102,7 @@ CREATE TABLE IF NOT EXISTS `t_pengemudi` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
 
 --
--- Dumping data for table `t_pengemudi`
+-- Dumping data untuk tabel `t_pengemudi`
 --
 
 INSERT INTO `t_pengemudi` (`No_LP`, `ID_Pengemudi`, `Nama_Pengemudi`, `Alamat_Pengemudi`, `Tempat_Lahir`, `Tanggal_Lahir`, `Agama`, `JK`, `Pendidikan`, `Pekerjaan`, `Objek_Sbgai`) VALUES
@@ -851,13 +1111,13 @@ INSERT INTO `t_pengemudi` (`No_LP`, `ID_Pengemudi`, `Nama_Pengemudi`, `Alamat_Pe
 -- --------------------------------------------------------
 
 --
--- Table structure for table `t_petugas`
+-- Struktur dari tabel `t_petugas`
 --
 
 CREATE TABLE IF NOT EXISTS `t_petugas` (
   `ID_Petugas` varchar(8) NOT NULL,
   `Nama_Petugas` varchar(20) DEFAULT NULL,
-  `Pangkat` varchar(20) DEFAULT NULL,
+  `cabang` varchar(20) DEFAULT NULL,
   `Alamat` varchar(40) DEFAULT NULL,
   `Tempat_Lahir` varchar(10) DEFAULT NULL,
   `Tgl_Lahir` date DEFAULT NULL,
@@ -868,16 +1128,16 @@ CREATE TABLE IF NOT EXISTS `t_petugas` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `t_petugas`
+-- Dumping data untuk tabel `t_petugas`
 --
 
-INSERT INTO `t_petugas` (`ID_Petugas`, `Nama_Petugas`, `Pangkat`, `Alamat`, `Tempat_Lahir`, `Tgl_Lahir`, `No_Tlp`, `Jabatan`, `pwd`) VALUES
-('111', 'Wihadi', 'Briptu', 'Perum Bumi Agung', 'Serang', '1985-05-05', '1234589099', 'Baur Min', '5f4dcc3b5aa765d61d8327deb882cf99');
+INSERT INTO `t_petugas` (`ID_Petugas`, `Nama_Petugas`, `cabang`, `Alamat`, `Tempat_Lahir`, `Tgl_Lahir`, `No_Tlp`, `Jabatan`, `pwd`) VALUES
+('111', 'Wihadi', 'B02', 'Perum Bumi Agung', 'Serang', '1985-05-05', '1234589099', 'Baur Min', '5f4dcc3b5aa765d61d8327deb882cf99');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `t_saksi`
+-- Struktur dari tabel `t_saksi`
 --
 
 CREATE TABLE IF NOT EXISTS `t_saksi` (
@@ -891,7 +1151,7 @@ CREATE TABLE IF NOT EXISTS `t_saksi` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
 
 --
--- Dumping data for table `t_saksi`
+-- Dumping data untuk tabel `t_saksi`
 --
 
 INSERT INTO `t_saksi` (`No_LP`, `ID_Saksi`, `Nama_Saksi`, `Alamat_Saksi`, `Tempat_Lahir`, `Tanggal_Lahir`) VALUES
@@ -900,7 +1160,7 @@ INSERT INTO `t_saksi` (`No_LP`, `ID_Saksi`, `Nama_Saksi`, `Alamat_Saksi`, `Tempa
 -- --------------------------------------------------------
 
 --
--- Table structure for table `users`
+-- Struktur dari tabel `users`
 --
 
 CREATE TABLE IF NOT EXISTS `users` (
@@ -916,11 +1176,21 @@ CREATE TABLE IF NOT EXISTS `users` (
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci;
 
 --
--- Dumping data for table `users`
+-- Dumping data untuk tabel `users`
 --
 
 INSERT INTO `users` (`username`, `password`, `nama_lengkap`, `email`, `no_telp`, `level`, `blokir`, `id_session`) VALUES
 ('admin', '5f4dcc3b5aa765d61d8327deb882cf99', 'Administrator', 'surat@gmail.com', '-', 'admin', 'N', '');
+
+--
+-- Ketidakleluasaan untuk tabel pelimpahan (Dumped Tables)
+--
+
+--
+-- Ketidakleluasaan untuk tabel `bukutamu_followup`
+--
+ALTER TABLE `bukutamu_followup`
+  ADD CONSTRAINT `bukutamu_followup_ibfk_1` FOREIGN KEY (`kode_bukutamu`) REFERENCES `bukutamu` (`kode_bukutamu`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

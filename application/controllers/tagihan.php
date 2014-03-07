@@ -57,20 +57,18 @@ class Tagihan extends CI_Controller {
 	{
 		if($this->session->userdata('logged_in')!="")
 		{
-			$d['judul'] ="Edit Pelaku";
+			$d['judul'] ="Edit Tagihan";
 			
 			$id = $this->input->post('id');
-			$sql = $this->db->query("SELECT * FROM t_pelaku WHERE ID_Pelaku='$id'");
+			$sql = $this->db->query("SELECT * FROM tagihan WHERE id='$id'");
 			foreach ($sql->result() as  $t) {
 				//$up['No_LP']=$t->No_LP;
-				$up['ID_Pelaku']=$t->ID_Pelaku;
-				$up['Nama_Pelaku'] =$t->Nama_Pelaku;
-				$up['Alamat_Pelaku'] = $t->Alamat_Pelaku;
-				$up['T_Lahir_Pelaku'] = $t->T_Lahir_Pelaku;
-				$up['Tgl_Lahir_Pelaku'] = $this->app_model->tgl_str($t->Tgl_Lahir_Pelaku);
-				$up['JK_Pelaku'] = $t->JK_Pelaku;
-				$up['Pendidikan_Pelaku'] = $t->Pendidikan_Pelaku;
-				$up['Pekerjaan_Pelaku'] = $t->Pekerjaan_Pelaku;
+				$up['nis'] = $t->nis;
+				$up['cabang'] =$t->cabang;
+				$up['besar_tagihan'] = $t->besar_tagihan;
+				$up['jenis_tagihan'] = $t->jenis_tagihan;
+				$up['notes'] = $t->notes;
+				$up['potongan'] = $t->potongan;
 				echo json_encode($up);
 			}
 		}else{
@@ -82,28 +80,15 @@ class Tagihan extends CI_Controller {
 	{
 		if($this->session->userdata('logged_in')!="")
 		{
-			$up['No_LP'] = $this->input->post('No_LP');
-			//$up['ID_Pelaku'] = $this->session->userdata('username');;
-			$up['Nama_Pelaku'] =$this->input->post('Nama_Pelaku');
-			$up['Alamat_Pelaku'] = $this->input->post('Alamat_Pelaku');
-			$up['T_Lahir_Pelaku'] = $this->input->post('T_Lahir_Pelaku');
-			$up['Tgl_Lahir_Pelaku'] = $this->app_model->tgl_sql($this->input->post('Tgl_Lahir_Pelaku'));
-			$up['JK_Pelaku'] = $this->input->post('JK_Pelaku');
-			$up['Pendidikan_Pelaku'] = $this->input->post('Pendidikan_Pelaku');
-			$up['Pekerjaan_Pelaku'] = $this->input->post('Pekerjaan_Pelaku');
-			
-			$id['No_LP'] = $this->input->post('No_LP');
-			$id['ID_Pelaku'] = $this->input->post('ID_Pelaku');
-			
-			$hasil = $this->app_model->getSelectedData("t_pelaku",$id);
-			$row = $hasil->num_rows();
-			if($row>0){
-				$this->app_model->updateData("t_pelaku",$up,$id);
-				echo "Data sukses diubah";
-			}else{
-				$this->app_model->insertData("t_pelaku",$up);
-				echo "Data sukses disimpan";
-			}
+			$up['nis'] = $this->input->post('nis');
+			$up['cabang'] =$this->input->post('cabang');
+			$up['besar_tagihan'] = $this->input->post('besar_tagihan');
+			$up['jenis_tagihan'] = $this->input->post('jenis_tagihan');
+			$up['notes'] = $this->input->post('notes');
+			$up['potongan'] = $this->input->post('potongan');
+			$up['tanggal_buat'] = date("Y-m-d");
+			$this->app_model->insertData("tagihan",$up);
+			echo "Data sukses disimpan";
 		}
 		else
 		{
@@ -116,7 +101,7 @@ class Tagihan extends CI_Controller {
 		$cek = $this->session->userdata('logged_in');
 		if(!empty($cek)){			
 			$id = $this->input->post('id');
-			$this->app_model->manualQuery("DELETE FROM t_pelaku WHERE ID_Pelaku='$id'");
+			$this->app_model->manualQuery("DELETE FROM tagihan WHERE id='$id'");
 			echo "Data Sukese dihapus";
 		}else{
 			header('location:'.base_url());

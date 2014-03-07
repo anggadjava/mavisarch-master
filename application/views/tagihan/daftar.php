@@ -12,18 +12,18 @@ function editData_2(ID){
 	  dataType : "json",
       success : function(data){  
 		
-		$("#ID_Pelaku").val(data.ID_Pelaku);
-		$("#Nama_Pelaku").val(data.Nama_Pelaku);
-		$("#Alamat_Pelaku").val(data.Alamat_Pelaku);
-		$("#T_Lahir_Pelaku").val(data.T_Lahir_Pelaku);
-		$("#Tgl_Lahir_Pelaku").val(data.Tgl_Lahir_Pelaku);
-		$("#JK_Pelaku").val(data.JK_Pelaku);
-		$("#Pendidikan_Pelaku").val(data.Pendidikan_Pelaku);
-		$("#Pekerjaan_Pelaku").val(data.Pekerjaan_Pelaku);
-		
-		$('#input_pelaku').dialog('open');
-		return false;
-      }
+  		$("#nis").val(data.nis);
+  		$("#jenis_tagihan").val(data.jenis_tagihan);
+  		$("#besar_tagihan").val(data.besar_tagihan);
+  		$("#cabang").val(data.cabang);
+  		$("#potongan").val(data.potongan);
+  		$("#notes").val(data.notes);
+  		
+  		$('#input_tagihan').dialog('open');
+      $(".chosen-select").trigger("chosen:updated");
+  		return false;
+      },
+      error: function(ts) { alert(ts.responseText) }
     });
   
 }
@@ -34,30 +34,18 @@ function hapusData_2(ID){
   if (pilih==true) {
     $.ajax({
       type  : "POST",
-      url   : "<?php echo site_url(); ?>/pelaku/hapus",
+      url   : "<?php echo site_url(); ?>/tagihan/hapus",
       data  : "id="+id,
-      success : function(data){     
-        bentuk_laka();
+      success : function(data){   
 		$('.bottom-right').notify({
 				message: {text:'Success, Data berhasil dihapus'},type:'danger'
 		}).show();
+    location.reload();
       }
     });
   }
 }
 
-function bentuk_laka() {
-	var No_LP = $("#No_LP").val();
-	$.ajax({
-	  type  : 'POST',
-	  url   : "<?php echo site_url(); ?>/pelaku",
-	  data  : "id="+No_LP,
-	  cache : false,
-	  success : function(data){
-		$("#pelaku").html(data);
-	  }
-	});
-}
 </script>
 <table class="table table-hover table-striped ">
   <thead>
@@ -83,8 +71,7 @@ function bentuk_laka() {
       <td><?php echo $dp['cabang']; ?></td>
      <td width="100">
 	        <div class="btn-group">
-              <a class="btn btn-success" href="javascript:editData_2('<?php echo $dp['nis'] ?>')"><i class="icon-edit icon-white"></i> Edit</a>
-	          <a class="btn btn-warning" href="javascript:hapusData_2('<?php echo $dp['nis'] ?>')"><i class="icon-trash icon-white"></i> Hapus</a>
+	          <a class="btn btn-warning" href="javascript:hapusData_2('<?php echo $dp['id'] ?>')"><i class="icon-trash icon-white"></i> Hapus</a>
 	        </div><!-- /btn-group -->
 		</td>
     </tr>
