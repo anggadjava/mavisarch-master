@@ -1,6 +1,6 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class Buku_tamu extends CI_Controller {
+class Kelas extends CI_Controller {
 
 	/*
 		***	Controller : guru.php
@@ -9,13 +9,13 @@ class Buku_tamu extends CI_Controller {
 	   public function __construct()
        {
             parent::__construct();
-            $this->load->model('buku_tamu_model');
+            $this->load->model('kelas_model');
        }
 	public function index()
 	{
 		if($this->session->userdata('logged_in')!="")
 		{
-			$d['judul'] ="Buku Tamu";
+			$d['judul'] ="Kelas";
 			
 			$page=$this->uri->segment(3);
 			$limit=$this->config->item('limit_data');
@@ -27,13 +27,13 @@ class Buku_tamu extends CI_Controller {
 			
 			$d['tot'] = $offset;
 			if (empty($_GET)) {
-				$tot_hal = $this->buku_tamu_model->getAllData("bukutamu");
+				$tot_hal = $this->app_model->getAllData("kelas");
 			}
 			else{
-				$tot_hal = $this->buku_tamu_model->searchGetAllData('bukutamu',array('nama','kode_bukutamu'),$_GET['cari']);	
+				$tot_hal = $this->app_model->searchGetAllData('kelas',array('kode_kelas','guru'),$_GET['cari']);	
 			}
 			
-			$config['base_url'] = site_url() . '/buku_tamu/index/';
+			$config['base_url'] = site_url() . '/kelas/index/';
 			$config['total_rows'] = $tot_hal->num_rows();
 			$config['per_page'] = $limit;
 			$config['uri_segment'] = 3;
@@ -44,13 +44,13 @@ class Buku_tamu extends CI_Controller {
 			$this->pagination->initialize($config);
 			$d["paginator"] =$this->pagination->create_links();
 			if (empty($_GET)) {
-				$d['data'] = $this->buku_tamu_model->getAllDataLimited("bukutamu",$limit,$offset);
+				$d['data'] = $this->app_model->getAllDataLimited("kelas",$limit,$offset);
 			}
 			else{
-				$d['data'] = $this->buku_tamu_model->searchGetAllDataLimited("bukutamu",$limit,$offset,array('nama','kode_bukutamu'),$_GET['cari']);
+				$d['data'] = $this->app_model->searchGetAllDataLimited("kelas",$limit,$offset,array('nama','kode_bukutamu'),$_GET['cari']);
 			}
 			
-			$d['content']= $this->load->view('buku_tamu/list',$d,true);
+			$d['content']= $this->load->view('kelas/list',$d,true);
 			$this->load->view('home',$d);
 		}
 		else

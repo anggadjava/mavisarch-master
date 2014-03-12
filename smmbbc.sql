@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Inang: 127.0.0.1
--- Waktu pembuatan: 07 Mar 2014 pada 13.21
+-- Waktu pembuatan: 12 Mar 2014 pada 03.05
 -- Versi Server: 5.5.27
 -- Versi PHP: 5.4.7
 
@@ -178,6 +178,28 @@ CREATE TABLE IF NOT EXISTS `jenis_tagihan` (
 INSERT INTO `jenis_tagihan` (`id`, `nama_tagihan`, `deskripsi_tagihan`, `besar_tagihan`) VALUES
 (1, 'Biaya Pendaftaran', 'mencakup Biaya A B C D', 100000),
 (2, 'Placement Test', 'Jika Mengambil Placement Test Akan dikenai biaya ini', 50000);
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `kelas`
+--
+
+CREATE TABLE IF NOT EXISTS `kelas` (
+  `kode_kelas` varchar(255) NOT NULL,
+  `cabang` varchar(255) NOT NULL,
+  `level` varchar(255) NOT NULL,
+  `hari` varchar(255) NOT NULL,
+  `jam` varchar(255) NOT NULL,
+  `kode_ruang` varchar(255) NOT NULL,
+  `guru` varchar(255) NOT NULL,
+  `jumlah_pertemuan` int(11) NOT NULL,
+  `tgl_mulai` date NOT NULL,
+  `tgl_ujian` date NOT NULL,
+  `tgl_selesai` date NOT NULL,
+  `harga` float NOT NULL,
+  PRIMARY KEY (`kode_kelas`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
