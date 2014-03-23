@@ -3,8 +3,20 @@
 $(document).ready(function(){
   
   Cari_Data();
+  $('#tanggal_mulai').datepicker({
+        inline: true,
+    option: "sildeDown",
+    changeMonth : true,
+    changeYear : true,
+    });
 
-  $('#tanggal_lahir').datepicker({
+  $('#tanggal_ujian').datepicker({
+        inline: true,
+    option: "sildeDown",
+    changeMonth : true,
+    changeYear : true,
+    });
+  $('#tanggal_selesai').datepicker({
         inline: true,
     option: "sildeDown",
     changeMonth : true,
@@ -13,76 +25,81 @@ $(document).ready(function(){
    $(".chosen-select").chosen(); 
 
   function Cari_Data(){
-    var id = $("#kode").val();
-    var string = "kode_bukutamu="+id;
+    var id = $("#kode_kelas").val();
+    var string = "kode_kelas="+id;
     $.ajax({
       type  : 'POST',
-      url   : "<?php echo site_url(); ?>/buku_tamu/cari_data",
+      url   : "<?php echo site_url(); ?>/kelas/cari_data",
       data  : string,
       cache : false,
       dataType : "json",
       success : function(data){
-        $("#kode").val(data.kode_bukutamu);
-        $("#kode_cabang").val(data.cabang);
-        $("#nama").val(data.nama);
-        $("#tempat_lahir").val(data.tempat_lahir);
-        $("#tanggal_lahir").val(data.tanggal_lahir);
-        $("#alamat").val(data.alamat);
-        $("#hp").val(data.hp);
-        $("#email").val(data.email);
-        $("#keperluan").val(data.keperluan);
-        $("#pilihan_hari").val(data.pilihan_hari);
-        $("#pilihan_jam").val(data.pilihan_jam);
-        $("#sekolah_asal").val(data.sekolah_asal);
-        $("#program").val(data.program);
-        $("#sumber_informasi").val(data.sumber_informasi);
-        $("#sumber_lain").val(data.sumber_lain);
+        $("#kode_kelas").val(data.kode_kelas);
+        $("#cabang").val(data.cabang);
+        $("#level").val(data.level);
+        $("#ruang").val(data.ruang);
+        $("#pilihan_hari").val(data.hari);
+        $("#pilihan_jam").val(data.jam);
+        $("#tanggal_mulai").val(data.tanggal_mulai);
+        $("#tanggal_ujian").val(data.tanggal_ujian);
+        $("#tanggal_selesai").val(data.tanggal_selesai);
+        $("#guru").val(data.guru);
+        $("#harga").val(data.harga);
+        $("#jumlah_pertemuan").val(data.jumlah_pertemuan);
         $(".chosen-select").trigger("chosen:updated");
       },
        // error: function(ts) { alert(ts.responseText) }
     });
 
    } 
+   $("#level").change(function(e){
+    var level  = $("#level").val();
+    var string = 'level='+level;
+    
+    // alert(string);
+    $.ajax({
+      type  : 'POST',
+      url   : "<?php echo site_url(); ?>/kelas/get_kode_kelas",
+      data  : string,
+      dataType : "json",
+      cache : false,
+      success : function(data){
+        $("#kode_kelas").val(data.kode);
+      }
+    });
+    e.preventDefault();
+  });
   
   $("#simpan").click(function(e){
-    var nama  = $("#nama").val();
-    var kode_bukutamu  = $("#kode").val();
-    var cabang  = $("#kode_cabang").val();
-    var hp  = $("#hp").val();
+    var cabang  = $("#cabang").val();
+    var kode_kelas  = $("#kode_kelas").val();
     var a = $("#my-form").serialize();
-    var string = a+'&kode_bukutamu='+kode_bukutamu+'&cabang='+cabang;
+    var string = a+"&kode_kelas="+kode_kelas;
     
-    if(nama.length==0){
+    if(level.length==0){
       $('.bottom-right').notify({
-            message: {text:'Maaf, Nama Tidak boleh kosong'},type:'danger'
+            message: {text:'Maaf, Level Tidak boleh kosong'},type:'danger'
       }).show();
-      $("#nama").focus();
-      return false();
-    }
-    if(hp.length==0){
-      $('.bottom-right').notify({
-            message: {text:'Maaf, Nomor Telepon Tidak boleh kosong'},type:'danger'
-      }).show();
-      $("#nama").focus();
+      $("#level").focus();
       return false();
     }
     // alert(string);
     $.ajax({
       type  : 'POST',
-      url   : "<?php echo site_url(); ?>/buku_tamu/simpan",
+      url   : "<?php echo site_url(); ?>/kelas/simpan",
       data  : string,
       cache : false,
       success : function(data){
         $('.bottom-right').notify({
             message: {text:data},type:'danger'
         }).show();
-         window.location.assign("<?php echo site_url();?>/buku_tamu")
+         window.location.assign("<?php echo site_url();?>/kelas")
       }
     });
     e.preventDefault();
   });
     $("#tutup").click(function(){
-      window.location.assign("<?php echo site_url();?>/buku_tamu")
+      window.location.assign("<?php echo site_url();?>/kelas")
   });
   
 });
@@ -107,58 +124,42 @@ $(document).ready(function(){
 <tr>
 <td width="50%" valign="top">
   <div class="control-group">
-    <label class="control-label" for="nomor">Kode Buku Tamu</label>
+    <label class="control-label" for="kode_kelas">Kode Kelas</label>
     <div class="controls">
-      <input type="text" class="span3 input form-control" name="kode" id="kode" disabled value="<?php echo $kode_bukutamu; ?>" >
+      <input type="text" class="span3 input form-control" name="kode_kelas" id="kode_kelas" disabled value="<?php echo $kode_kelas; ?>" >
+      <input type="hidden" class="span3 input form-control" value="<?php echo $this->session->all_userdata()['cabang'] ?>" name="cabang" id="cabang" >
     </div>
   </div>
   <div class="control-group">
-    <label class="control-label" for="cabang">Cabang</label>
+    <label class="control-label" for="level">Level</label>
     <div class="controls">
-      <input type="text" class="span3 input form-control" value="<?php echo $this->session->all_userdata()['cabang'] ?>" name="kode_cabang" id="kode_cabang" disabled >
+       <select name="level" id="level" class="span2 input chosen-select">
+      <option value="">-Pilih-</option>
+      <?php 
+    $data = $this->ref_model->list_level();
+    foreach($data->result() as $t){
+     ?>
+         <option value="<?php echo $t->id_level;?>"><?php echo $t->nama_level;?></option>
+        <?php } ?>
+        </select>
     </div>
   </div>
   <div class="control-group">
-    <label class="control-label" for="nama">Nama</label>
+    <label class="control-label" for="ruang">Ruang</label>
     <div class="controls">
-      <input type="text" class="span3 input" name="nama" id="nama" >
-    </div>
-  </div>  
-  <div class="control-group">
-    <label class="control-label" for="tgl">Tempat,Tanggal Lahir</label>
-    <div class="controls">
-      <input type="text" class="span2" name="tempat_lahir" id="tempat_lahir" >&nbsp; , &nbsp;
-      <input type="text" class="span2" name="tanggal_lahir" id="tanggal_lahir" >
-    </div>  
-  </div>  
-  <div class="control-group">
-    <label class="control-label" for="alamat">Alamat</label>
-    <div class="controls">
-      <input type="text" class="span3 input" name="alamat" id="alamat">
+       <select name="ruang" id="ruang" class="span2 input chosen-select">
+      <option value="">-Pilih-</option>
+      <?php 
+    $data = $this->ref_model->list_ruang($this->session->all_userdata()['cabang']);
+    foreach($data->result() as $t){
+     ?>
+         <option value="<?php echo $t->id_ruang;?>"><?php echo $t->nama_ruang;?></option>
+        <?php } ?>
+        </select>
     </div>
   </div>
   <div class="control-group">
-    <label class="control-label" for="nama">HP</label>
-    <div class="controls">
-      <input type="text" class="span3 input" name="hp" id="hp" >
-    </div>
-  </div>
-  <div class="control-group">
-    <label class="control-label" for="email">Email</label>
-    <div class="controls">
-      <input type="text" class="span3 input" name="email" id="email">
-    </div>
-  </div>
-  <div class="control-group">
-    <label class="control-label" for="keperluan">Keperluan</label>
-    <div class="controls">
-      <textarea class="span3 input" name="keperluan" id="keperluan" rows="5"></textarea>
-    </div>
-  </div>
-</td>
-<td width="50%" valign="top">
-  <div class="control-group">
-    <label class="control-label" for="tgl">Pilihan Hari dan Jam</label>
+    <label class="control-label" for="tgl">Jadwal</label>
     <div class="controls">
       <select name="pilihan_hari" id="pilihan_hari" class="span2 input">
       <option value="">-Pilih-</option>
@@ -181,46 +182,54 @@ $(document).ready(function(){
       });
       </script>
     </div>  
+   </div> 
+   <div class="control-group">
+    <label class="control-label" for="tanggal_mulai">Tanggal Mulai</label>
+    <div class="controls">
+      <input type="text" class="span2" name="tanggal_mulai" id="tanggal_mulai" >
+    </div>
   </div>  
   <div class="control-group">
-    <label class="control-label" for="sekolah_asal">Sekolah Asal</label>
+    <label class="control-label" for="tanggal_ujian">Tanggal Ujian</label>
     <div class="controls">
-      <input type="text" class="span3 input" name="sekolah_asal" id="sekolah_asal">
+      <input type="text" class="span2" name="tanggal_ujian" id="tanggal_ujian" >
     </div>
-  </div>
+  </div>  
   <div class="control-group">
-    <label class="control-label" for="program_pilihan">Program Pilihan</label>
+    <label class="control-label" for="tanggal_selesai">Tanggal Selesai</label>
     <div class="controls">
-      <select name="program" id="program" class="span3 input chosen-select" multiple>
+      <input type="text" class="span2" name="tanggal_selesai" id="tanggal_selesai" >
+    </div>
+  </div>  
+  <div class="control-group">
+    <label class="control-label" for="guru">Guru</label>
+    <div class="controls">
+       <select name="guru" id="guru" class="span2 input chosen-select">
       <option value="">-Pilih-</option>
       <?php 
-    $data = $this->ref_model->list_program();
+    $data = $this->ref_model->list_guru($this->session->all_userdata()['cabang']);
     foreach($data->result() as $t){
      ?>
-         <option value="<?php echo $t->nama_program;?>"><?php echo $t->nama_program;?></option>
+         <option value="<?php echo $t->NIK;?>"><?php echo $t->nama;?></option>
         <?php } ?>
         </select>
     </div>
   </div>
   <div class="control-group">
-    <label class="control-label" for="sumber_informasi">Sumber Informasi</label>
+    <label class="control-label" for="harga">Harga Kelas</label>
     <div class="controls">
-      <select name="sumber_informasi" id="sumber_informasi" class="span2 input chosen-select" multiple>
-      <option value="">-Pilih-</option>
-      <?php 
-    $data = $this->ref_model->list_sumber_informasi();
-    foreach($data->result() as $t){
-     ?>
-         <option value="<?php echo $t->sumber_informasi;?>"><?php echo $t->sumber_informasi;?></option>
-        <?php } ?>
-        </select>
+      <input type="text" class="span2 input" name="harga" id="harga" >
     </div>
-
   </div>
+  <script>
+  $(function() {
+    var spinner = $( "#jumlah_pertemuan" ).spinner();
+  });
+  </script>  
   <div class="control-group">
-    <label class="control-label" for="sumber_lain">Sumber Informasi Lain</label>
+    <label class="control-label" for="pertemuan">Jumlah Pertemuan</label>
     <div class="controls">
-      <input type="text" class="span3 input" name="sumber_lain" id="sumber_lain">
+      <input class="span2 input" name="jumlah_pertemuan" id="jumlah_pertemuan" >
     </div>
   </div>
 </td>

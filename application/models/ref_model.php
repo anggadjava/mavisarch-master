@@ -16,6 +16,12 @@ class Ref_model extends CI_Model {
 	public function list_level(){
 		return $this->db->get("level");
 	}
+	public function list_ruang($cabang){
+		return $this->db->get_where("ruang",array('cabang'=>$cabang));
+	}
+	public function list_guru($cabang){
+		return $this->db->get_where("guru",array('cabang'=>$cabang));
+	}
 }
 	
 /* End of file app_model.php */

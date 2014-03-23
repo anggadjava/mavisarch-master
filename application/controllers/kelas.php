@@ -44,10 +44,10 @@ class Kelas extends CI_Controller {
 			$this->pagination->initialize($config);
 			$d["paginator"] =$this->pagination->create_links();
 			if (empty($_GET)) {
-				$d['data'] = $this->app_model->getAllDataLimited("kelas",$limit,$offset);
+				$d['data'] = $this->kelas_model->getAllDataLimited("kelas",$limit,$offset);
 			}
 			else{
-				$d['data'] = $this->app_model->searchGetAllDataLimited("kelas",$limit,$offset,array('nama','kode_bukutamu'),$_GET['cari']);
+				$d['data'] = $this->kelas_model->searchGetAllDataLimited("kelas",$limit,$offset,array('nama','kode_bukutamu'),$_GET['cari']);
 			}
 			
 			$d['content']= $this->load->view('kelas/list',$d,true);
@@ -63,23 +63,11 @@ class Kelas extends CI_Controller {
 	{
 		if($this->session->userdata('logged_in')!="")
 		{
-			$kodetamu = $this->get_kode_tamu();
-			$d['judul'] ="Input Buku Tamu";
-			$d['kode_bukutamu'] = $kodetamu;
-			$d['cabang'] = '';
-			$d['nama'] = '';
-			$d['tempat_lahir'] = '';
-			$d['tanggal_lahir'] = '';
-			$d['hp'] = '';
-			$d['alamat'] = '';
-			$d['email'] = '';
-			$d['telepon'] = '';
-			$d['keperluan'] = '';
-			$d['pilihan_hari'] = '';
-			$d['pilihan_jam'] = '';
+			$d['judul'] ="Input Kelas";
+			$d['kode_kelas']= '';
 			
 			$d['readonly'] = '';
-			$d['content']= $this->load->view('buku_tamu/form',$d,true);
+			$d['content']= $this->load->view('kelas/form',$d,true);
 			$this->load->view('home',$d);
 		}
 		else
@@ -92,13 +80,13 @@ class Kelas extends CI_Controller {
 	{
 		if($this->session->userdata('logged_in')!="")
 		{
-			$d['judul'] ="Edit Buku Tamu";
+			$d['judul'] ="Edit Kelas";
 			$id = $this->uri->segment(3);
-			$d['kode_bukutamu']= $id;
+			$d['kode_kelas']= $id;
 			
 			$d['readonly'] = 'readonly';
 
-			$d['content']= $this->load->view('buku_tamu/form',$d,true);
+			$d['content']= $this->load->view('kelas/form',$d,true);
 			$this->load->view('home',$d);
 		}
 		else
@@ -109,28 +97,25 @@ class Kelas extends CI_Controller {
 	public function cari_data(){
 		if($this->session->userdata('logged_in')!="")
 		{
-			$id = $this->input->post('kode');
-			$text = "SELECT * FROM bukutamu WHERE kode_bukutamu='$id'";
+			$id = $this->input->post('kode_kelas');
+			$text = "SELECT * FROM kelas WHERE kode_kelas='$id'";
 			$d = $this->app_model->manualQuery($text);
 			$row = $d->num_rows();
 			if($row>0){
-				$sql = $this->db->query("SELECT * FROM bukutamu WHERE kode_bukutamu='$id'");
+				$sql = $this->db->query("SELECT * FROM kelas WHERE kode_kelas='$id'");
 				foreach ($sql->result() as  $t) {
-					$up['kode_bukutamu']=$t->kode_bukutamu;
+					$up['kode_kelas']=$t->kode_kelas;
 					$up['cabang'] =$t->cabang;
-					$up['nama'] =$t->nama;
-					$up['tempat_lahir'] = $t->tempat_lahir;
-					$up['tanggal_lahir'] = $this->app_model->tgl_str($t->tanggal_lahir);
-					$up['alamat'] = $t->alamat;
-					$up['hp'] = $t->hp;
-					$up['email'] = $t->email;
-					$up['keperluan'] = $t->keperluan;
-					$up['pilihan_jam'] = $t->pilihan_jam;
-					$up['pilihan_hari'] = $t->pilihan_hari;
-					$up['sekolah_asal'] = $t->sekolah_asal;
-					$up['program'] = $t->program;
-					$up['sumber_informasi'] = $t->sumber_informasi;
-					$up['sumber_lain'] = $t->sumber_lain;
+					$up['level'] =$t->level;
+					$up['ruang'] =$t->ruang;
+					$up['hari'] = $t->hari;
+					$up['jam'] = $t->jam;
+					$up['tanggal_mulai'] = $this->app_model->tgl_str($t->tgl_mulai);
+					$up['tanggal_ujian'] = $this->app_model->tgl_str($t->tgl_ujian);
+					$up['tanggal_selesai'] = $this->app_model->tgl_str($t->tgl_selesai);
+					$up['guru'] = $t->guru;
+					$up['harga'] = $t->harga;
+					$up['jumlah_pertemuan'] = $t->jumlah_pertemuan;
 					echo json_encode($up);
 				}
 			}
@@ -141,9 +126,10 @@ class Kelas extends CI_Controller {
 		}				
 			
 	}
-	public function get_kode_tamu(){
+	public function get_kode_kelas(){
 		$cabang = $this->session->all_userdata()['cabang'];
-		$last_kode = $this->buku_tamu_model->get_last_kode($cabang);
+		$level = $this->input->post('level');
+		$last_kode = $this->kelas_model->get_last_kode($cabang,$level);
 		if ($last_kode!='') {
 			$last_kode = (int)$last_kode;
 		}else{
@@ -151,40 +137,37 @@ class Kelas extends CI_Controller {
 		}
 		$new_kode=$last_kode+1;
 		$new_kode = str_pad($new_kode, 3, '0', STR_PAD_LEFT);
-		$kode_bukutamu = 'BT-'.$cabang.'-'.date("Y").date("m").$new_kode;
-		return $kode_bukutamu;
+		$kode_kelas['kode'] = $cabang.'-'.$level.'-'.date("Y").date("m").$new_kode;
+		echo json_encode($kode_kelas);
 	}
 
 	public function simpan()
 	{
 		if($this->session->userdata('logged_in')!="")
 		{
-			$up['kode_bukutamu'] = $this->input->post('kode_bukutamu');
+			$up['kode_kelas'] = $this->input->post('kode_kelas');
 			$up['cabang'] = $this->input->post('cabang');
-			$up['nama'] = $this->input->post('nama');
-			$up['tempat_lahir'] = $this->input->post('tempat_lahir');
-			$up['tanggal_lahir'] = $this->app_model->tgl_sql($this->input->post('tanggal_lahir'));
-			$up['alamat'] = $this->input->post('alamat');
-			$up['email'] = $this->input->post('email');
-			$up['hp'] = $this->input->post('hp');
-			$up['keperluan'] = $this->input->post('keperluan');
-			$up['pilihan_hari'] = $this->input->post('pilihan_hari');
-			$up['pilihan_jam'] = $this->input->post('pilihan_jam');
-			$up['sekolah_asal'] = $this->input->post('sekolah_asal');
-			$up['program'] = $this->input->post('program');
-			$up['sumber_informasi'] = $this->input->post('sumber_informasi');
-			$up['sumber_lain'] = $this->input->post('sumber_lain');
+			$up['level'] = $this->input->post('level');
+			$up['hari'] = $this->input->post('pilihan_hari');
+			$up['jam'] = $this->input->post('pilihan_jam');
+			$up['ruang'] = $this->input->post('ruang');
+			$up['guru'] = $this->input->post('guru');
+			$up['jumlah_pertemuan'] = $this->input->post('jumlah_pertemuan');
+			$up['tgl_mulai'] = $this->app_model->tgl_sql($this->input->post('tanggal_mulai'));
+			$up['tgl_ujian'] = $this->app_model->tgl_sql($this->input->post('tanggal_ujian'));
+			$up['tgl_selesai'] = $this->app_model->tgl_sql($this->input->post('tanggal_selesai'));
+			$up['harga'] = $this->input->post('harga');
 
 			
-			$id['kode_bukutamu'] = $this->input->post('kode_bukutamu');
+			$id['kode_kelas'] = $this->input->post('kode_kelas');
 			
-			$hasil = $this->app_model->getSelectedData("bukutamu",$id);
+			$hasil = $this->app_model->getSelectedData("kelas",$id);
 			$row = $hasil->num_rows();
 			if($row>0){
-				$this->app_model->updateData("bukutamu",$up,$id);
+				$this->app_model->updateData("kelas",$up,$id);
 				echo "Data sukses diubah";
 			}else{
-				$this->app_model->insertData("bukutamu",$up);
+				$this->app_model->insertData("kelas",$up);
 				echo "Data sukses disimpan";
 			}
 		}
@@ -198,20 +181,22 @@ class Kelas extends CI_Controller {
 	{
 		$cek = $this->session->userdata('logged_in');
 		if(!empty($cek)){			
-			$id = $this->input->post('kode_bukutamu');
-			$this->app_model->manualQuery("DELETE FROM bukutamu WHERE kode_bukutamu='$id'");
+			$id = $this->input->post('kode_kelas');
+			$this->app_model->manualQuery("DELETE FROM kelas WHERE kode_kelas='$id'");
 			echo "Data Sukese dihapus";
 		}else{
 			header('location:'.base_url());
 		}
 	}
-	public function followup(){
+
+	public function detail()
+	{
 		if($this->session->userdata('logged_in')!="")
 		{
-			$d['judul'] ="Follow Up";
-			$d['kode_bukutamu'] = $this->uri->segment(3);
+			$d['judul'] ="Detail Kelas";
+			
 			$page=$this->uri->segment(4);
-			$limit=20;
+			$limit=$this->config->item('limit_data');
 			if(!$page):
 			$offset = 0;
 			else:
@@ -220,10 +205,10 @@ class Kelas extends CI_Controller {
 			
 			$d['tot'] = $offset;
 			if (empty($_GET)) {
-				$tot_hal = $this->buku_tamu_model->followup_getAllData("bukutamu_followup",$d['kode_bukutamu']);
+				$tot_hal = $this->app_model->getAllData("kelas_siswa");
 			}
 			
-			$config['base_url'] = site_url() . '/buku_tamu/followup/';
+			$config['base_url'] = site_url() . '/kelas/detail/';
 			$config['total_rows'] = $tot_hal->num_rows();
 			$config['per_page'] = $limit;
 			$config['uri_segment'] = 3;
@@ -234,301 +219,11 @@ class Kelas extends CI_Controller {
 			$this->pagination->initialize($config);
 			$d["paginator"] =$this->pagination->create_links();
 			if (empty($_GET)) {
-				$d['data'] = $this->buku_tamu_model->followup_getAllDataLimited("bukutamu_followup",$d['kode_bukutamu'],$limit,$offset);
+				$d['data'] = $this->kelas_model->getKelasSiswaLimited("kelas_siswa",$limit,$offset);
 			}
 			
-			$d['content']= $this->load->view('buku_tamu/followup',$d,true);
+			$d['content']= $this->load->view('kelas/list_siswa',$d,true);
 			$this->load->view('home',$d);
-		}
-		else
-		{
-			header('location:'.base_url().'index.php/login');
-		}
-	}
-	public function followup_tambah()
-	{
-		if($this->session->userdata('logged_in')!="")
-		{
-			$d['judul'] = 'Tambah Follow Up';
-			$d['kode_bukutamu'] = $this->uri->segment(3);
-			$d['tanggal'] = '';
-			$d['via'] = '';
-			$d['hasil'] = '';
-			
-			$d['readonly'] = '';
-			$d['content']= $this->load->view('buku_tamu/followup_form',$d,true);
-			$this->load->view('home',$d);
-		}
-		else
-		{
-			header('location:'.base_url().'index.php/login');
-		}
-	}
-	public function followup_simpan()
-	{
-		if($this->session->userdata('logged_in')!="")
-		{
-			$up['kode_bukutamu'] = $this->input->post('kode_bukutamu');
-			$up['tanggal'] = $this->app_model->tgl_sql($this->input->post('tanggal'));
-			$up['via'] = $this->input->post('via');
-			$up['hasil'] = $this->input->post('hasil');
-
-			
-			$id['id'] = $this->input->post('id');
-			
-			$hasil = $this->app_model->getSelectedData("bukutamu_followup",$id);
-			$row = $hasil->num_rows();
-			if($row>0){
-				$this->app_model->updateData("bukutamu_followup",$up,$id);
-				echo "Data sukses diubah";
-			}else{
-				$this->app_model->insertData("bukutamu_followup",$up);
-				echo "Data sukses disimpan";
-			}
-		}
-		else
-		{
-			header('location:'.base_url().'index.php/login');
-		}
-	}
-	public function followup_edit()
-	{
-		if($this->session->userdata('logged_in')!="")
-		{
-			$d['judul'] ="Edit Follow Up";
-			$id = $this->uri->segment(3);
-			$d['id']= $id;
-			
-			$d['readonly'] = 'readonly';
-
-			$d['content']= $this->load->view('buku_tamu/followup_form',$d,true);
-			$this->load->view('home',$d);
-		}
-		else
-		{
-			header('location:'.base_url().'index.php/login');
-		}
-	}
-	public function followup_cari_data(){
-		if($this->session->userdata('logged_in')!="")
-		{
-			$id = $this->input->post('id');
-			$text = "SELECT * FROM bukutamu_followup WHERE id='$id'";
-			$d = $this->app_model->manualQuery($text);
-			$row = $d->num_rows();
-			if($row>0){
-				$sql = $this->db->query("SELECT * FROM bukutamu_followup WHERE id='$id'");
-				foreach ($sql->result() as  $t) {
-					$up['id'] = $t->id;
-					$up['kode_bukutamu'] = $t->kode_bukutamu;
-					$up['tanggal'] = $this->app_model->tgl_str($t->tanggal);
-					$up['via'] = $t->via;
-					$up['hasil'] = $t->hasil;
-					echo json_encode($up);
-				}
-			}else{
-				$data['kode_bukutamu'] = '';
-				echo json_encode($data);
-			}
-		}
-		else
-		{
-			header('location:'.base_url().'index.php/login');
-		}				
-			
-	}
-	public function placement_test()
-	{
-		if($this->session->userdata('logged_in')!="")
-		{
-			$d['pic_data']=$this->app_model->getAllData('guru');
-			$kodetamu = $this->uri->segment(3);
-			$d['judul'] ="Placement Test";
-			$d['kode_bukutamu'] = $kodetamu;
-			$d['pt_tanggal'] = '';
-			$d['pt_pic'] = '';
-			$d['pt_structure_scr'] = '';
-			$d['pt_written_scr'] = '';
-			$d['pt_expression_scr'] = '';
-			$d['pt_rata'] = '';
-			$d['pt_rec_level'] = '';
-			
-			$d['readonly'] = '';
-			$d['content']= $this->load->view('buku_tamu/placement_test',$d,true);
-			$this->load->view('home',$d);
-		}
-		else
-		{
-			header('location:'.base_url().'index.php/login');
-		}
-	}
-	public function pt_cari_data(){
-		if($this->session->userdata('logged_in')!="")
-		{
-			$id = $this->input->post('kode_bukutamu');
-			$text = "SELECT * FROM bukutamu WHERE kode_bukutamu='$id'";
-			$d = $this->app_model->manualQuery($text);
-			$row = $d->num_rows();
-			if($row>0){
-				$sql = $this->db->query("SELECT * FROM bukutamu WHERE kode_bukutamu='$id'");
-				foreach ($sql->result() as  $t) {
-					$up['kode_bukutamu'] = $t->kode_bukutamu;
-					$up['pt_tanggal'] = $this->app_model->tgl_str($t->pt_tanggal);
-					$up['pt_pic'] = $t->pt_pic;
-					$up['pt_structure_scr'] = $t->pt_structure_scr;
-					$up['pt_written_scr'] = $t->pt_written_scr;
-					$up['pt_expression_scr'] = $t->pt_expression_scr;
-					$up['pt_rata'] = $t->pt_rata;
-					$up['pt_rec_level'] = $t->pt_rec_level;
-					echo json_encode($up);
-				}
-			}else{
-				$data['kode_bukutamu'] = $id;
-				echo json_encode($data);
-			}
-		}
-		else
-		{
-			header('location:'.base_url().'index.php/login');
-		}				
-			
-	}
-	public function pt_simpan()
-	{
-		if($this->session->userdata('logged_in')!="")
-		{
-			$up['kode_bukutamu'] = $this->input->post('kode_bukutamu');
-			$up['pt_tanggal'] = $this->app_model->tgl_sql($this->input->post('pt_tanggal'));
-			$up['pt_pic'] = $this->input->post('pt_pic');
-			$up['pt_structure_scr'] = $this->input->post('pt_structure_scr');
-			$up['pt_written_scr'] = $this->input->post('pt_written_scr');
-			$up['pt_expression_scr'] = $this->input->post('pt_expression_scr');
-			$up['pt_rata'] = $this->input->post('pt_rata');
-			$up['pt_rec_level'] = $this->input->post('pt_rec_level');
-
-			
-			$id['kode_bukutamu'] = $this->input->post('kode_bukutamu');
-			
-			$hasil = $this->app_model->getSelectedData("bukutamu",$id);
-			$row = $hasil->num_rows();
-			if($row>0){
-				$this->app_model->updateData("bukutamu",$up,$id);
-				echo "Data sukses diubah";
-			}else{
-				echo "Data Tidak Dapat Disimpan";
-			}
-		}
-		else
-		{
-			header('location:'.base_url().'index.php/login');
-		}
-	}
-	public function pendaftaran()
-	{
-		if($this->session->userdata('logged_in')!="")
-		{
-			$nis = $this->get_nis();
-			$d['judul'] ="Pendaftaran Siswa Baru";
-			$kodetamu = $this->uri->segment(3);
-			$d['kode_bukutamu'] = $kodetamu;
-			$d['nis'] = $nis;
-			$d['cabang'] = '';
-			$d['nama'] = '';
-			$d['tempat_lahir'] = '';
-			$d['tanggal_lahir'] = '';
-			$d['hp'] = '';
-			$d['alamat'] = '';
-			$d['email'] = '';
-			$d['telepon'] = '';
-			$d['keperluan'] = '';
-			$d['pilihan_hari'] = '';
-			$d['pilihan_jam'] = '';
-			
-			$d['readonly'] = '';
-			$d['content']= $this->load->view('buku_tamu/pendaftaran_form',$d,true);
-			$this->load->view('home',$d);
-		}
-		else
-		{
-			header('location:'.base_url().'index.php/login');
-		}	
-	}
-	public function get_nis(){
-		$cabang = $this->session->all_userdata()['cabang'];
-		$last_kode = $this->buku_tamu_model->get_nis($cabang);
-		if ($last_kode!='') {
-			$last_kode = (int)$last_kode;
-		}else{
-			$last_kode=0;
-		}
-		$new_kode=$last_kode+1;
-		$new_kode = str_pad($new_kode, 3, '0', STR_PAD_LEFT);
-		$kode_bukutamu = $cabang.'-'.date("Y").date("m").$new_kode;
-		return $kode_bukutamu;
-	}
-	public function pendaftaran_cari_data(){
-		if($this->session->userdata('logged_in')!="")
-		{
-			$id = $this->input->post('kode_bukutamu');
-			$text = "SELECT * FROM bukutamu WHERE kode_bukutamu='$id'";
-			$d = $this->app_model->manualQuery($text);
-			$row = $d->num_rows();
-			if($row>0){
-				$sql = $this->db->query("SELECT * FROM bukutamu WHERE kode_bukutamu='$id'");
-				foreach ($sql->result() as  $t) {
-					$up['kode_bukutamu']=$t->kode_bukutamu;
-					$up['cabang'] =$t->cabang;
-					$up['nama'] =$t->nama;
-					$up['tempat_lahir'] = $t->tempat_lahir;
-					$up['tanggal_lahir'] = $this->app_model->tgl_str($t->tanggal_lahir);
-					$up['alamat'] = $t->alamat;
-					$up['hp'] = $t->hp;
-					$up['email'] = $t->email;
-					$up['pilihan_jam'] = $t->pilihan_jam;
-					$up['pilihan_hari'] = $t->pilihan_hari;
-					$up['sekolah_asal'] = $t->sekolah_asal;
-					echo json_encode($up);
-				}
-			}
-		}
-		else
-		{
-			header('location:'.base_url().'index.php/login');
-		}				
-			
-	}
-	public function uploadFoto(){
-		$this->load->helper('blueimp');
-		$upload_handler = new Blueimp();
-	}
-	public function pendaftaran_simpan()
-	{
-		if($this->session->userdata('logged_in')!="")
-		{
-			$up['nama']=$this->input->post('nama');
-			$up['tempat_lahir']=$this->input->post('tempat_lahir');
-			$up['tanggal_lahir']=$this->app_model->tgl_sql($this->input->post('tanggal_lahir'));;
-			$up['alamat']=$this->input->post('alamat');
-			$up['agama']=$this->input->post('agama');
-			$up['rt']=$this->input->post('rt');
-			$up['rw']=$this->input->post('rw');
-			$up['kecamatan']=$this->input->post('kecamatan');
-			$up['kota']=$this->input->post('kota');
-			$up['telepon']=$this->input->post('telepon');
-			$up['email']=$this->input->post('email');
-			$up['pekerjaan']=$this->input->post('pekerjaan');
-			$up['sekolah_asal']=$this->input->post('sekolah_asal');
-			$up['pilihan_hari']=$this->input->post('pilihan_hari');
-			$up['pilihan_jam']=$this->input->post('pilihan_jam');
-			$up['foto']=$this->input->post('foto');
-			$up['kode_bukutamu']=$this->input->post('kode_bukutamu');
-			$up['cabang']=$this->input->post('cabang');
-			$up['nis']=$this->input->post('nis');
-			$up['tanggal_buat']=date("Y-m-d");
-			$this->app_model->insertData("siswa",$up);
-			$update['sudah_daftar']='1';
-			$this->db->update('bukutamu', $update); 
-			echo "Data sukses disimpan";
 		}
 		else
 		{

@@ -1,20 +1,20 @@
 <script type="text/javascript">
 function hapusData(ID){
   var id  = ID;
-  var pilih = confirm('Yakin akan menghapus Buku Tamu ini  = '+id+ '?');
+  var pilih = confirm('Yakin akan menghapus data ini  = '+id+ '?');
   if (pilih==true) {
     $.ajax({
       type  : "POST",
-      url   : "<?php echo site_url(); ?>/buku_tamu/hapus",
-      data  : "kode_bukutamu="+id,
+      url   : "<?php echo site_url(); ?>/kelas/hapus",
+      data  : "kode_kelas="+id,
       success : function(data){     
-        window.location.assign("<?php echo site_url();?>/buku_tamu")
+        window.location.assign("<?php echo site_url();?>/kelas")
       }
     });
   }
 }
 $('#btn_cari').click(function () {
-      window.location.assign("<?php echo site_url();?>/buku_tamu/index/cari/"+$("#cari").val());
+      window.location.assign("<?php echo site_url();?>/kelas/index/cari/"+$("#cari").val());
     return false;
   });
 
@@ -25,7 +25,7 @@ $('#btn_cari').click(function () {
 		  <a class="brand" href="#"><?php echo $judul;?></a>
 		  <div class="nav-collapse">
 			<ul class="nav">
-            <li><a href="<?php echo base_url(); ?>index.php/bkelas/tambah"><i class="icon-plus-sign icon-white"></i> Tambah Data</a></li>
+            <li><a href="<?php echo base_url(); ?>index.php/kelas/tambah"><i class="icon-plus-sign icon-white"></i> Tambah Data</a></li>
               <li><a href="<?php echo base_url();?>index.php/kelas"><i class="icon-refresh icon-white"></i> Refresh</a></li>
 			</ul>
 		  </div>
@@ -47,7 +47,6 @@ $('#btn_cari').click(function () {
         <th>No</th>
         <th>Kode</th>
         <th>Level</th>
-        <th>Jadwal</th>
         <th>Ruang</th>
         <th>Guru</th>
         <th>Aksi</th>
@@ -58,20 +57,16 @@ $('#btn_cari').click(function () {
 		$no=$tot+1;
 		foreach($data->result_array() as $dp){
 	?>
-      <?php if  ($dp['sudah_daftar'] !=''){ echo '<tr style="background-color:#74f3ff;">';}else{echo '<tr>';}?>
-      
         <td width="50"><center><?php echo $no; ?></center></td>
         <td><center><?php echo $dp['kode_kelas']; ?></center></td>
         <td><center><?php echo $dp['level']; ?></center></td>
-        <td><center><?php echo $dp['jadwal']; ?></center></td>
-        <td><center><?php echo $dp['ruang']; ?></center></td>
-        <td><center><?php echo $dp['guru']; ?></center></td>
+        <td><center><?php echo $dp['nama_ruang']; ?></center></td>
+        <td><center><?php echo $dp['nama_guru']; ?></center></td>
         <td width="100">
 	        <div class="btn-group">
-            <?php if  ($dp['sudah_daftar'] ==''){ echo '<a class="btn btn-success" href="'.base_url().'index.php/buku_tamu/pendaftaran/'.$dp['kode_bukutamu'].'"><i class="icon-external-link icon-white"></i> Daftar</a>';}?>
-            <a class="btn btn-success" href="<?php echo base_url(); ?>index.php/buku_tamu/followup/<?php echo $dp['kode_bukutamu']; ?>"><i class="icon-suitcase icon-white"></i> Detail</a>
-            <a class="btn btn-success" href="<?php echo base_url(); ?>index.php/buku_tamu/edit/<?php echo $dp['kode_bukutamu']; ?>"><i class="icon-edit icon-white"></i> Edit</a>
-	          <a class="btn btn-warning" href="javascript:hapusData('<?php echo $dp['kode_bukutamu'] ?>')"><i class="icon-trash icon-white"></i> Hapus</a>
+            <a class="btn btn-success" href="<?php echo base_url(); ?>index.php/kelas/detail/<?php echo $dp['kode_kelas']; ?>"><i class="icon-suitcase icon-white"></i> Detail</a>
+            <a class="btn btn-success" href="<?php echo base_url(); ?>index.php/kelas/edit/<?php echo $dp['kode_kelas']; ?>"><i class="icon-edit icon-white"></i> Edit</a>
+	          <a class="btn btn-warning" href="javascript:hapusData('<?php echo $dp['kode_kelas'] ?>')"><i class="icon-trash icon-white"></i> Hapus</a>
 	        </div><!-- /btn-group -->
 		</td>
       </tr>
