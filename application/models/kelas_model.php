@@ -50,11 +50,12 @@ class Kelas_model extends CI_Model {
 		}
 		return $this->db->get($table, $limit, $offset);
 	}
-	public function getKelasSiswaLimited($table,$limit,$offset)
+	public function getKelasSiswaLimited($kelas,$table,$limit,$offset)
 	{
 		$this->db->select('nilai.*,siswa.nis as nomor_induk,siswa.*,kelas.*');
 		$this->db->join('siswa', 'nilai.nis = siswa.nis','left');
 		$this->db->join('kelas', 'nilai.kode_kelas = kelas.kode_kelas ','left');
+		$this->db->where('nilai.kode_kelas =', $kelas); 
 		return $this->db->get($table, $limit, $offset);
 	}
 	public function getListSiswaKelas($cabang)

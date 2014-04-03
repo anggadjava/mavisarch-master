@@ -8,11 +8,6 @@ class Siswa_Model extends CI_Model {
 	 * @keterangan : Model untuk menangani semua query database aplikasi
 	 **/
 	
-	public function getAllData($cabang)
-	{
-		$this->db->where('cabang =',$cabang);
-		return $this->db->get('tagihan');
-	}
 	
 	public function getAllDataLimited($cabang,$table,$limit,$offset)
 	{
