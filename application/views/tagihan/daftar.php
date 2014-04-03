@@ -52,9 +52,12 @@ function hapusData_2(ID){
     <tr>
       <th>No.</th>
       <th>NIS</th>
+      <th>ID Tagihan</th>
       <th>Jenis</th>
       <th>Besar</th>
-      <th>Cabang</th>
+      <th>Potongan</th>
+      <th>Jumlah Bayar</th>
+      <th>Kurang Bayar</th>
       <th>Aksi</th>
     </tr>
   </thead>
@@ -62,13 +65,18 @@ function hapusData_2(ID){
   <?php
       $no=1;
       foreach($data->result_array() as $dp){
+        $cek = $dp['totbay']-$dp['besar_tagihan']-$dp['potongan'];
   ?>
+  <?php if ($dp['totbay']-$dp['besar_tagihan']-$dp['potongan'] <0 ){ ?>
     <tr>
       <td width="50"><center><?php echo $no; ?></center></td>
       <td><center><?php echo $dp['nis']; ?></center></td>
+      <td><center><?php echo $dp['id']; ?></center></td>
       <td><center><?php echo $dp['jenis_tagihan']; ?></center></td>
       <td><center><?php echo $dp['besar_tagihan']; ?></center></td>
-      <td><?php echo $dp['cabang']; ?></td>
+      <td><center><?php echo $dp['potongan']; ?></center></td>
+      <td><center><?php echo $dp['besar_tagihan']-$dp['potongan']; ?></center></td>
+      <td><center><?php echo $dp['kurang_bayar'] ;?></center></td>
      <td width="100">
 	        <div class="btn-group">
 	          <a class="btn btn-warning" href="javascript:hapusData_2('<?php echo $dp['id'] ?>')"><i class="icon-trash icon-white"></i> Hapus</a>
@@ -77,6 +85,7 @@ function hapusData_2(ID){
     </tr>
    <?php
           $no++;
+        }
       }
    ?>
   </tbody>

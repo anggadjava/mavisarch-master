@@ -115,7 +115,7 @@ $(document).ready(function(){
   <div class="control-group">
     <label class="control-label" for="cabang">Cabang</label>
     <div class="controls">
-      <input type="text" class="span3 input form-control" value="<?php echo $this->session->all_userdata()['cabang'] ?>" name="kode_cabang" id="kode_cabang" disabled >
+      <input type="text" class="span3 input form-control" value="<?php echo $this->session->userdata('cabang'); ?>" name="kode_cabang" id="kode_cabang" disabled >
     </div>
   </div>
   <div class="control-group">

@@ -360,7 +360,7 @@ $config['proxy_ips'] = '';
 
 $config['limit_data'] = '20';
 
-$config['nama_aplikasi'] = "Sistem Aplikasi Akademik BBC English Training Specialist";
+$config['nama_aplikasi'] = "Sistem Informasi Akademik";
 $config['nama_instansi'] = "BBC English Specialist";
 $config['alamat_instansi'] ="Rawamangun - Jakarta Timur";
 $config['copyright'] = "Copyright &copy; Pertiwi Group - 2013";

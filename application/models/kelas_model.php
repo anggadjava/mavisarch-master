@@ -52,11 +52,55 @@ class Kelas_model extends CI_Model {
 	}
 	public function getKelasSiswaLimited($table,$limit,$offset)
 	{
-		$this->db->select('kelas_siswa.*,siswa.*,kelas.*');
-		$this->db->join('siswa', 'kelas_siswa.nis = siswa.nis','left');
-		$this->db->join('kelas', 'kelas_siswa.kode_kelas = kelas.kode_kelas ','left');
+		$this->db->select('nilai.*,siswa.nis as nomor_induk,siswa.*,kelas.*');
+		$this->db->join('siswa', 'nilai.nis = siswa.nis','left');
+		$this->db->join('kelas', 'nilai.kode_kelas = kelas.kode_kelas ','left');
 		return $this->db->get($table, $limit, $offset);
 	}
+	public function getListSiswaKelas($cabang)
+	{
+		$tanggal = date("Y-m-d");
+		$this->db->select('siswa.*,siswa.nis as nomor_induk,nilai.*,kelas.*');
+		$this->db->join('nilai', 'nilai.nis = siswa.nis','left');
+		$this->db->join('kelas', 'nilai.kode_kelas = kelas.kode_kelas ','left');
+		$this->db->where('kelas.tgl_selesai <', $tanggal); 
+		$this->db->where('siswa.cabang =', $cabang); 
+		$this->db->or_where('kelas.tgl_mulai IS NULL'); 
+		return $this->db->get('siswa');
+	}
+	public function getKelasData($kode_kelas)
+	{
+		$this->db->where('kode_kelas =', $kode_kelas); 
+		$query = $this->db->get('kelas');
+		return $query->row();
+	}
+	public function getListPertemuan($kode_kelas)
+	{
+		$this->db->where('kode_kelas =', $kode_kelas); 
+		return $this->db->get('kelas_pertemuan');
+	}
+	public function getKelasSiswa()
+	{
+		$this->db->select('nilai.*,siswa.nis as nomor_induk,siswa.*,kelas.*');
+		$this->db->join('siswa', 'nilai.nis = siswa.nis','left');
+		$this->db->join('kelas', 'nilai.kode_kelas = kelas.kode_kelas ','left');
+		return $this->db->get('nilai');
+	}
+	public function getPertemuanId($kode_kelas,$tanggal)
+	{
+		$query = $this->db->get_where('kelas_pertemuan', array('kode_kelas' => $kode_kelas,'tanggal' => $tanggal));
+		if ($query->num_rows()>0) {
+			$last_kode = $query->row()->id;
+		}
+		return $last_kode;
+	}
+	public function getListAbsensi($id_pertemuan)
+	{
+		$this->db->join('siswa', 'presensi.nis = siswa.nis','left');
+		$this->db->where('id_pertemuan =', $id_pertemuan); 
+		return $this->db->get('presensi');
+	}
+
 	
 }
 	

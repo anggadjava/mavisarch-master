@@ -39,7 +39,7 @@ $(document).ready(function() {
           </a>
           
           <a class="brand" href="<?php echo base_url(); ?>">
-		  <img src="<?php echo base_url();?>asset/images/polri.gif" width="42" height="42">
+		  <img src="<?php echo base_url();?>asset/images/bbc.jpg" width="42" height="42">
 		  <?php echo $this->config->item('nama_aplikasi'); ?> <?php echo $this->config->item('nama_instansi');?></a>
         </div>
       </div>

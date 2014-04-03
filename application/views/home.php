@@ -33,6 +33,7 @@
 <link href="<?php echo base_url(); ?>asset/js/chosen/chosen.css" rel="stylesheet">            
 <script src="<?php echo base_url(); ?>asset/js/chosen/chosen.jquery.js" type="text/javascript"></script>
 <script src="<?php echo base_url(); ?>asset/js/numeric.js"></script>
+<script src="<?php echo base_url(); ?>asset/js/priceFormat.js"></script>
 
 <!--notif-->
 <script src="<?php echo base_url(); ?>asset/js/bootstrap-notify.js"></script>
@@ -60,7 +61,7 @@ table {
 }
 </style>
   </head>
-  <body>
+  <body style="background-color:darkgray">
   <div class='notifications bottom-right'></div>
     <div class="navbar navbar-fixed-top">
       <div class="navbar-inner">

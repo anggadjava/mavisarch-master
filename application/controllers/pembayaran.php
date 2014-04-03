@@ -1,15 +1,19 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class Tagihan extends CI_Controller {
+class Pembayaran extends CI_Controller {
 
+	 public function __construct()
+       {
+            parent::__construct();
+            $this->load->model('pembayaran_model');
+       }
 	public function index()
 	{
 		if($this->session->userdata('logged_in')!="")
 		{
-			$this->load->model('tagihan_model');
 			$nis= $this->input->post('nis');
-			$d['data'] = $this->tagihan_model->getListTunggakan($nis);
-			$d['content']= $this->load->view('tagihan/daftar',$d);
+			$d['data'] = $this->pembayaran_model->getAllData($nis);
+			$d['content']= $this->load->view('pembayaran/daftar',$d);
 		}
 		else
 		{
@@ -21,12 +25,12 @@ class Tagihan extends CI_Controller {
 	{
 		if($this->session->userdata('logged_in')!="")
 		{
-			$nis = $this->input->post('nis');
 			$cabang = $this->session->userdata('cabang');
-			$d['nis']=$nis;
+			$d['judul']='Tambah Pembayaran';
+			$d['nis']=$this->uri->segment(3);
 			$d['cabang']=$cabang;
-			$d['jenis_tagihan'] = $this->app_model->getAllData("jenis_tagihan");
-			$d['content']= $this->load->view('tagihan/form',$d);
+			$d['content']= $this->load->view('pembayaran/form',$d,true);
+			$this->load->view('home',$d);
 		}
 		else
 		{
@@ -81,20 +85,43 @@ class Tagihan extends CI_Controller {
 	{
 		if($this->session->userdata('logged_in')!="")
 		{
-			$up['nis'] = $this->input->post('nis');
-			$up['cabang'] =$this->input->post('cabang');
-			$up['besar_tagihan'] = $this->input->post('besar_tagihan');
-			$up['jenis_tagihan'] = $this->input->post('jenis_tagihan');
-			$up['notes'] = $this->input->post('notes');
-			$up['potongan'] = $this->input->post('potongan');
-			$up['tanggal_buat'] = date("Y-m-d");
-			$this->app_model->insertData("tagihan",$up);
+			$kwitansi['id'] = $this->getKwitansiId($this->input->post('cabang'));
+			$kwitansi['nis'] = $this->input->post('nis');
+			$kwitansi['cabang'] =$this->input->post('cabang');
+			$kwitansi['keterangan'] = $this->input->post('keterangan');
+			$kwitansi['tanggal'] = $this->app_model->tgl_sql($this->input->post('tanggal'));
+			$totbay=0;
+			foreach ($this->input->post('item') as $key) {
+				$item_kwitansi['id_kwitansi'] = $kwitansi['id'];
+				$item_kwitansi['id_tagihan'] = $key['id_tagihan'];
+				$item_kwitansi['jumlah_bayar'] = $key['jumlah_bayar'];
+				$item_kwitansi['notes'] = $key['notes'];
+				$this->app_model->insertData("kwitansi_item",$item_kwitansi);
+				// print_r($item_kwitansi);
+				$totbay = $totbay+$key['jumlah_bayar'];
+			}
+			$kwitansi['total_bayar'] = $totbay;
+			$this->app_model->insertData("kwitansi",$kwitansi);
+			// print_r($kwitansi);
+
 			echo "Data sukses disimpan";
 		}
 		else
 		{
 			header('location:'.base_url().'index.php/login');
 		}
+	}
+	public function getKwitansiId($cabang){
+		$last_kode = $this->pembayaran_model->getLastKode($cabang);
+		if ($last_kode!='') {
+			$last_kode = (int)$last_kode;
+		}else{
+			$last_kode=0;
+		}
+		$new_kode=$last_kode+1;
+		$new_kode = str_pad($new_kode, 3, '0', STR_PAD_LEFT);
+		$kode_bukutamu = 'KWI-'.$cabang.'-'.date("Y").date("m").$new_kode;
+		return $kode_bukutamu;
 	}
 
 	public function hapus()
@@ -106,21 +133,6 @@ class Tagihan extends CI_Controller {
 			echo "Data Sukese dihapus";
 		}else{
 			header('location:'.base_url());
-		}
-	}
-	public function getTunggakan()
-	{
-		if($this->session->userdata('logged_in')!="")
-		{
-			$this->load->model('tagihan_model');
-			$nis= $this->input->post('nis');
-			$d['no_item']= $this->input->post('no');
-			$d['data'] = $this->tagihan_model->getListTunggakan($nis);
-			$d['content']= $this->load->view('tagihan/ListTunggakan',$d);
-		}
-		else
-		{
-			header('location:'.base_url().'index.php/login');
 		}
 	}
 	

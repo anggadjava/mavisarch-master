@@ -4,6 +4,7 @@ $(document).ready(function(){
   
   Cari_Data();
   tagihan();
+  pembayaran();
   input_tagihan();
   $('#input_tagihan').dialog({
     autoOpen: false,
@@ -22,7 +23,7 @@ $(document).ready(function(){
     return false;
   });
   function tagihan() {
-    var nis = $("#nis").val();
+    var nis = "<?php echo $this->uri->segment(3); ?>";
     $.ajax({
       type  : 'POST',
       url   : "<?php echo site_url(); ?>/tagihan",
@@ -30,6 +31,18 @@ $(document).ready(function(){
       cache : false,
       success : function(data){
       $("#tagihan").html(data);
+      }
+    });
+  }
+  function pembayaran() {
+    var nis = "<?php echo $this->uri->segment(3); ?>";
+    $.ajax({
+      type  : 'POST',
+      url   : "<?php echo site_url(); ?>/pembayaran",
+      data  : "nis="+nis,
+      cache : false,
+      success : function(data){
+      $("#pembayaran").html(data);
       }
     });
   }
@@ -55,28 +68,37 @@ $(document).ready(function(){
    $(".chosen-select").chosen(); 
 
   function Cari_Data(){
-    var id = $("#kode_bukutamu").val();
-    var string = "kode_bukutamu="+id;
+    var id = $("#nis").val();
+    var string = "nis="+id;
     $.ajax({
       type  : 'POST',
-      url   : "<?php echo site_url(); ?>/buku_tamu/pendaftaran_cari_data",
+      url   : "<?php echo site_url(); ?>/siswa/siswaCariData",
       data  : string,
       cache : false,
       dataType : "json",
       success : function(data){
+        $("#nis").val(data.nis);
         $("#kode_bukutamu").val(data.kode_bukutamu);
         $("#cabang").val(data.cabang);
         $("#nama").val(data.nama);
         $("#tempat_lahir").val(data.tempat_lahir);
         $("#tanggal_lahir").val(data.tanggal_lahir);
         $("#alamat").val(data.alamat);
-        $("#telepon").val(data.hp);
+        $("#agama").val(data.agama);
+        $("#rt").val(data.rt);
+        $("#rw").val(data.rw);
+        $("#kecamatan").val(data.kecamatan);
+        $("#kota").val(data.kota);
+        $("#pekerjaan").val(data.pekerjaan);
+        $("#telepon").val(data.telepon);
         $("#email").val(data.email);
         $("#pilihan_hari").val(data.pilihan_hari);
         $("#pilihan_jam").val(data.pilihan_jam);
         $("#sekolah_asal").val(data.sekolah_asal);
+        $("#files").attr("src",'<?php echo base_url(); ?>asset/uploads/'+data.foto);
+        $("#foto").val(data.foto);
       },
-       // error: function(ts) { alert(ts.responseText) }
+       error: function(ts) { alert(ts.responseText) }
     });
 
    } 
@@ -90,10 +112,9 @@ $(document).ready(function(){
     
     // console.log(string);
     // alert(string);
-    if (confirm('Siswa ini akan menjadi siswa baru dan tidak dapat berubah, Anda yakin akan mendaftarkan siswa ini?')) {
       $.ajax({
         type  : 'POST',
-        url   : "<?php echo site_url(); ?>/buku_tamu/pendaftaran_simpan",
+        url   : "<?php echo site_url(); ?>/siswa/detailSimpan",
         data  : string,
         cache : false,
         success : function(data){
@@ -103,11 +124,10 @@ $(document).ready(function(){
            window.location.assign("<?php echo site_url();?>/buku_tamu")
         }
       });
-    }  
     e.preventDefault();
   });
     $("#tutup").click(function(){
-      window.location.assign("<?php echo site_url();?>/buku_tamu")
+      window.location.assign("<?php echo site_url();?>/siswa")
   });
   
 });
@@ -122,7 +142,7 @@ $(document).ready(function(){
         </a>
         <a class="brand" href="#"><?php echo $judul;?></a>
         <div class="span3 pull-right" style="padding:5px;">
-		  
+      
           </div>
       </div>
     </div><!-- /navbar-inner -->
@@ -136,7 +156,7 @@ $(function() {
   <div id="tabs">
     <ul>
       <li><a href="#tabs-1">Data Pribadi</a></li>
-      <li><a href="#tabs-2">Tagihan Pendaftaran</a></li>
+      <li><a href="#tabs-2">Administrasi Keuangan</a></li>
     </ul>
     <div id="tabs-1">
       <table width="100%">
@@ -155,13 +175,13 @@ $(function() {
             <div class="control-group">
               <label class="control-label" for="nomor">Kode Buku Tamu</label>
               <div class="controls">
-                <input type="text" class="span3 input form-control" name="kode_bukutamu" disabled id="kode_bukutamu" value="<?php  echo $kode_bukutamu?>" >
+                <input type="text" class="span3 input form-control" name="kode_bukutamu" disabled id="kode_bukutamu" value="" >
               </div>
             </div>
             <div class="control-group">
     <label class="control-label" for="cabang">Cabang</label>
     <div class="controls">
-      <input type="text" class="span3 input form-control" value="<?php echo $this->session->userdata('cabang') ?>" name="cabang" id="cabang" disabled >
+      <input type="text" class="span3 input form-control" value="<?php echo $this->session->userdata('cabang'); ?>" name="cabang" id="cabang" disabled >
     </div>
   </div>
             <div class="control-group">
@@ -336,10 +356,14 @@ $(function () {
     </div>
     <div id="tabs-2">
       <div>
-          <button type="button" id="add_tagihan" class="btn btn-success"><i class="icon-plus icon-white"></i> Tambah Tagihan Pendaftaran</button>
+          <button type="button" id="add_tagihan" class="btn btn-success"><i class="icon-white"></i> Tambah Tagihan</button>
+          <a href="<?php echo site_url(); ?>/pembayaran/tambah/<?php echo $this->uri->segment(3); ?>"><button type="button" class="btn btn-success"><i class="icon-white"></i> Pembayaran Tagihan</button></a>
       </div>
+      <center><h3>Tunggakan</h3></center>
        <div id="tagihan"></div>
       <div id="input_tagihan" title="Data tagihan"></div>
+      <center><h3>History Pembayaran</h3></center>
+      <div id="pembayaran"></div>
     </div>
     </div>    
 

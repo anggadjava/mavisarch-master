@@ -142,7 +142,7 @@ class Buku_tamu extends CI_Controller {
 			
 	}
 	public function get_kode_tamu(){
-		$cabang = $this->session->all_userdata()['cabang'];
+		$cabang = $this->session->userdata('cabang');
 		$last_kode = $this->buku_tamu_model->get_last_kode($cabang);
 		if ($last_kode!='') {
 			$last_kode = (int)$last_kode;
@@ -454,7 +454,7 @@ class Buku_tamu extends CI_Controller {
 		}	
 	}
 	public function get_nis(){
-		$cabang = $this->session->all_userdata()['cabang'];
+		$cabang = $this->session->userdata('cabang');
 		$last_kode = $this->buku_tamu_model->get_nis($cabang);
 		if ($last_kode!='') {
 			$last_kode = (int)$last_kode;

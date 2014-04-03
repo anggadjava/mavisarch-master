@@ -127,7 +127,7 @@ $(document).ready(function(){
     <label class="control-label" for="kode_kelas">Kode Kelas</label>
     <div class="controls">
       <input type="text" class="span3 input form-control" name="kode_kelas" id="kode_kelas" disabled value="<?php echo $kode_kelas; ?>" >
-      <input type="hidden" class="span3 input form-control" value="<?php echo $this->session->all_userdata()['cabang'] ?>" name="cabang" id="cabang" >
+      <input type="hidden" class="span3 input form-control" value="<?php echo $this->session->userdata('cabang'); ?>" name="cabang" id="cabang" >
     </div>
   </div>
   <div class="control-group">
@@ -150,7 +150,7 @@ $(document).ready(function(){
        <select name="ruang" id="ruang" class="span2 input chosen-select">
       <option value="">-Pilih-</option>
       <?php 
-    $data = $this->ref_model->list_ruang($this->session->all_userdata()['cabang']);
+    $data = $this->ref_model->list_ruang($this->session->userdata('cabang'));
     foreach($data->result() as $t){
      ?>
          <option value="<?php echo $t->id_ruang;?>"><?php echo $t->nama_ruang;?></option>
@@ -207,7 +207,7 @@ $(document).ready(function(){
        <select name="guru" id="guru" class="span2 input chosen-select">
       <option value="">-Pilih-</option>
       <?php 
-    $data = $this->ref_model->list_guru($this->session->all_userdata()['cabang']);
+    $data = $this->ref_model->list_guru($this->session->userdata('cabang'));
     foreach($data->result() as $t){
      ?>
          <option value="<?php echo $t->NIK;?>"><?php echo $t->nama;?></option>

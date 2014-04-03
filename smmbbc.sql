@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Inang: 127.0.0.1
--- Waktu pembuatan: 12 Mar 2014 pada 03.05
+-- Waktu pembuatan: 02 Apr 2014 pada 23.18
 -- Versi Server: 5.5.27
 -- Versi PHP: 5.4.7
 
@@ -54,7 +54,7 @@ CREATE TABLE IF NOT EXISTS `bukutamu` (
   `sudah_daftar` varchar(1) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `kode_bukutamu` (`kode_bukutamu`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=12 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=15 ;
 
 --
 -- Dumping data untuk tabel `bukutamu`
@@ -62,7 +62,10 @@ CREATE TABLE IF NOT EXISTS `bukutamu` (
 
 INSERT INTO `bukutamu` (`id`, `kode_bukutamu`, `nama`, `cabang`, `tempat_lahir`, `tanggal_lahir`, `alamat`, `hp`, `email`, `keperluan`, `pilihan_hari`, `pilihan_jam`, `pt_tanggal`, `pt_pic`, `pt_structure_scr`, `pt_written_scr`, `pt_expression_scr`, `pt_rata`, `pt_rec_level`, `pt_notes`, `sekolah_asal`, `program`, `sumber_informasi`, `sumber_lain`, `sudah_daftar`) VALUES
 (10, 'BT-B02-201402001', 'asdsad', 'B02', 'sadsa', '2014-03-19', 'sadsad', 'sadsad', 'sadsad', 'sadasd', 'Kamis', '13:20', '', '', 0, 0, 0, 0, '', '', 'asdsa', 'Reguler Dewasa', 'Koran', 'asdsad', '1'),
-(11, 'BT-B02-201403002', 'huahahaha', 'B02', 'huahahaha', '2014-03-12', 'huahahaa', 'huahaha', 'huahaha', 'huahaha', 'Kamis', '14:20', '', '', 0, 0, 0, 0, '', '', 'sadsad', 'Reguler Dewasa', 'Koran', 'asd', '');
+(11, 'BT-B02-201403002', 'huahahaha', 'B02', 'huahahaha', '2014-03-12', 'huahahaa', 'huahaha', 'huahaha', 'huahaha', 'Kamis', '14:20', '', '', 0, 0, 0, 0, '', '', 'sadsad', 'Reguler Dewasa', 'Koran', 'asd', '1'),
+(12, 'BT-B02-201403003', 'testtest', 'B02', 'test', '2014-03-04', 'sadasd', '123123', '123123', '123123', 'Rabu', '14:20', '2014-03-30', '11111', 80, 90, 85, 85, 'PC-1B', '', 'sadasdasd', 'Program Percakapan Intensif', 'Internet', 'asdasd', '1'),
+(13, 'BT-B02-201403004', 'Rohadi', 'B02', 'Jakarta', '1988-09-06', 'Jalan Permai', '08746728374', 'hahaha@gmail.com', 'test test', 'Selasa', '15:00', '', '', 0, 0, 0, 0, '', '', 'SMA N 80 Jakarta', 'Program Bahasa Inggris Perusahaan', 'Internet', '', '1'),
+(14, 'BT-B02-201404005', 'Niesha', 'B02', 'Bekasi', '2014-04-09', 'asdad', 'sadasd', 'asdasd', 'sadsad', 'Rabu', '', '', '', 0, 0, 0, 0, '', '', 'asdsad', 'Program Percakapan Cepat', 'Koran', '', '');
 
 -- --------------------------------------------------------
 
@@ -78,7 +81,15 @@ CREATE TABLE IF NOT EXISTS `bukutamu_followup` (
   `hasil` text NOT NULL,
   PRIMARY KEY (`id`),
   KEY `kode_bukutamu` (`kode_bukutamu`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+
+--
+-- Dumping data untuk tabel `bukutamu_followup`
+--
+
+INSERT INTO `bukutamu_followup` (`id`, `kode_bukutamu`, `tanggal`, `via`, `hasil`) VALUES
+(1, 'BT-B02-201403003', '2014-03-30', 'Telepon', 'tidak ada hasil'),
+(2, 'BT-B02-201403004', '2014-03-07', 'Telepon', 'Tidak diangkat');
 
 -- --------------------------------------------------------
 
@@ -154,7 +165,8 @@ CREATE TABLE IF NOT EXISTS `guru` (
 
 INSERT INTO `guru` (`NIK`, `nama`, `alamat`, `tempat_lahir`, `tanggal_lahir`, `cabang`, `email`, `pendidikan_terakhir`, `telepon`, `hp`, `tanggal_masuk`, `foto`) VALUES
 ('11111', 'Angga', 'Cipinang Kebembem', 'Pekalongan', '1988-09-06', 'B02', 'pramusintaanggara@gmail.com', '', '', '08569002522', '2013-12-01', 'http://localhost/sashacode/asset/uploads/IMG-20130929-00065.jpg'),
-('22222', 'Sasha', 'Cipinang Kebembem', 'Jakarta', '2013-06-13', 'B17', '', '', '', '', '2013-12-05', 'http://localhost/sashacode/asset/uploads/IMG-20131120-00297.jpg');
+('22222', 'Sasha', 'Cipinang Kebembem', 'Jakarta', '2013-06-13', 'B17', '', '', '', '', '2013-12-05', 'http://localhost/sashacode/asset/uploads/IMG-20131120-00297.jpg'),
+('333333', 'Gurame Bakar', 'test', 'Jakarta', '2004-04-01', 'B02', 'test', '', 'test', 'test', '2014-04-03', '');
 
 -- --------------------------------------------------------
 
@@ -191,7 +203,7 @@ CREATE TABLE IF NOT EXISTS `kelas` (
   `level` varchar(255) NOT NULL,
   `hari` varchar(255) NOT NULL,
   `jam` varchar(255) NOT NULL,
-  `kode_ruang` varchar(255) NOT NULL,
+  `ruang` varchar(255) NOT NULL,
   `guru` varchar(255) NOT NULL,
   `jumlah_pertemuan` int(11) NOT NULL,
   `tgl_mulai` date NOT NULL,
@@ -200,6 +212,84 @@ CREATE TABLE IF NOT EXISTS `kelas` (
   `harga` float NOT NULL,
   PRIMARY KEY (`kode_kelas`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data untuk tabel `kelas`
+--
+
+INSERT INTO `kelas` (`kode_kelas`, `cabang`, `level`, `hari`, `jam`, `ruang`, `guru`, `jumlah_pertemuan`, `tgl_mulai`, `tgl_ujian`, `tgl_selesai`, `harga`) VALUES
+('B02-PC-2A-201403001', 'B02', 'PC-2A', 'Rabu', '16:30', '2', '11111', 34, '2014-03-19', '2014-03-20', '2014-03-20', 200000);
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `kelas_pertemuan`
+--
+
+CREATE TABLE IF NOT EXISTS `kelas_pertemuan` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `kode_kelas` varchar(255) NOT NULL,
+  `tanggal` date NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
+
+--
+-- Dumping data untuk tabel `kelas_pertemuan`
+--
+
+INSERT INTO `kelas_pertemuan` (`id`, `kode_kelas`, `tanggal`) VALUES
+(3, 'B02-PC-2A-201403001', '2014-03-31'),
+(4, 'B02-PC-2A-201403001', '2014-04-03');
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `kwitansi`
+--
+
+CREATE TABLE IF NOT EXISTS `kwitansi` (
+  `id` varchar(255) NOT NULL,
+  `nis` varchar(255) NOT NULL,
+  `cabang` varchar(255) NOT NULL,
+  `keterangan` varchar(255) NOT NULL,
+  `tanggal` date NOT NULL,
+  `total_bayar` float NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data untuk tabel `kwitansi`
+--
+
+INSERT INTO `kwitansi` (`id`, `nis`, `cabang`, `keterangan`, `tanggal`, `total_bayar`) VALUES
+('KWI-B02-201404001', 'B02-201403002', 'B02', 'Test Pembayaran', '2014-04-03', 600000),
+('KWI-B02-201404002', 'B02-201403001', 'B02', 'Bayar A', '2014-04-03', 200000),
+('KWI-B02-201404003', 'B02-201403001', 'B02', '', '2014-04-03', 100000);
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `kwitansi_item`
+--
+
+CREATE TABLE IF NOT EXISTS `kwitansi_item` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `id_kwitansi` varchar(255) NOT NULL,
+  `id_tagihan` bigint(20) NOT NULL,
+  `jumlah_bayar` float NOT NULL,
+  `notes` varchar(255) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=11 ;
+
+--
+-- Dumping data untuk tabel `kwitansi_item`
+--
+
+INSERT INTO `kwitansi_item` (`id`, `id_kwitansi`, `id_tagihan`, `jumlah_bayar`, `notes`) VALUES
+(7, 'KWI-B02-201404001', 1, 400000, 'Bayar A'),
+(8, 'KWI-B02-201404001', 2, 200000, 'bayar B'),
+(9, 'KWI-B02-201404002', 9, 200000, 'Bayar A'),
+(10, 'KWI-B02-201404003', 10, 100000, '');
 
 -- --------------------------------------------------------
 
@@ -746,6 +836,67 @@ INSERT INTO `m_tingkat_luka` (`id_luka`, `tingkat_luka`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Struktur dari tabel `nilai`
+--
+
+CREATE TABLE IF NOT EXISTS `nilai` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `cabang` varchar(255) NOT NULL,
+  `kode_kelas` varchar(255) NOT NULL,
+  `nis` varchar(255) NOT NULL,
+  `gram` float NOT NULL,
+  `read` float NOT NULL,
+  `comp` float NOT NULL,
+  `list` float NOT NULL,
+  `spk` float NOT NULL,
+  `avp` float NOT NULL,
+  `conv` float NOT NULL,
+  `sunmeet` float NOT NULL,
+  `enrich` float NOT NULL,
+  `hw` float NOT NULL,
+  `mid` float NOT NULL,
+  `absen` float NOT NULL,
+  `spHw_1` float NOT NULL,
+  `spHw_2` float NOT NULL,
+  `spHw_3` float NOT NULL,
+  `spHw_4` float NOT NULL,
+  `spHw_5` float NOT NULL,
+  `spHw_6` float NOT NULL,
+  `spMid` float NOT NULL,
+  `spSpk_1` float NOT NULL,
+  `spSpk_2` float NOT NULL,
+  `spSpk_3` float NOT NULL,
+  `spSpk_4` float NOT NULL,
+  `spSpk_5` float NOT NULL,
+  `spSpk_6` float NOT NULL,
+  `spSpk_7` float NOT NULL,
+  `spSpk_8` float NOT NULL,
+  `spSpk_9` float NOT NULL,
+  `spSpk_10` float NOT NULL,
+  `spSpk_11` float NOT NULL,
+  `spSpk_12` float NOT NULL,
+  `spEnrich_1` float NOT NULL,
+  `spEnrich_2` float NOT NULL,
+  `spEnrich_3` float NOT NULL,
+  `spEnrich_4` float NOT NULL,
+  `spSunmeet` float NOT NULL,
+  `spAvp` float NOT NULL,
+  `spEssay` float NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `kode_kelas` (`kode_kelas`,`nis`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=19 ;
+
+--
+-- Dumping data untuk tabel `nilai`
+--
+
+INSERT INTO `nilai` (`id`, `cabang`, `kode_kelas`, `nis`, `gram`, `read`, `comp`, `list`, `spk`, `avp`, `conv`, `sunmeet`, `enrich`, `hw`, `mid`, `absen`, `spHw_1`, `spHw_2`, `spHw_3`, `spHw_4`, `spHw_5`, `spHw_6`, `spMid`, `spSpk_1`, `spSpk_2`, `spSpk_3`, `spSpk_4`, `spSpk_5`, `spSpk_6`, `spSpk_7`, `spSpk_8`, `spSpk_9`, `spSpk_10`, `spSpk_11`, `spSpk_12`, `spEnrich_1`, `spEnrich_2`, `spEnrich_3`, `spEnrich_4`, `spSunmeet`, `spAvp`, `spEssay`) VALUES
+(10, 'B02', 'B02-PC-2A-201403001', 'B02-201403001', 70, 80, 70, 80, 90, 80, 70, 90, 80, 90, 60, 70, 90, 90, 90, 90, 90, 90, 90, 90, 90, 90, 90, 90, 90, 90, 90, 90, 90, 90, 90, 90, 90, 90, 90, 90, 90, 90),
+(18, 'B02', 'B02-PC-2A-201403001', 'B02-201403002', 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 90, 90, 90, 90, 90, 90, 90, 90, 90, 90, 90, 90, 90, 90, 90, 90, 90, 90, 90, 90, 90, 90, 90, 90, 90, 90);
+
+-- --------------------------------------------------------
+
+--
 -- Struktur dari tabel `param`
 --
 
@@ -755,6 +906,32 @@ CREATE TABLE IF NOT EXISTS `param` (
   `param_value` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `presensi`
+--
+
+CREATE TABLE IF NOT EXISTS `presensi` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `id_pertemuan` bigint(20) NOT NULL,
+  `nis` varchar(255) NOT NULL,
+  `masuk` int(1) NOT NULL,
+  `keterangan` varchar(255) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `id_pertemuan` (`id_pertemuan`,`nis`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
+
+--
+-- Dumping data untuk tabel `presensi`
+--
+
+INSERT INTO `presensi` (`id`, `id_pertemuan`, `nis`, `masuk`, `keterangan`) VALUES
+(1, 3, 'B02-201403001', 1, 'sadasd'),
+(2, 3, 'B02-201403002', 0, ''),
+(3, 4, 'B02-201403001', 1, 'Sakit'),
+(4, 4, 'B02-201403002', 0, '');
 
 -- --------------------------------------------------------
 
@@ -782,6 +959,27 @@ INSERT INTO `program` (`id`, `nama_program`) VALUES
 (7, 'Privat Bahasa Inggris'),
 (8, 'Program Bahasa Inggris Perusahaan'),
 (9, 'Program Bahasa Inggris Sekolah');
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `ruang`
+--
+
+CREATE TABLE IF NOT EXISTS `ruang` (
+  `id_ruang` int(11) NOT NULL AUTO_INCREMENT,
+  `cabang` varchar(255) NOT NULL,
+  `nama_ruang` varchar(255) NOT NULL,
+  PRIMARY KEY (`id_ruang`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+
+--
+-- Dumping data untuk tabel `ruang`
+--
+
+INSERT INTO `ruang` (`id_ruang`, `cabang`, `nama_ruang`) VALUES
+(1, 'B02', 'Mawar'),
+(2, 'B02', 'Anggrek');
 
 -- --------------------------------------------------------
 
@@ -819,7 +1017,10 @@ CREATE TABLE IF NOT EXISTS `siswa` (
 --
 
 INSERT INTO `siswa` (`nis`, `kode_bukutamu`, `cabang`, `nama`, `tempat_lahir`, `tanggal_lahir`, `agama`, `pekerjaan`, `alamat`, `rt`, `rw`, `kecamatan`, `kota`, `telepon`, `sekolah_asal`, `email`, `pilihan_hari`, `pilihan_jam`, `foto`, `tanggal_buat`) VALUES
-('B02-201403001', 'BT-B02-201402001', 'B02', 'asdsad', 'sadsa', '2014-03-19', 'Islam', '1', 'sadsad', '1', '1', '1', '1', 'sadsad', 'asdsa', 'sadsad', 'Kamis', '13:20', 'copy-of-kalistus-home1 (6).jpg', '2014-03-04');
+('0', '0', '0', '0', '0', '0000-00-00', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '2014-04-01'),
+('B02-201403001', 'BT-B02-201402001', 'B02', 'asdsad', 'sadsa', '2014-03-19', 'Islam', '1', 'sadsad', '1', '1', '1', '1', 'sadsad', 'asdsa', 'sadsad', 'Kamis', '13:20', 'copy-of-kalistus-home1 (6).jpg', '2014-03-04'),
+('B02-201403002', 'BT-B02-201403002', 'B02', 'huahahaha', 'huahahaha', '2014-03-12', '', '', 'huahahaa', '', '', '', '', 'huahaha', 'sadsad', 'huahaha', 'Kamis', '14:20', '', '2014-03-26'),
+('B02-201403003', 'BT-B02-201403003', 'B02', 'testtest', 'test', '2014-03-04', '', '', 'sadasd', '', '', '', '', '123123', 'sadasdasd', '123123', 'Rabu', '14:20', '', '2014-03-30');
 
 -- --------------------------------------------------------
 
@@ -863,7 +1064,7 @@ CREATE TABLE IF NOT EXISTS `tagihan` (
   `cabang` varchar(255) NOT NULL,
   `tanggal_buat` date NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=9 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=19 ;
 
 --
 -- Dumping data untuk tabel `tagihan`
@@ -876,7 +1077,17 @@ INSERT INTO `tagihan` (`id`, `nis`, `jenis_tagihan`, `notes`, `besar_tagihan`, `
 (4, 'B02-201403002', 'Biaya Pendaftaran', 'sadsad', 100000, 2000, 'B02', '2014-03-05'),
 (5, 'B02-201403002', 'Biaya Pendaftaran', '', 100000, 0, 'B02', '2014-03-05'),
 (6, 'B02-201403002', 'Biaya Pendaftaran', '', 100000, 0, 'B02', '2014-03-05'),
-(8, 'B02-201403002', 'Biaya Pendaftaran', '', 100000, 0, 'B02', '2014-03-05');
+(8, 'B02-201403002', 'Biaya Pendaftaran', '', 100000, 0, 'B02', '2014-03-05'),
+(9, 'B02-201403001', 'Biaya Masuk Kelas', 'Biaya Masuk Kelas B02-PC-2A-201403001', 200000, 0, 'B02', '2014-03-27'),
+(10, 'B02-201403001', 'Biaya Masuk Kelas', 'Biaya Masuk Kelas B02-PC-2A-201403001', 200000, 0, 'B02', '2014-03-27'),
+(11, '0', 'Biaya Masuk Kelas', 'Biaya Masuk Kelas ', 200000, 0, 'B02', '2014-03-27'),
+(12, 'B02-201403002', 'Biaya Masuk Kelas', 'Biaya Masuk Kelas B02-PC-2A-201403001', 200000, 0, 'B02', '2014-03-27'),
+(13, 'B02-201403003', 'Biaya Pendaftaran', '', 100000, 100000, 'B02', '2014-03-30'),
+(14, 'B02-201403003', 'Placement Test', '', 50000, 0, 'B02', '2014-03-30'),
+(15, 'B02-201403003', 'Biaya Pendaftaran', '', 100000, 0, 'B02', '2014-03-30'),
+(16, 'B02-201403003', 'Placement Test', '', 50000, 0, 'B02', '2014-03-30'),
+(17, 'B02-201403003', 'Biaya Pendaftaran', '', 100000, 0, 'B02', '2014-03-30'),
+(18, 'B02-201403003', 'Biaya Pendaftaran', '', 100000, 0, 'B02', '2014-03-30');
 
 -- --------------------------------------------------------
 
