@@ -312,7 +312,7 @@ class Kelas extends CI_Controller {
 		{
 			if ($this->uri->segment(3)!='') {
 				$d['judul'] ="Penilaian";
-				
+				$kode_kelas = $this->uri->segment(3);
 				$page=$this->uri->segment(4);
 				$limit=$this->config->item('limit_data');
 				if(!$page):
@@ -337,7 +337,7 @@ class Kelas extends CI_Controller {
 				$this->pagination->initialize($config);
 				$d["paginator"] =$this->pagination->create_links();
 				if (empty($_GET)) {
-					$d['data'] = $this->kelas_model->getKelasSiswaLimited("nilai",$limit,$offset);
+					$d['data'] = $this->kelas_model->getKelasSiswaLimited($kode_kelas,"nilai",$limit,$offset);
 				}
 				$d['content']= $this->load->view('kelas/penilaian',$d,true);
 				$this->load->view('home',$d);
@@ -398,7 +398,7 @@ class Kelas extends CI_Controller {
 		{
 			if ($this->uri->segment(3)!='') {
 				$d['judul'] ="Student Progress";
-				
+				$kode_kelas = $this->uri->segment(3);
 				$page=$this->uri->segment(4);
 				$limit=$this->config->item('limit_data');
 				if(!$page):
@@ -423,7 +423,7 @@ class Kelas extends CI_Controller {
 				$this->pagination->initialize($config);
 				$d["paginator"] =$this->pagination->create_links();
 				if (empty($_GET)) {
-					$d['data'] = $this->kelas_model->getKelasSiswaLimited("nilai",$limit,$offset);
+					$d['data'] = $this->kelas_model->getKelasSiswaLimited($kode_kelas,"nilai",$limit,$offset);
 				}
 				$d['content']= $this->load->view('kelas/studentprogress',$d,true);
 				$this->load->view('home',$d);

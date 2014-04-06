@@ -34,6 +34,7 @@
 <script src="<?php echo base_url(); ?>asset/js/chosen/chosen.jquery.js" type="text/javascript"></script>
 <script src="<?php echo base_url(); ?>asset/js/numeric.js"></script>
 <script src="<?php echo base_url(); ?>asset/js/priceFormat.js"></script>
+<script src="<?php echo base_url(); ?>asset/js/print/jquery.PrintArea.js_4.js"></script>
 
 <!--notif-->
 <script src="<?php echo base_url(); ?>asset/js/bootstrap-notify.js"></script>

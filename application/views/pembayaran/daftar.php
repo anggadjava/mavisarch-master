@@ -1,8 +1,38 @@
-<script type="text/javascript">
+<link href="<?php echo base_url(); ?>asset/css/print/core.css" rel="stylesheet" media="print" type="text/css" />
+ <script type="text/javascript">
+
 $(document).ready(function(){
+  $('#printarea').dialog({
+    autoOpen: false,
+    width: 600,
+    modal: true,
+      buttons: {
+          "Tutup": function () {
+              $(this).dialog("close");
+          }
+      }
+  });
+  $('.printkwitansi').click(function() {
+    var id = $(this).attr('id');
+    var nis = $('#nis').val();
+    printKwitansi(id,nis);
+    $('#printarea').dialog('open');
+  });
+  
 
 });
 
+ function printKwitansi(id,nis) {
+    $.ajax({
+      type  : 'POST',
+      url   : "<?php echo site_url(); ?>/pembayaran/printKwitansi",
+      data  : "nis="+nis+"&id_kwitansi="+id,
+      cache : false,
+      success : function(data){
+      $("#printarea").html(data);
+      }
+    });
+  }
 
 function hapusPembayaran(ID){
   var id  = ID;
@@ -47,7 +77,7 @@ function hapusPembayaran(ID){
       <td><center><?php echo $dp['total_bayar']; ?></center></td>
      <td width="100">
 	        <div class="btn-group">
-	          <a class="btn btn-warning" href="javascript:hapusPembayaran('<?php echo $dp['id'] ?>')"><i class="icon-trash icon-white"></i> Hapus</a>
+	          <a class="btn btn-success printkwitansi" id="<?php echo $dp['id']; ?>"><i class="icon-print icon-white"></i> Print</a>
 	        </div><!-- /btn-group -->
 		</td>
     </tr>
@@ -57,3 +87,4 @@ function hapusPembayaran(ID){
    ?>
   </tbody>
 </table>
+<div id="printarea" style=""></div>

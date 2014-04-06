@@ -124,15 +124,19 @@ class Pembayaran extends CI_Controller {
 		return $kode_bukutamu;
 	}
 
-	public function hapus()
-	{
-		$cek = $this->session->userdata('logged_in');
-		if(!empty($cek)){			
-			$id = $this->input->post('id');
-			$this->app_model->manualQuery("DELETE FROM tagihan WHERE id='$id'");
-			echo "Data Sukese dihapus";
-		}else{
-			header('location:'.base_url());
+	
+	public function printKwitansi(){
+		if($this->session->userdata('logged_in')!="")
+		{
+			$nis= $this->input->post('nis');
+			$id_kwitansi= $this->input->post('id_kwitansi');
+			$d['data_kwitansi'] = $this->pembayaran_model->getKwitansiData($nis,$id_kwitansi)->row_array();
+			$d['data_item'] = $this->pembayaran_model->getKwitansiItem($id_kwitansi)->result_array();
+			$d['content']= $this->load->view('pembayaran/printKwitansi',$d);
+		}
+		else
+		{
+			header('location:'.base_url().'index.php/login');
 		}
 	}
 	
